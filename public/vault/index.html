@@ -525,8 +525,339 @@
     #fv-scale-outer { width:100%; display:flex; justify-content:center; overflow:hidden; }
     #fv-scale { width:1880px; flex:0 0 auto; transform-origin: top center; will-change: transform; }
 </style>
+
+<style id="vm-style">
+/* Responsive toggle: below 768px show the purpose-built mobile layout and
+   hide the fixed-width desktop design canvas; at/above 768px do the reverse. */
+#vault-mobile { display: none; }
+@media (max-width: 767px) {
+  #fv-scale-outer { display: none !important; }
+  #vault-mobile { display: block; }
+}
+#vault-mobile {
+  --vm-bg: #090f15; --vm-card: #151a21; --vm-card2: #1b222c;
+  --vm-border: #2a313c; --vm-fg: #f8fafc; --vm-muted: #94a3b8;
+  --vm-purple: #8b5cf6; --vm-green: #34d399;
+  background: var(--vm-bg); color: var(--vm-fg); min-height: 100vh;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#vault-mobile * { box-sizing: border-box; }
+.vm-topbar { display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; position: sticky; top: 0; z-index: 5;
+  background: rgba(9,14,20,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.vm-logo { width: 34px; height: 34px; color: var(--vm-purple); }
+.vm-topbar-actions { display: flex; gap: 10px; }
+.vm-iconbtn { width: 42px; height: 42px; border-radius: 9999px; border: 1px solid #23406e;
+  background: rgba(37,99,235,0.10); color: #6ea8ff; display: flex; align-items: center; justify-content: center; }
+.vm-main { padding: 8px 16px 40px; display: flex; flex-direction: column; gap: 16px; }
+.vm-crumb { font-size: 13px; color: var(--vm-muted); display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.vm-crumb a { color: var(--vm-purple); }
+.vm-identity { display: flex; align-items: flex-start; gap: 12px; }
+.vm-avatar { width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+  background: no-repeat center / cover, linear-gradient(135deg,#a855f7,#ec4899); }
+.vm-title { font-size: 22px; font-weight: 600; line-height: 1.2; margin: 2px 0 2px; }
+.vm-sub { font-size: 14px; color: var(--vm-muted); margin: 0; }
+.vm-actions { display: flex; gap: 14px; color: var(--vm-muted); margin-top: 4px; }
+.vm-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.vm-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--vm-fg); }
+.vm-chip .vm-dotimg { width: 20px; height: 20px; border-radius: 9999px; background: #1e293b; display: inline-block; }
+.vm-chip--muted { color: var(--vm-muted); }
+.vm-lev { border: 1px solid #7a2fd6; background: linear-gradient(90deg, rgba(132,41,255,0.25), rgba(236,0,140,0.25));
+  border-radius: 9999px; padding: 4px 12px; font-weight: 600; }
+.vm-tabs { display: grid; grid-template-columns: repeat(3,1fr); border-bottom: 1px solid var(--vm-border); }
+.vm-tab { background: none; border: none; padding: 12px 0; font-size: 16px; color: var(--vm-muted); font-weight: 500; }
+.vm-tab--active { color: var(--vm-fg); box-shadow: inset 0 -2px 0 0 var(--vm-purple); }
+.vm-subtabs { display: flex; gap: 20px; border-bottom: 1px solid var(--vm-border); padding-bottom: 2px; }
+.vm-subtab { background: none; border: none; padding: 8px 0; font-size: 15px; color: var(--vm-muted); }
+.vm-subtab--active { color: var(--vm-fg); box-shadow: inset 0 -2px 0 0 var(--vm-purple); }
+.vm-card { background: var(--vm-card); border: 1px solid var(--vm-border); border-radius: 16px; padding: 18px; }
+.vm-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.vm-muted { color: var(--vm-muted); font-size: 14px; }
+.vm-apy { font-size: 30px; font-weight: 600; }
+.vm-big { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin-top: 4px; }
+.vm-sub2 { color: var(--vm-muted); font-size: 15px; margin-top: 4px; }
+.vm-h2 { font-size: 19px; font-weight: 600; margin: 0 0 12px; }
+.vm-seg { display: inline-flex; background: #0f151c; border: 1px solid var(--vm-border); border-radius: 9999px; padding: 3px; gap: 2px; }
+.vm-seg span { font-size: 13px; color: var(--vm-muted); padding: 5px 12px; border-radius: 9999px; }
+.vm-seg--active { background: #24344f; color: var(--vm-fg) !important; }
+.vm-seg-range { margin-bottom: 12px; }
+.vm-chart { width: 100%; }
+.vm-chart svg { width: 100%; height: auto; display: block; }
+.vm-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 13px; color: var(--vm-muted); align-items: center; }
+.vm-dot { width: 10px; height: 10px; border-radius: 9999px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+.vm-legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 14px; font-size: 12.5px; color: var(--vm-muted); }
+.vm-legend-grid span { display: inline-flex; align-items: center; }
+.vm-market { border-top: 1px solid var(--vm-border); padding: 16px 0 4px; }
+.vm-market:first-of-type { border-top: none; padding-top: 4px; }
+.vm-market-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.vm-market-title small { display: block; font-weight: 400; color: var(--vm-muted); font-size: 13px; margin-top: 2px; }
+.vm-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.vm-kv .vm-k { color: var(--vm-muted); font-size: 12.5px; }
+.vm-kv .vm-v { font-size: 15px; margin-top: 2px; }
+.vm-proto { border-top: 1px solid var(--vm-border); }
+.vm-proto > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 14px 0; }
+.vm-proto > summary::-webkit-details-marker { display: none; }
+.vm-proto-ic { width: 26px; height: 26px; border-radius: 9999px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
+.vm-proto-name { font-size: 15px; font-weight: 500; }
+.vm-proto-alloc { color: var(--vm-muted); font-size: 13px; margin-left: auto; }
+.vm-chev { transition: transform .2s; color: var(--vm-muted); flex-shrink: 0; }
+.vm-proto[open] .vm-chev { transform: rotate(180deg); }
+.vm-proto-body { padding: 2px 0 16px 36px; }
+.vm-deposit-head { display: flex; align-items: center; justify-content: space-between; }
+.vm-deposit-input { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 4px; }
+.vm-input-num { font-size: 34px; font-weight: 600; color: #6b7280; }
+.vm-token { display: inline-flex; align-items: center; gap: 8px; background: #0f151c; border: 1px solid var(--vm-border);
+  border-radius: 9999px; padding: 8px 14px; font-weight: 600; font-size: 15px; }
+.vm-token .vm-dotimg { width: 22px; height: 22px; border-radius: 9999px; background: #1e293b; }
+.vm-deposit-foot { display: flex; align-items: center; justify-content: space-between; }
+.vm-max { font-size: 12px; color: var(--vm-muted); border: 1px solid var(--vm-border); border-radius: 8px; padding: 4px 10px; }
+.vm-btn { width: 100%; margin-top: 16px; border: none; border-radius: 12px; padding: 15px; font-size: 16px; font-weight: 600;
+  color: #fff; background: linear-gradient(90deg,#7c3aed,#6d28d9); }
+.vm-bar { height: 8px; border-radius: 9999px; background: #0f151c; margin: 12px 0 8px; overflow: hidden; }
+.vm-bar-fill { height: 100%; border-radius: 9999px; background: linear-gradient(90deg,#8b5cf6,#a855f7); }
+.vm-cap-foot { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--vm-muted); }
+.vm-points { color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.vm-points .vm-diamond { color: #a855f7; }
+.vm-footer { border-top: 1px solid var(--vm-border); padding: 22px 16px 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.vm-footer a { color: var(--vm-muted); font-size: 13px; text-decoration: none; }
+</style>
 </head>
 <body>
+
+<div id="vault-mobile">
+  <header class="vm-topbar">
+    <svg class="vm-logo" viewBox="0 0 38 38" aria-label="Fusion"><path fill="currentColor" d="M38 19c0-3.95-4.03-7.3-10.06-8.98C26.34 4.03 22.99 0 19.04 0S11.74 4.03 10.06 10.06C4.03 11.75 0 15.1 0 19.04s4.03 7.3 10.06 8.99C11.75 34.06 15.1 38.09 19.04 38.09s7.3-4.03 8.98-10.06C34.06 26.34 38 22.99 38 19.04zM19.04 11.59c2.27-.01 4.54.23 6.76.7.47 2.22.7 4.47.69 6.74.01 1.73-.13 3.45-.4 5.16L13.88 11.98c1.71-.27 3.44-.4 5.16-.39zm-7.46 7.44c0-1.73.13-3.44.4-5.15l12.22 12.22c-1.71.27-3.44.4-5.16.4-2.27 0-4.54-.24-6.76-.7-.47-2.23-.7-4.47-.7-6.77z"/></svg>
+    <div class="vm-topbar-actions">
+      <span class="vm-iconbtn" aria-label="Wallet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/><path d="M21 9v6h-5a3 3 0 0 1 0-6z"/></svg></span>
+      <span class="vm-iconbtn" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></span>
+    </div>
+  </header>
+
+  <main class="vm-main">
+    <nav class="vm-crumb"><a href="#">Fusion Vaults list</a><span>&rsaquo;</span><span>Fusion Vault details</span></nav>
+
+    <div class="vm-identity">
+      <span class="vm-avatar" style="background-image:url(assets/vault-avatar.png)"></span>
+      <div>
+        <h1 class="vm-title">IPOR stETH Ethereum</h1>
+        <p class="vm-sub">Leveraged Looping</p>
+      </div>
+    </div>
+
+    <div class="vm-chips">
+      <span class="vm-chip"><span class="vm-dotimg"></span>Ethereum</span>
+      <span class="vm-chip"><span class="vm-dotimg"></span>stETH</span>
+      <span class="vm-chip vm-chip--muted">IPOR DAO</span>
+      <span class="vm-chip vm-lev">10x &#9670;</span>
+    </div>
+
+    <div class="vm-tabs">
+      <button class="vm-tab vm-tab--active" type="button">Vault</button>
+      <button class="vm-tab" type="button">Deposit</button>
+      <button class="vm-tab" type="button">Withdraw</button>
+    </div>
+
+    <div class="vm-subtabs">
+      <button class="vm-subtab vm-subtab--active" type="button">Overview</button>
+      <button class="vm-subtab" type="button">Vault info</button>
+      <button class="vm-subtab" type="button">Activity</button>
+    </div>
+
+    <section class="vm-card">
+      <div class="vm-card-head">
+        <span class="vm-muted">APY</span>
+        <span class="vm-seg"><span>Spot</span><span class="vm-seg--active">1D</span><span>7D</span></span>
+      </div>
+      <div class="vm-apy">4.40%</div>
+    </section>
+
+    <section class="vm-card">
+      <span class="vm-muted">Total Value Managed</span>
+      <div class="vm-big">$55,547,699.60</div>
+      <div class="vm-sub2">31,318.893271 stETH</div>
+    </section>
+
+    <section class="vm-card">
+      <span class="vm-muted">Total Value Locked</span>
+      <div class="vm-big">$5,637,431.17</div>
+      <div class="vm-sub2">3,178.495359 stETH</div>
+    </section>
+
+    <section class="vm-card">
+      <h2 class="vm-h2">Performance Report</h2>
+      <span class="vm-seg vm-seg-range"><span>7D</span><span class="vm-seg--active">30D</span><span>1Y</span><span>All</span></span>
+      <div class="vm-chart"><svg viewBox="0 0 320 158" preserveAspectRatio="none" role="img" aria-label="Strategy APY performance chart">
+  <g stroke="#334155" stroke-width="1" opacity="0.5">
+    <line x1="30" y1="10" x2="320" y2="10" stroke-dasharray="3 4"/>
+    <line x1="30" y1="47" x2="320" y2="47" stroke-dasharray="3 4"/>
+    <line x1="30" y1="84" x2="320" y2="84" stroke-dasharray="3 4"/>
+    <line x1="30" y1="121" x2="320" y2="121" stroke-dasharray="3 4"/>
+  </g>
+  <g fill="#64748b" font-size="9" font-family="sans-serif">
+    <text x="0" y="13">15.00%</text><text x="0" y="50">10.00%</text><text x="4" y="87">5.00%</text><text x="4" y="124">0.00%</text>
+  </g>
+  <polyline fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+    points="34,24 46,86 58,74 70,92 84,96 100,101 116,104 132,100 150,64 162,96 178,104 200,106 232,108 262,106 292,109 316,107"/>
+</svg></div>
+      <div class="vm-legend"><span><span class="vm-dot" style="background:#8b5cf6"></span>Strategy 1D APY</span><span><span class="vm-dot" style="background:transparent;border:1px solid #64748b"></span>Share price</span></div>
+    </section>
+
+    <section class="vm-card">
+      <h2 class="vm-h2">Historical Allocation</h2>
+      <span class="vm-seg vm-seg-range"><span>7D</span><span class="vm-seg--active">30D</span><span>1Y</span><span>All</span></span>
+      <div class="vm-chart"><svg viewBox="0 0 320 158" preserveAspectRatio="none" role="img" aria-label="Historical allocation chart">
+  <g fill="#64748b" font-size="9" font-family="sans-serif" text-anchor="end">
+    <text x="26" y="16">$60M</text><text x="26" y="56">$40M</text><text x="26" y="96">$20M</text><text x="26" y="126">$0</text>
+  </g>
+  <!-- stacked areas: light (bottom) -> pink -> blue (top) -->
+  <path fill="#8ec5d6" opacity="0.9" d="M30,124 L30,110 C90,108 150,112 210,109 C260,107 300,110 320,108 L320,124 Z"/>
+  <path fill="#ec4899" opacity="0.9" d="M30,110 L30,74 C80,80 140,72 200,78 C250,82 300,74 320,76 L320,108 C300,110 260,107 210,109 C150,112 90,108 30,110 Z"/>
+  <path fill="#4f8ff7" opacity="0.92" d="M30,74 L30,20 C80,26 140,16 200,22 C250,27 300,18 320,20 L320,76 C300,74 250,82 200,78 C140,72 80,80 30,74 Z"/>
+</svg></div>
+      <div class="vm-legend-grid">
+        <span><span class="vm-dot" style="background:#4f8ff7"></span>Aave v3 Core wstETH</span>
+        <span><span class="vm-dot" style="background:#60a5fa"></span>Aave v3 Prime wstETH</span>
+        <span><span class="vm-dot" style="background:#ec4899"></span>Morpho wstETH/WETH</span>
+        <span><span class="vm-dot" style="background:#f472b6"></span>Morpho wstETH/WETH</span>
+        <span><span class="vm-dot" style="background:#8ec5d6"></span>Spark Lend wstETH</span>
+        <span><span class="vm-dot" style="background:#a7d8e6"></span>wstETH</span>
+      </div>
+    </section>
+
+    <section class="vm-card">
+      <h2 class="vm-h2">All Markets</h2>
+      <div class="vm-market">
+        <div class="vm-market-title">Credit Markets<small>Effective Leverage <b style="color:var(--vm-fg)">9.85x</b></small></div>
+        <div class="vm-grid2">
+          <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$55.5M</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.25%</div></div>
+          <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$50.0M</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">2.04%</div></div>
+          <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">4.10%</div></div>
+        </div>
+      </div>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:linear-gradient(135deg,#f6b17a,#ec4899);color:#fff">&#9733;</span>
+    <span class="vm-proto-name">Spark Lend</span>
+    <span class="vm-proto-alloc">66.93%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$37.2M</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.25%</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$33.4M</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">2.03%</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">4.25%</div></div>
+    </div>
+  </div>
+</details>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:#7c3aed;color:#fff">A</span>
+    <span class="vm-proto-name">Aave v3 Core</span>
+    <span class="vm-proto-alloc">27.97%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$15.5M</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.25%</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$14.0M</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">2.11%</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">3.50%</div></div>
+    </div>
+  </div>
+</details>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:#1e293b;color:#fff">M</span>
+    <span class="vm-proto-name">Morpho</span>
+    <span class="vm-proto-alloc">4.06%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$2.26M</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.25%</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$2.03M</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">1.85%</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">5.83%</div></div>
+    </div>
+  </div>
+</details>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:#7c3aed;color:#fff">A</span>
+    <span class="vm-proto-name">Aave v3 Prime</span>
+    <span class="vm-proto-alloc">1.01%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$566K</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.30%</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$509K</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">2.03%</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">4.73%</div></div>
+    </div>
+  </div>
+</details>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:#f59e0b;color:#fff">E</span>
+    <span class="vm-proto-name">Euler v2</span>
+    <span class="vm-proto-alloc">0.00%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$0</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">---</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">$0</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">---</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">0.00%</div></div>
+    </div>
+  </div>
+</details>
+      <details class="vm-proto">
+  <summary>
+    <span class="vm-proto-ic" style="background:#334155;color:#fff">$</span>
+    <span class="vm-proto-name">ERC20 Tokens</span>
+    <span class="vm-proto-alloc">0.00%</span>
+    <svg class="vm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <div class="vm-proto-body">
+    <div class="vm-grid2">
+      <div class="vm-kv"><div class="vm-k">Total Assets</div><div class="vm-v">$4.51K</div></div><div class="vm-kv"><div class="vm-k">Assets APY</div><div class="vm-v">2.25%</div></div>
+      <div class="vm-kv"><div class="vm-k">Total Liabilities</div><div class="vm-v">&mdash;</div></div><div class="vm-kv"><div class="vm-k">Liabilities APY</div><div class="vm-v">&mdash;</div></div>
+      <div class="vm-kv"><div class="vm-k">Net APY</div><div class="vm-v">2.25%</div></div>
+    </div>
+  </div>
+</details>
+    </section>
+
+    <section class="vm-card">
+      <div class="vm-deposit-head"><span style="font-weight:600">Deposit stETH</span><span class="vm-muted">Balance: 0.00 stETH</span></div>
+      <div class="vm-deposit-input"><span class="vm-input-num">0</span><span class="vm-token"><span class="vm-dotimg"></span>stETH &#9662;</span></div>
+      <div class="vm-deposit-foot"><span class="vm-muted">~$0.00</span><span class="vm-max">MAX</span></div>
+      <button class="vm-btn" type="button">Approve</button>
+    </section>
+
+    <section class="vm-card">
+      <div style="font-size:14px"><b>852</b> <span class="vm-muted">stETH left before reaching maximum capacity</span></div>
+      <div class="vm-bar"><div class="vm-bar-fill" style="width:79%"></div></div>
+      <div class="vm-cap-foot"><span>Deposits: 3,178 stETH</span><span>Max capacity: 4,031 stETH</span></div>
+    </section>
+
+    <section class="vm-card">
+      <span class="vm-muted">My Deposit</span>
+      <div class="vm-big">$18.73</div>
+      <div class="vm-sub2">0.0105622 stETH</div>
+    </section>
+
+    <section class="vm-card">
+      <span class="vm-muted">My Fusion Points</span>
+      <div class="vm-big vm-points"><span class="vm-diamond">&#9670;</span>1.27K</div>
+    </section>
+  </main>
+
+  <footer class="vm-footer">
+    <a href="#">Terms of Use</a>
+    <a href="#">Privacy Policy</a>
+  </footer>
+</div>
+
 <div id="fv-scale-outer">
 <div id="fv-scale">
 <div id="dc-root"><div class="sc-host" data-sc-name="Canvas"><div data-dc-tpl="5" style="width: 1880px; background: rgb(9, 15, 21);">
