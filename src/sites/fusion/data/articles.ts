@@ -29,6 +29,13 @@ export interface Tweet {
   date: string;
   text: string;
   url?: string;
+  /**
+   * Numeric X status id. When set, the article renderer fetches the tweet's
+   * real avatar, verified state and live engagement counts at build time and
+   * renders those over the authored fields below (which act as the fallback if
+   * the fetch is unavailable). Omit for a purely authored card.
+   */
+  id?: string;
   /** An optional quote-tweet rendered nested inside this one. */
   quoted?: Omit<Tweet, "quoted">;
 }
@@ -84,23 +91,28 @@ export const articles: Article[] = [
         text: "In March 2026, Tesseract announced it had selected Fusion to power its Dedicated Client Vaults for institutional onchain yield, with 21Shares among the pilot partners.",
       },
       {
-        type: "tweet",
-        tweet: {
-          author: "Fusion (by IPOR)",
-          handle: "ipor_io",
-          verified: true,
-          date: "Mar 31, 2026",
-          text: "Tesseract Selects Fusion for Institutional Vault Infrastructure — 21Shares Among Pilot Partners\n\nTesseract Investment Oy, a Helsinki-based digital asset service provider (est. 2017, MiCA-authorised CASP), has selected Fusion as its onchain vault infrastructure for institutional onchain yield…",
-          url: "https://x.com/ipor_io/status/2038960123066892489",
-        },
-      },
-      {
         type: "paragraph",
         text: "Today's BitGo news adds to a growing set of established entities reaching Fusion through Tesseract's Dedicated Client Vaults, now from inside regulated custody.",
       },
       {
         type: "paragraph",
         text: "As the infrastructure beneath these vaults, Fusion provides the per-client isolation, deterministic risk enforcement, and onchain transparency that let a custodian and a compliance team stand behind an onchain mandate. The work of assembling this custody route belongs to Tesseract, BitGo, and Narval.",
+      },
+      {
+        type: "paragraph",
+        text: "The throughline is a simple thesis: vaults are infrastructure, meant to be distributed wherever institutional capital already lives — from qualified custody to wallets, wealth managers and traditional fund wrappers.",
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Fusion (by IPOR)",
+          handle: "ipor_io",
+          verified: true,
+          id: "1978070150818521291",
+          date: "Oct 14, 2025",
+          text: "Fusion. Everywhere.\n\nFusion is infrastructure. Vaults are funds, structured products, and yield accounts. They don't have to live in Fusion's app, they can be:\n\n🔸 Embedded into Web3 wallets.\n🔸 Distributed through RIAs and wealth managers.\n🔸 Wrapped into traditional funds.",
+          url: "https://x.com/ipor_io/status/1978070150818521291",
+        },
       },
       {
         type: "pullquote",
