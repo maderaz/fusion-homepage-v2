@@ -1,0 +1,70 @@
+---
+---
+
+<header>
+  <nav
+    id="main-nav"
+    class="group fixed z-20 w-full transition-all duration-300 bg-white/80 backdrop-blur-2xl"
+  >
+    <div class="mx-auto max-w-[1200px] px-6 transition-all duration-300">
+      <div
+        id="nav-inner"
+        class="relative flex items-center justify-between border-b border-transparent py-4 transition-all duration-300 min-h-[60px]"
+      >
+        <!-- Logo -->
+        <a href="/" aria-label="home" class="flex items-center">
+          <img
+            src="/brand/full-logo/fusion-full-logo-black-text.svg"
+            alt="Fusion by IPOR"
+            class="h-8 w-auto object-contain"
+            width="105"
+            height="32"
+          />
+        </a>
+
+        <!-- Right: CTAs -->
+        <div class="flex items-center gap-3">
+          <a
+            href="https://fusion.ipor.io"
+            class="hidden sm:inline-flex items-center justify-center rounded-full border px-5 py-2 text-sm transition-all duration-300 border-[#9BA3AF] text-black hover:bg-[#EFEFEF]"
+          >
+            Discover Fusion
+          </a>
+          <a
+            href="https://app.ipor.io/fusion"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="brand-gradient inline-flex items-center justify-center gap-2 rounded-full border border-primary px-5 py-2 text-sm font-semibold text-white transition-opacity duration-300 hover:opacity-70"
+          >
+            <span>Launch App</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 7h10v10"></path>
+              <path d="M7 17 17 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const navInner = document.getElementById("nav-inner")!;
+  window.addEventListener(
+    "scroll",
+    () => {
+      navInner.classList.toggle("border-border/50", window.scrollY > 50);
+    },
+    { passive: true },
+  );
+</script>

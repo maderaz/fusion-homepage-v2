@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - '**'
+
+jobs:
+  notify:
+    if: github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
+    uses: ./.github/workflows/notify-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  test:
+    if: github.event.pull_request.draft == false || github.actor == 'dependabot[bot]'
+    needs:
+       - notify
+    uses: ./.github/workflows/test-webapp.yml
+    with:
+      build-enabled: true
+      tests-enabled: true
+
+  report:
+    if: github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
+    needs:
+      - notify
+      - test
+    uses: ./.github/workflows/report-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    with:
+      success: ${{ needs.test.result == 'success' }}
+      slack-status-msg-id: ${{ needs.notify.outputs.slack-status-msg-id }}

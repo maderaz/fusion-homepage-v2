@@ -1,0 +1,318 @@
+---
+// Pure static template — zero client-side JavaScript
+// CodeBlock syntax highlighting uses CSS custom properties (--code-*) from theme.css
+import { Image } from "astro:assets";
+import blocksecLogo from "@/shared/assets/logos/blocksec.png";
+import ackeeLogo from "@/shared/assets/logos/ackee.png";
+import protofireLogo from "@/shared/assets/logos/protofire.png";
+
+const stats = [
+  { value: "10+", label: "Independent security audits" },
+  { value: "100%", label: "Immutable vault & fuse contracts" },
+  { value: "0", label: "Admin keys over depositor funds" },
+];
+
+const auditors = [
+  { name: "BlockSec", logo: blocksecLogo },
+  { name: "Ackee Blockchain", logo: ackeeLogo },
+  { name: "Protofire", logo: protofireLogo },
+];
+
+// Code lines data for the CodeBlock
+const codeLines: Array<{
+  type: string;
+  text?: string;
+  rest?: string;
+  path?: string;
+  name?: string;
+  args?: string[];
+  arg?: string;
+}> = [
+  { type: "comment", text: "// SPDX-License-Identifier: BUSL-1.1" },
+  { type: "keyword", text: "pragma", rest: " solidity 0.8.30;" },
+  { type: "blank" },
+  { type: "import", path: "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol", name: "UUPSUpgradeable" },
+  { type: "import", path: "./lib/FusionFactoryStorageLib.sol", name: "FusionFactoryStorageLib" },
+  { type: "blank" },
+  { type: "import", path: "./lib/FusionFactoryLogicLib.sol", name: "FusionFactoryLogicLib" },
+  { type: "import", path: "./lib/FusionFactoryLib.sol", name: "FusionFactoryLib" },
+  { type: "blank" },
+  { type: "import", path: "./FusionFactoryAccessControl.sol", name: "FusionFactoryAccessControl" },
+  { type: "blank" },
+  { type: "comment", text: "/// @title FusionFactory" },
+  { type: "comment", text: "/// @notice Factory contract for creating and managing Fusion Managers" },
+  { type: "contract-start" },
+  {
+    type: "event",
+    name: "FactoryAddressesUpdated",
+    args: [
+      "uint256 version",
+      "address accessManagerFactory",
+      "address plasmaVaultFactory",
+      "address feeManagerFactory",
+      "address withdrawManagerFactory",
+      "address rewardsManagerFactory",
+      "address contextManagerFactory",
+      "address priceManagerFactory",
+    ],
+  },
+  { type: "blank" },
+  {
+    type: "event",
+    name: "BaseAddressesUpdated",
+    args: [
+      "uint256 version",
+      "address newPlasmaVaultCoreBase",
+      "address newAccessManagerBase",
+      "address newPriceManagerBase",
+      "address newWithdrawManagerBase",
+      "address newRewardsManagerBase",
+      "address newContextManagerBase",
+    ],
+  },
+  { type: "blank" },
+  { type: "event-single", name: "PlasmaVaultBaseUpdated", arg: "address newPlasmaVaultBase" },
+  { type: "event-single", name: "PriceOracleMiddlewareUpdated", arg: "address newPriceOracleMiddleware" },
+  { type: "event-single", name: "BurnRequestFeeFuseUpdated", arg: "address newBurnRequestFeeFuse" },
+  { type: "event-single", name: "BurnRequestFeeBalanceFuseUpdated", arg: "address newBurnRequestFeeBalanceFuse" },
+  { type: "event-single", name: "WithdrawWindowInSecondsUpdated", arg: "uint256 newWithdrawWindowInSeconds" },
+  { type: "event-single", name: "VestingPeriodInSecondsUpdated", arg: "uint256 newVestingPeriodInSeconds" },
+  { type: "event-single", name: "PlasmaVaultAdminArrayUpdated", arg: "address[] newPlasmaVaultAdminArray" },
+  { type: "event-single", name: "DaoFeePackagesUpdated", arg: "FusionFactoryStorageLib.FeePackage[] packages, address updatedBy" },
+];
+
+// Build-time rendering of code lines
+interface RenderedLine {
+  num: number;
+  html: string;
+}
+
+let lineNum = 0;
+const lines: RenderedLine[] = [];
+
+function addLine(html: string) {
+  lineNum++;
+  lines.push({ num: lineNum, html });
+}
+
+for (const line of codeLines) {
+  switch (line.type) {
+    case "comment":
+      addLine(`<span style="color: var(--code-comment);">${line.text}</span>`);
+      break;
+    case "keyword":
+      addLine(`<span style="color: var(--code-keyword);">${line.text}</span><span style="color: var(--code-text);">${line.rest}</span>`);
+      break;
+    case "blank":
+      addLine(`<span>&nbsp;</span>`);
+      break;
+    case "import":
+      addLine(
+        `<span style="color: var(--code-keyword);">import</span>` +
+        `<span style="color: var(--code-punct);"> {</span>` +
+        `<span style="color: var(--code-type);">${line.name}</span>` +
+        `<span style="color: var(--code-punct);">}</span>` +
+        `<span style="color: var(--code-keyword);"> from</span>` +
+        `<span style="color: var(--code-string);"> "${line.path}"</span>` +
+        `<span style="color: var(--code-punct);">;</span>`
+      );
+      break;
+    case "contract-start":
+      addLine(
+        `<span style="color: var(--code-keyword);">contract</span>` +
+        `<span style="color: var(--code-type);"> FusionFactory</span>` +
+        `<span style="color: var(--code-keyword);"> is</span>` +
+        `<span style="color: var(--code-type);"> UUPSUpgradeable</span>` +
+        `<span style="color: var(--code-punct);">,</span>` +
+        `<span style="color: var(--code-type);"> FusionFactoryAccessControl</span>` +
+        `<span style="color: var(--code-punct);"> {</span>`
+      );
+      break;
+    case "event": {
+      // Opening line: event Name(
+      addLine(
+        `<span>    </span>` +
+        `<span style="color: var(--code-keyword);">event</span>` +
+        `<span style="color: var(--code-event);"> ${line.name}</span>` +
+        `<span style="color: var(--code-punct);">(</span>`
+      );
+      // Arg lines
+      const args = line.args!;
+      for (let i = 0; i < args.length; i++) {
+        const parts = args[i].split(" ");
+        const argType = parts.slice(0, -1).join(" ");
+        const argName = parts[parts.length - 1];
+        const comma = i < args.length - 1 ? `<span style="color: var(--code-punct);">,</span>` : "";
+        addLine(
+          `<span>        </span>` +
+          `<span style="color: var(--code-type);">${argType}</span>` +
+          `<span style="color: var(--code-text);"> ${argName}</span>` +
+          comma
+        );
+      }
+      // Closing line: );
+      addLine(
+        `<span>    </span>` +
+        `<span style="color: var(--code-punct);">);</span>`
+      );
+      break;
+    }
+    case "event-single": {
+      // Handle complex args like "FusionFactoryStorageLib.FeePackage[] packages, address updatedBy"
+      const argParts = line.arg!.split(", ");
+      const formattedArgs = argParts.map((a, i) => {
+        const parts = a.trim().split(" ");
+        const argName = parts[parts.length - 1];
+        const argType = parts.slice(0, -1).join(" ");
+        const comma = i < argParts.length - 1 ? `<span style="color: var(--code-punct);">, </span>` : "";
+        return `<span style="color: var(--code-type);">${argType}</span><span style="color: var(--code-text);"> ${argName}</span>${comma}`;
+      }).join("");
+      addLine(
+        `<span>    </span>` +
+        `<span style="color: var(--code-keyword);">event</span>` +
+        `<span style="color: var(--code-event);"> ${line.name}</span>` +
+        `<span style="color: var(--code-punct);">(</span>` +
+        formattedArgs +
+        `<span style="color: var(--code-punct);">);</span>`
+      );
+      break;
+    }
+  }
+}
+---
+
+<section id="security" class="py-12 md:py-24">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <!-- Two-column: header left, code right -->
+    <div class="mb-16 grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Left - header -->
+      <div class="max-w-[540px]">
+        <p
+          class="mb-4 text-[13px] font-medium uppercase text-primary"
+          style="letter-spacing: 0.05em;"
+        >
+          Security
+        </p>
+        <h2
+          class="mb-6 font-medium text-balance text-foreground"
+          style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+        >
+          Transparent & battle-tested{" "}
+          <span class="text-primary">vault</span>
+          {" "}infrastructure.
+        </h2>
+        <p class="text-pretty text-base sm:text-lg text-muted-foreground">
+          Immutable vault logic. Non-upgradable fuses. Role-based access
+          control. Fusion is built by engineers from banking, payments, and
+          insurance, and audited by the best in Web3.
+        </p>
+      </div>
+
+      <!-- Right - code block -->
+      <div class="w-full">
+        <div class="overflow-hidden rounded-xl border" style="border-color: var(--code-border);">
+          <!-- Header bar -->
+          <div
+            class="flex items-center justify-between px-5 py-3"
+            style={`background-color: var(--code-header-bg); border-bottom: 1px solid var(--code-border);`}
+          >
+            <div class="flex items-center gap-3">
+              <div class="flex gap-1.5">
+                <div class="h-3 w-3 rounded-full" style="background-color: var(--code-dot-1);"></div>
+                <div class="h-3 w-3 rounded-full" style="background-color: var(--code-dot-2);"></div>
+                <div class="h-3 w-3 rounded-full" style="background-color: var(--code-dot-3);"></div>
+              </div>
+              <span
+                class="text-[12px] font-medium text-primary"
+              >
+                FusionFactory.sol
+              </span>
+            </div>
+            <a
+              href="https://github.com/IPOR-Labs/ipor-fusion/blob/main/contracts/factory/FusionFactory.sol"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-1.5 rounded-md px-3 py-1.5 font-medium transition-all duration-300 hover:border-primary hover:text-primary"
+              style={`color: var(--code-link-color); border: 1px solid var(--code-link-border); font-size: 11px;`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              View on GitHub
+            </a>
+          </div>
+          <!-- Code body -->
+          <div class="relative" style="background-color: var(--code-bg);">
+            <div
+              class="custom-scrollbar overflow-y-auto overflow-x-hidden p-5 font-mono leading-relaxed"
+              style="font-size: 12.5px; color: var(--code-text); max-height: 258px;"
+            >
+              <div class="whitespace-nowrap" style="font-size: clamp(9px, 1.1vw, 12.5px);">
+                {lines.map((l) => (
+                  <div class="flex">
+                    <span
+                      class="mr-6 inline-block w-6 shrink-0 select-none text-right"
+                      style="color: var(--code-punct); font-variant-numeric: tabular-nums;"
+                    >
+                      {l.num}
+                    </span>
+                    <span class="flex-1" set:html={l.html} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <!-- Bottom fade -->
+            <div
+              class="pointer-events-none absolute bottom-0 left-0 right-0 h-10"
+              style="background: linear-gradient(to top, var(--code-bg), transparent);"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-column stat grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 border rounded-xl overflow-hidden border-border">
+      {stats.map((stat, i) => (
+        <div
+          class:list={[
+            "p-8 text-center",
+            i < stats.length - 1 && "border-b md:border-b-0 md:border-r border-border",
+          ]}
+        >
+          <div
+            class="mb-2 font-data font-semibold text-foreground"
+            style="font-size: clamp(28px, 4vw, 40px); font-variant-numeric: tabular-nums;"
+          >
+            {stat.value}
+          </div>
+          <p
+            class="text-[13px] text-muted-foreground"
+            style="line-height: 1.5;"
+          >
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Auditor logos -->
+    <div class="mt-8 flex flex-col items-center justify-center gap-4">
+      <span
+        class="text-[12px] font-medium text-muted-foreground"
+      >
+        Audited & security reviewed by
+      </span>
+      <div class="flex flex-wrap items-center justify-center gap-8">
+        {auditors.map((a) => (
+          <Image
+            src={a.logo}
+            alt={a.name}
+            class="h-5 w-auto object-contain brightness-0 opacity-50 dark:invert"
+            loading="lazy"
+            height={20}
+            densities={[1, 2]}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,125 @@
+---
+import { getImage } from "astro:assets";
+import FusionFlow from "../app/components/ui/fusion-flow";
+import iconAaveSrc from "@/shared/assets/icons/aave.png";
+import iconEulerSrc from "@/shared/assets/icons/euler.png";
+import iconMorphoDarkSrc from "@/shared/assets/icons/morpho-dark.png";
+import iconMorphoLightSrc from "@/shared/assets/icons/morpho-light.png";
+import imgUsdcSrc from "@/shared/assets/icons/usdc.png";
+import iconFusionLightSrc from "@/shared/assets/icons/fusion-light.png";
+
+const [iconAave, iconEuler, iconMorphoDark, iconMorphoLight, imgUsdc, iconFusionLight] = await Promise.all([
+  getImage({ src: iconAaveSrc, height: 44 }),
+  getImage({ src: iconEulerSrc, height: 44 }),
+  getImage({ src: iconMorphoDarkSrc, height: 44 }),
+  getImage({ src: iconMorphoLightSrc, height: 44 }),
+  getImage({ src: imgUsdcSrc, width: 32 }),
+  getImage({ src: iconFusionLightSrc, width: 84 }),
+]);
+
+const flowIcons = {
+  aave: iconAave.src,
+  euler: iconEuler.src,
+  morphoDark: iconMorphoDark.src,
+  morphoLight: iconMorphoLight.src,
+  usdc: imgUsdc.src,
+  fusionLight: iconFusionLight.src,
+};
+
+const steps = [
+  {
+    icon: "vault",
+    title: "Fusion Vaults",
+    desc: "ERC-4626 compliant, immutable vaults that hold your assets. Each vault is fully isolated with siloed risk and no cross-contamination. Deposit once, access every integrated market.",
+  },
+  {
+    icon: "fuse",
+    title: "Fuse Modules",
+    desc: "Composable, non-upgradable smart contract connectors to external protocols. Supply, borrow, swap, loop: each action is a fuse. Snap new ones in, never touch the vault.",
+  },
+  {
+    icon: "alpha",
+    title: "Alpha Execution",
+    desc: "Off-chain strategy engines execute onchain through governance-approved parameters. Automated rebalancing, carry trades, looping, and arbitrage, all intelligence-driven and risk-bounded.",
+  },
+];
+
+const iconColor = "#8429FF";
+---
+
+<section id="how-it-works" class="py-12 md:py-24">
+  <div class="mx-auto max-w-300 px-6">
+    <!-- Centered header -->
+    <div class="mb-16 flex flex-col items-center text-center">
+      <p class="mb-4 text-[13px] font-medium uppercase tracking-wide text-primary">
+        Architecture
+      </p>
+      <h2
+        class="mb-5 text-balance font-medium text-foreground"
+        style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+      >
+        One vault. Every strategy.
+        <br />
+        <span class="text-primary">Full</span> control.
+      </h2>
+      <p class="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+        Fusion&rsquo;s modular architecture separates execution from custody.
+        Deploy capital into Fusion Plasma Vaults, connect strategy logic
+        through composable fuses, and let Alpha engines optimize across
+        them, all in a plug &amp; play fashion, fully customizable per strategy
+        needs.
+      </p>
+    </div>
+
+    <!-- Centered flow visual (React island) -->
+    <div class="mb-20 flex justify-center">
+      <FusionFlow client:visible className="w-full max-w-135" icons={flowIcons} />
+    </div>
+
+    <!-- 3-column steps grid (static) -->
+    <div class="grid grid-cols-1 overflow-hidden rounded-xl border border-border md:grid-cols-3">
+      {steps.map((step, i) => (
+        <div class={`p-8${i < steps.length - 1 ? " border-b border-border md:border-b-0 md:border-r" : ""}`}>
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border-[0.75px] border-border bg-secondary">
+            {step.icon === "vault" && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg>
+            )}
+            {step.icon === "fuse" && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4" />
+                <path d="M12 18v4" />
+                <path d="M4.93 4.93l2.83 2.83" />
+                <path d="M16.24 16.24l2.83 2.83" />
+                <path d="M2 12h4" />
+                <path d="M18 12h4" />
+                <path d="M4.93 19.07l2.83-2.83" />
+                <path d="M16.24 7.76l2.83-2.83" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            )}
+            {step.icon === "alpha" && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            )}
+          </div>
+          <h3 class="mb-3 text-[18px] font-semibold text-foreground">
+            {step.title}
+          </h3>
+          <p
+            class="text-[14px] text-muted-foreground"
+            style="line-height: 1.7;"
+          >
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

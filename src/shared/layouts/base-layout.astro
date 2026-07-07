@@ -1,0 +1,27 @@
+---
+import BaseHead from "@/shared/components/base-head.astro";
+import ThemeScript from "@/shared/components/theme-script.astro";
+import AnalyticsScript from "@/shared/components/analytics-script.astro";
+import "@/shared/styles/index.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+}
+
+const { title, description, image, imageWidth, imageHeight } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} imageWidth={imageWidth} imageHeight={imageHeight} />
+    <ThemeScript />
+    <AnalyticsScript />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

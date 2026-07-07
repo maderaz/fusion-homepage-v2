@@ -1,0 +1,83 @@
+{
+  "name": "fusion-website",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": "22.14.0"
+  },
+  "scripts": {
+    "setup": "npm install && npm exec allow-scripts && npx husky",
+    "dev": "npm run dev:fusion",
+    "dev:fusion": "SITE=fusion astro dev",
+    "dev:ipor": "SITE=ipor astro dev --port 4322",
+    "build": "npm run build:fusion && npm run build:ipor",
+    "build:fusion": "SITE=fusion astro check && SITE=fusion astro build",
+    "build:ipor": "SITE=ipor astro check && SITE=ipor astro build",
+    "preview": "npm run preview:fusion",
+    "preview:fusion": "SITE=fusion astro preview",
+    "preview:ipor": "SITE=ipor astro preview --port 4322",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write \"src/**/*.{ts,tsx,html,css,astro}\"",
+    "test:visual": "npm run test:visual:fusion && npm run test:visual:ipor",
+    "test:visual:fusion": "SITE=fusion npx playwright test --project=fusion",
+    "test:visual:ipor": "SITE=ipor npx playwright test --project=ipor",
+    "test:visual:update": "npm run test:visual:update:fusion && npm run test:visual:update:ipor",
+    "test:visual:update:fusion": "SITE=fusion npx playwright test --project=fusion --update-snapshots",
+    "test:visual:update:ipor": "SITE=ipor npx playwright test --project=ipor --update-snapshots",
+    "knip": "knip",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.8",
+    "@astrojs/react": "5.0.1",
+    "@astrojs/sitemap": "3.7.1",
+    "@tailwindcss/vite": "4.2.2",
+    "astro": "6.0.8",
+    "clsx": "2.1.1",
+    "lucide-react": "0.577.0",
+    "motion": "12.38.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "3.5.0",
+    "tailwindcss": "4.2.2"
+  },
+  "devDependencies": {
+    "@lavamoat/allow-scripts": "^4.0.0",
+    "@lavamoat/preinstall-always-fail": "^3.0.0",
+    "@playwright/test": "1.58.2",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-plugin-astro": "1.6.0",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "globals": "17.4.0",
+    "husky": "9.1.7",
+    "jsdom": "29.0.1",
+    "knip": "6.0.2",
+    "lint-staged": "16.4.0",
+    "prettier": "3.8.1",
+    "serve": "14.2.6",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.57.1",
+    "vite": "7.3.1",
+    "vitest": "4.1.0"
+  },
+  "lint-staged": {
+    "*.{html,js,ts,tsx,css,md}": "prettier --write"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false,
+      "astro>sharp": true,
+      "vite>esbuild": true,
+      "vitest>@vitest/mocker>msw": false
+    }
+  }
+}

@@ -1,0 +1,23 @@
+---
+// Consent-gated Google Analytics 4.
+// Loads GA4 only when cookie_consent === "accepted" in localStorage.
+// Listens for 'cookie-consent-accepted' custom event for mid-session consent.
+---
+
+<script is:inline>
+/* eslint-disable -- is:inline script uses var/arguments for broad browser compat */
+(function(){
+  var GA_ID='G-0SYFZYJGJY',loaded=false;
+  function load(){
+    if(loaded)return;loaded=true;
+    var el=document.createElement('script');
+    el.async=true;el.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+    document.head.appendChild(el);
+    window.dataLayer=window.dataLayer||[];
+    function g(){dataLayer.push(arguments);}
+    window.gtag=g;g('js',new Date());g('config',GA_ID);
+  }
+  try{if(localStorage.getItem('cookie_consent')==='accepted')load();}catch(_){}
+  window.addEventListener('cookie-consent-accepted',load);
+})();
+</script>

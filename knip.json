@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "project": ["**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx,astro,css}"],
+  "entry": [
+    "src/sites/*/pages/**/*.{astro,ts}"
+  ],
+  "ignoreDependencies": ["serve", "@eslint/js", "@lavamoat/allow-scripts", "@lavamoat/preinstall-always-fail"]
+}

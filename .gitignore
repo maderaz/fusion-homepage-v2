@@ -1,0 +1,47 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# astro
+.astro
+.csp-hashes-*.json
+
+# TypeScript project references
+*.tsbuildinfo
+
+# misc
+.DS_Store
+.env
+.env.*
+!.env.example
+
+npm-debug.log*
+
+# stroybook
+/storybook-static
+build-storybook.log
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Playwright temporary files
+.playwright-mcp
+.playwright-cli

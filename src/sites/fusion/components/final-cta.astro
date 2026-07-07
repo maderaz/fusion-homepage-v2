@@ -1,0 +1,46 @@
+---
+// Pure static template — zero client-side JavaScript
+---
+
+<section id="final-cta" class="relative py-20 md:py-40">
+  <!-- Purple glow -->
+  <div
+    class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full opacity-[0.10] blur-[120px] bg-primary"
+  ></div>
+
+  <div class="relative z-10 mx-auto max-w-[1200px] px-6 text-center">
+    <h2
+      class="mb-6 text-balance text-foreground font-medium"
+      style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+    >
+      The{" "}
+      <span class="text-primary">Vault</span>
+      {" "}layer is ready.
+    </h2>
+    <p
+      class="mx-auto mb-10 max-w-[560px] text-pretty text-base sm:text-lg text-muted-foreground"
+    >
+      Deploy your first vault, deposit into a curated strategy, or embed
+      Fusion into your product.
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="https://app.ipor.io/fusion"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 rounded-full border border-primary px-7 py-3 text-[16px] tracking-wide text-white transition-opacity duration-300 hover:opacity-70 font-semibold brand-gradient"
+      >
+        <span>Launch App</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
+      <a
+        href="https://docs.ipor.io/build-on-fusion"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[16px] tracking-wide transition-colors duration-300 border-[#9BA3AF] text-black hover:bg-[#EFEFEF] dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
+      >
+        <span>Start Building</span>
+      </a>
+    </div>
+  </div>
+</section>

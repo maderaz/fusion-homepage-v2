@@ -1,0 +1,99 @@
+<!-- Cookie consent banner — hidden by default, shown via JS -->
+<div
+  id="cookie-banner"
+  class="fixed bottom-5 right-5 z-50 w-[340px] rounded-xl border p-5 shadow-2xl hidden border-border bg-card shadow-black/10 dark:shadow-black/40"
+>
+  <div class="mb-3 flex items-center justify-between">
+    <h3 class="text-[15px] text-foreground font-medium">
+      Cookie Preferences
+    </h3>
+    <button
+      id="cookie-close"
+      aria-label="Close"
+      class="rounded-lg p-1 transition-colors text-muted-foreground hover:text-foreground"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <p class="mb-4 text-[13px] text-muted-foreground leading-relaxed">
+    We use cookies to improve your experience and analyze site usage.
+  </p>
+  <div class="flex gap-2">
+    <button
+      id="cookie-accept"
+      class="flex-1 rounded-lg px-4 py-2 text-[13px] text-white transition-opacity hover:opacity-80 font-medium brand-gradient"
+    >
+      Accept
+    </button>
+    <button
+      id="cookie-decline"
+      class="flex-1 rounded-lg border px-4 py-2 text-[13px] transition-colors font-medium border-border text-muted-foreground hover:text-foreground hover:border-black/20 dark:hover:border-muted-foreground/40"
+    >
+      Decline
+    </button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "cookie_consent";
+  const banner = document.getElementById("cookie-banner")!;
+  const acceptBtn = document.getElementById("cookie-accept")!;
+  const declineBtn = document.getElementById("cookie-decline")!;
+  const closeBtn = document.getElementById("cookie-close")!;
+
+  function hideBanner() {
+    banner.classList.add("hidden");
+  }
+
+  function showBanner() {
+    banner.classList.remove("hidden");
+  }
+
+  // Check consent on load
+  try {
+    if (!localStorage.getItem(STORAGE_KEY)) showBanner();
+  } catch {
+    showBanner();
+  }
+
+  acceptBtn.addEventListener("click", () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, "accepted");
+    } catch {
+      /* localStorage unavailable */
+    }
+    window.dispatchEvent(new CustomEvent("cookie-consent-accepted"));
+    hideBanner();
+  });
+
+  declineBtn.addEventListener("click", () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, "declined");
+    } catch {
+      /* localStorage unavailable */
+    }
+    hideBanner();
+  });
+
+  closeBtn.addEventListener("click", () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, "declined");
+    } catch {
+      /* localStorage unavailable */
+    }
+    hideBanner();
+  });
+</script>

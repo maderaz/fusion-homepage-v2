@@ -1,0 +1,14 @@
+<script is:inline>
+(function() {
+  let stored = null;
+  try { stored = localStorage.getItem('fusion-theme'); } catch { /* noop */ }
+  const theme = stored === 'light' || stored === 'dark'
+    ? stored
+    : 'light';
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+})();
+</script>
