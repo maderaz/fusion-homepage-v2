@@ -270,7 +270,31 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "@BitGo (https://x.com/ipor_io/status/2064364105259983111), an OCC-regulated digital asset trust bank (NYSE: BTGO), and **@21shares** (https://x.com/ipor_io/status/2038960123066892489), one of the world's leading crypto ETP issuers, are among the names already connected to this path.",
+        text: "@BitGo, an OCC-regulated digital asset trust bank (NYSE: BTGO), and @21shares, one of the world's leading crypto ETP issuers, are among the names already connected to this path.",
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Fusion (by IPOR)",
+          handle: "ipor_io",
+          verified: true,
+          id: "2064364105259983111",
+          date: "Jun 9, 2026",
+          text: "BitGo opens institutional access to Tesseract's Dedicated Client Vaults, powered by Fusion. Eligible institutions can now allocate to onchain strategies directly from BitGo qualified custody, with assets staying inside the custodial perimeter.",
+          url: "https://x.com/ipor_io/status/2064364105259983111",
+        },
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Fusion (by IPOR)",
+          handle: "ipor_io",
+          verified: true,
+          id: "2038960123066892489",
+          date: "Mar 31, 2026",
+          text: "Tesseract Selects Fusion for Institutional Vault Infrastructure, with 21Shares among the pilot partners. Tesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield.",
+          url: "https://x.com/ipor_io/status/2038960123066892489",
+        },
       },
       { type: "heading", text: "For teams building their own Aave automated strategies" },
       {
