@@ -12,6 +12,7 @@ export type ArticleBlock =
   | { type: "lead"; text: string }
   | { type: "paragraph"; text: string }
   | { type: "heading"; text: string }
+  | { type: "list"; items: string[] }
   | { type: "source"; label: string; url: string }
   | {
       type: "pullquote";
@@ -64,6 +65,179 @@ export interface Article {
 }
 
 export const articles: Article[] = [
+  {
+    slug: "fusion-automates-aave-yield-cbeth-looping",
+    title:
+      "Fusion automates Aave yield — turning native Aave liquidity into high-performance strategies (example: ~15% on cbETH)",
+    excerpt:
+      "There is far more yield inside Aave's markets than most participants ever reach. Fusion's automation turns that depth into performance — like TAU Labs' cbETH Dynamic Looping vault, which stacks cbETH's native yield into roughly 15% on Base.",
+    date: "2026-06-24",
+    category: "Strategies",
+    author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
+    readingMinutes: 6,
+    coverImage: "/brand/aave-cbeth.png",
+    body: [
+      {
+        type: "lead",
+        text: "There is far more yield sitting inside Aave's markets than most participants ever reach. The depth is there, the assets are there, and the borrowing capacity is there.",
+      },
+      {
+        type: "paragraph",
+        text: "Fusion vaults and automation turn that potential into performance, while the native yield is still sourced from the trusted @aave environment.",
+      },
+      {
+        type: "paragraph",
+        text: "Fusion by @ipor_io is onchain vault infrastructure that lets teams build automated strategies on top of Aave.",
+      },
+      {
+        type: "paragraph",
+        text: "One vault built on Fusion now runs the largest automated cbETH position on the entire @base network, almost entirely supplying it to Aave, and stacking cbETH's ~2.75% native yield into a combined performance of around **15%** through automated looping and Aave-level rewards.",
+      },
+      {
+        type: "paragraph",
+        text: "Here is how it works, shown through the leading example on Aave today: the **cbETH Dynamic Looping vault operated by TAU Labs**.",
+      },
+      {
+        type: "paragraph",
+        text: "We cover the mechanism, the impact it has had, and how anyone, from retail participants to institutions, can access the same approach or build their own across other assets and networks.",
+      },
+      { type: "heading", text: "The starting point: cbETH's native staking yield of ~2.75%" },
+      {
+        type: "paragraph",
+        text: "cbETH is Coinbase Wrapped Staked ETH, a reward-bearing token whose value appreciates against ETH as staking rewards accrue. That native yield currently sits ~2.75% [1].",
+      },
+      {
+        type: "paragraph",
+        text: "Supplied to Aave on its own, cbETH earns its staking yield and sits as high-quality collateral. That collateral role is the foundation everything else is built on. The native yield is real, but on a single, unleveraged position, the low single digits are roughly where it settles.",
+      },
+      {
+        type: "paragraph",
+        text: "The potential sits one step further out. Aave's deep, liquid markets make it possible to do far more with that same collateral, and that is where Fusion's automation comes in.",
+      },
+      { type: "heading", text: "The mechanism: a small spread, multiplied" },
+      {
+        type: "paragraph",
+        text: "The TAU cbETH Dynamic Looping vault [2] takes that ~2.75% yielding asset and runs it through an automated strategy.",
+      },
+      {
+        type: "paragraph",
+        text: "In simple terms, the vault supplies cbETH as collateral on Aave, borrows WETH against it, acquires more cbETH, and repeats. The position can reach an effective leverage of close to 10x.",
+      },
+      {
+        type: "paragraph",
+        text: "The yield comes from a spread. cbETH earns its staking yield, the borrowed WETH carries a cost, and the difference between the two is small on a single pass. Looped close to ten times, that small spread compounds into an amplified result.",
+      },
+      {
+        type: "paragraph",
+        text: "The whole process is automated. The vault reallocates across Aave lending markets to keep borrow costs low and maintains programmatic liquidation protection as conditions move.",
+      },
+      { type: "heading", text: "Where the 15% on cbETH comes from" },
+      {
+        type: "paragraph",
+        text: "The combined performance is a stack of sources, all automated through Fusion, and most of it sits at the Aave level:",
+      },
+      {
+        type: "list",
+        items: [
+          "**Looping spread** (cbETH staking yield minus the WETH borrow cost): around **7.8%**",
+          "**Merkl rewards** for borrowing WETH against cbETH collateral on Aave: around **7.9%**",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Stacked together, that brings combined performance to roughly **15% after fees** under current conditions. The looping spread and the Merkl rewards both run through Aave markets, so the majority of the upside originates on Aave, with the strategy running it automatically on Fusion.",
+      },
+      {
+        type: "paragraph",
+        text: "The reward portion is variable and incentive-driven. It reflects current conditions and can change as rewards and rates move, so the combined figure stays dynamic rather than fixed.",
+      },
+      { type: "heading", text: "Aave as the backbone of automated looping" },
+      {
+        type: "paragraph",
+        text: "Looping strategies need one thing above all: deep, liquid markets to borrow against at low cost. Aave has exactly that, across assets and networks, which is what lets these strategies scale to a meaningful size.",
+      },
+      {
+        type: "paragraph",
+        text: "That vault runs around 95% of its allocation through Aave v3 Core, and the relationship runs both ways.",
+      },
+      {
+        type: "paragraph",
+        text: "As the vault grew, it became a meaningful source of demand on Aave V3's Base market, supplying as much as 70% of the cbETH supply side at its peak and contributing a significant share of WETH borrows. Aave provided the liquidity, and the strategy put it to work at scale.",
+      },
+      {
+        type: "paragraph",
+        text: "This strategy now benefits hundreds of users, sourcing yield from Aave in automated fashion. Its impact has been clearly reflected by the need to raise cbETH caps, as communicated in May.",
+      },
+      {
+        type: "paragraph",
+        text: "The impact of that looping strategy is also reflected in the marketcap of @coinbase cbETH, supporting growth of the entire supply by 10%+ from 11 May.",
+      },
+      {
+        type: "paragraph",
+        text: "Across the Fusion ecosystem, strategies tapping into Aave liquidity account for **~11.72% of the entire cbETH circulating supply** as of 23 June 2026.",
+      },
+      { type: "heading", text: "Accessing automated Aave strategies: for retail participants" },
+      {
+        type: "paragraph",
+        text: "Automated strategies built on top of Aave are gaining traction, and access to them is open. Anyone can step into a strategy like the cbETH looping vault onchain or through the Fusion App.",
+      },
+      {
+        type: "paragraph",
+        text: "Strategies run on Fusion vault infrastructure follow enforced mandates, and each vault's set of eligible actions is previewable by anyone, along with full strategy details, allocation, and live performance, before and after allocation.",
+      },
+      { type: "heading", text: "For institutional capital" },
+      {
+        type: "paragraph",
+        text: "Institutional capital reaches the same Aave markets through a different door. Regulated allocators need mandates, KYC, and verifiable access points, and a Fusion vault is exactly that: a contained, auditable structure with defined permissions.",
+      },
+      {
+        type: "paragraph",
+        text: "That access is already live. Through @tesseractcrypto's Dedicated Client Vaults, run under Tesseract's MiCA authorisation and built on top of Fusion vault infrastructure, regulated institutions reach Aave markets from inside their own regulated perimeter, the first MiCA-authorised access route of its kind.",
+      },
+      {
+        type: "paragraph",
+        text: "@BitGo (https://x.com/ipor_io/status/2064364105259983111), an OCC-regulated digital asset trust bank (NYSE: BTGO), and **@21shares** (https://x.com/ipor_io/status/2038960123066892489), one of the world's leading crypto ETP issuers, are among the names already connected to this path.",
+      },
+      { type: "heading", text: "For teams building their own Aave automated strategies" },
+      {
+        type: "paragraph",
+        text: "The tooling behind automated strategies is open to any team. Fusion vault infrastructure and its open-source modules for Aave V3 and V4 are live today, ready to replicate an existing looping strategy framework or build a new one.",
+      },
+      {
+        type: "paragraph",
+        text: "The same looping template may extend across many Aave markets, for example:",
+      },
+      {
+        type: "list",
+        items: [
+          "ETH staking tokens such as weETH and rETH against ETH",
+          "Stablecoin carry with assets like USDe",
+          "Stablecoin pairs such as GHO and USDT0",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "These opportunities travel across the networks where Aave operates. Teams building their own Aave strategy can start from the open Fusion tooling:",
+      },
+      {
+        type: "list",
+        items: [
+          "**Build automated vault with Fusion by IPOR Labs:** https://docs.ipor.io/build-on-fusion/developer-guide/quick-start-guide",
+          "**Aave V3 Module:** https://github.com/IPOR-Labs/ipor-fusion/tree/main/contracts/fuses/aave_v3",
+          "**Aave V4 Module:** https://github.com/IPOR-Labs/ipor-fusion/tree/main/contracts/fuses/aave_v4",
+        ],
+      },
+      { type: "heading", text: "References" },
+      {
+        type: "list",
+        items: [
+          "[1] cbETH native staking yield, Coinbase — https://www.coinbase.com/en-gb/earn/staking/coinbase-wrapped-staked-eth",
+          "[2] TAU cbETH Dynamic Looping vault — https://app.ipor.io/fusion/base/0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8",
+          "[3] cbETH looping mechanism, TAU Labs — https://x.com/628Labs/status/2066488153792450599",
+        ],
+      },
+    ],
+  },
   {
     slug: "bitgo-institutional-access-tesseract-dedicated-client-vaults",
     title:
