@@ -132,6 +132,79 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "tesseract-selects-fusion-institutional-vault-infrastructure",
+    title:
+      "Tesseract selects IPOR Fusion as onchain vault infrastructure for institutional clients",
+    excerpt:
+      "Tesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield — with 21Shares among the launch partners.",
+    date: "2026-03-31",
+    category: "Ecosystem",
+    author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
+    readingMinutes: 5,
+    body: [
+      {
+        type: "lead",
+        text: "Tesseract Investment Oy, a Helsinki-based digital asset service provider (est. 2017, MiCA-authorised CASP), has selected Fusion as its onchain vault infrastructure for institutional onchain yield strategies.",
+      },
+      {
+        type: "paragraph",
+        text: "After over a year of working with Fusion's vault architecture and close collaboration with the IPOR Labs team, Tesseract will leverage Fusion-powered vaults as the primary allocation destination for its institutional clients.",
+      },
+      {
+        type: "paragraph",
+        text: "Tesseract is working with a select group of launch partners across asset management, custody, and institutional distribution, including 21Shares — one of the world's leading crypto ETP issuers with products listed across SIX, Deutsche Börse, Euronext, and the London Stock Exchange.",
+      },
+      {
+        type: "paragraph",
+        text: "Fusion was evaluated against the standards regulated institutional clients demand: deterministic risk enforcement, segregated failure domains, onchain transparency, and embedded compliance. The architecture delivers through immutable protocol integrations, isolated vault deployment per client, asset-level whitelisting, market exposure limits enforced atomically onchain, and a strict segregation of duties between governance, execution, and risk oversight.",
+      },
+      {
+        type: "paragraph",
+        text: "For Tesseract, operating under MiCA authorisation for certain crypto-asset services, this infrastructure provides the structural layer that reflects asset segregation expectations under European regulation.",
+      },
+      { type: "heading", text: "Dedicated Client Vaults" },
+      {
+        type: "paragraph",
+        text: "Tesseract's institutional clients will operate on dedicated Fusion vault deployments. Each Dedicated Client Vault is individually assigned to a single client, with its own risk parameters, approved protocol integrations, and compliance configuration.",
+      },
+      {
+        type: "paragraph",
+        text: "The vaults tap into Fusion's Fuse integrations across leading DeFi lending markets, including Aave, Morpho, SparkLend, and Euler, allowing Tesseract to construct and manage institutional-grade yield strategies across multiple venues.",
+      },
+      {
+        type: "pullquote",
+        text: "Having reviewed multiple infrastructure options, we chose to work with IPOR Fusion because it was already built to the standard we were looking for such as audited contracts, onchain risk controls, and proper asset segregation. The IPOR Labs team has worked closely with us over the past year to pressure-test every layer of the stack.",
+        author: "James Harris",
+        title: "CEO, Tesseract Investment Oy",
+      },
+      {
+        type: "pullquote",
+        text: "IPOR Fusion was designed to meet the needs of institutional capital operating onchain strategies with the same structural safeguards they expect in the traditional world. After a year of close collaboration with Tesseract stress-testing every layer of the architecture, we are pleased to expand this collaboration as Tesseract brings Fusion-powered vaults to its institutional clientele. Welcoming 21Shares among the pilot partners signals strong institutional interest in what this infrastructure can deliver.",
+        author: "Darren Camas",
+        title: "CEO, IPOR Labs",
+      },
+      { type: "heading", text: "About Tesseract" },
+      {
+        type: "paragraph",
+        text: "Tesseract Group, headquartered in Helsinki, provides institutional clients including cryptocurrency trading platforms, fintechs, and custodians with access to yield-generating solutions across digital asset lending and onchain yield infrastructure. Since 2017, Tesseract has built a track record of disciplined risk management and profitable growth across multiple jurisdictions, with ISO 27001 and SOC 2 certifications and technology battle-tested by industry participants including Bitstamp.",
+      },
+      {
+        type: "paragraph",
+        text: "Tesseract Investment Oy is a MiCA-authorised Crypto-Asset Service Provider.",
+      },
+      {
+        type: "source",
+        label: "tesseract.fi",
+        url: "https://tesseract.fi",
+      },
+      { type: "heading", text: "About Fusion" },
+      {
+        type: "paragraph",
+        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.",
+      },
+    ],
+  },
 ];
 
 /** Articles sorted newest-first. */
