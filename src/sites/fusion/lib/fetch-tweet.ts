@@ -22,12 +22,46 @@ export interface FetchedTweet {
   handle: string;
   verified: boolean;
   avatarDataUri: string | null;
+  /** Tweet text with t.co shorteners expanded to real links / media stripped. */
   text: string;
+  /** First photo of the tweet, inlined as a data: URI (announcement graphics). */
+  mediaDataUri: string | null;
   likes: number;
   replies: number;
   retweets: number;
   /** ISO timestamp of the tweet, if provided by the API. */
   createdAt: string;
+}
+
+/**
+ * Rebuild the display text: expand each t.co link to its real URL, and drop the
+ * t.co links that only point at attached media (those are shown as an image
+ * instead). Leaves normal prose untouched.
+ */
+function cleanTweetText(d: any): string {
+  const urlMap = new Map<string, string>();
+  for (const u of d?.entities?.urls ?? []) {
+    if (u?.url) urlMap.set(u.url, u.expanded_url || u.display_url || "");
+  }
+  let text: string = d?.text ?? "";
+  text = text.replace(/https?:\/\/t\.co\/\S+/g, (m: string) =>
+    urlMap.has(m) ? urlMap.get(m)! : "",
+  );
+  // Collapse whitespace left behind by removed links.
+  return text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+/**
+ * First still image attached to the tweet, at a modest size, or null. For
+ * video/gif tweets `media_url_https` is the poster frame, which is fine to show.
+ */
+function mediaUrl(d: any): string | null {
+  const m = d?.mediaDetails?.[0] ?? d?.photos?.[0];
+  const url: string = m?.media_url_https || m?.url || "";
+  if (!url) return null;
+  const ext = (url.match(/\.(jpg|jpeg|png|webp)$/i)?.[1] || "jpg").toLowerCase();
+  const base = url.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+  return `${base}?format=${ext}&name=small`;
 }
 
 /** react-tweet's token derivation (base-36 of id * PI, stripped of noise). */
@@ -91,6 +125,12 @@ async function load(id: string): Promise<FetchedTweet | null> {
 
     const rawAvatar: string = d.user.profile_image_url_https || "";
     const hiResAvatar = rawAvatar.replace("_normal", "_400x400");
+    const media = mediaUrl(d);
+
+    const [avatarDataUri, mediaDataUri] = await Promise.all([
+      hiResAvatar ? toDataUri(hiResAvatar) : Promise.resolve(null),
+      media ? toDataUri(media) : Promise.resolve(null),
+    ]);
 
     return {
       name: d.user.name ?? "",
@@ -98,8 +138,9 @@ async function load(id: string): Promise<FetchedTweet | null> {
       verified: Boolean(
         d.user.verified || d.user.is_blue_verified || d.user.verified_type,
       ),
-      avatarDataUri: hiResAvatar ? await toDataUri(hiResAvatar) : null,
-      text: d.text ?? "",
+      avatarDataUri,
+      text: cleanTweetText(d),
+      mediaDataUri,
       likes: Number(d.favorite_count ?? 0),
       replies: Number(d.conversation_count ?? 0),
       retweets: Number(d.retweet_count ?? 0),
