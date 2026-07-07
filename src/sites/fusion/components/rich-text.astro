@@ -1,0 +1,70 @@
+---
+/**
+ * Renders a single line of lightweight inline markup used in article body
+ * text: `**bold**`, `[label](url)` links, bare URLs, @mentions and #hashtags.
+ * Everything else is emitted as plain text. Kept deliberately small — this is
+ * not a full Markdown parser, just enough for the announcement-style prose.
+ */
+type Run =
+  | { t: "text"; v: string }
+  | { t: "bold"; v: string }
+  | { t: "link"; v: string; href: string };
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+
+// Order: markdown link, bold, @mention/#hashtag (not when preceded by a word
+// char or dot, so emails like name@host.tld are left alone), bare URL.
+const TOKEN =
+  /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|(?<![\w.])([@#][A-Za-z0-9_]+)|(https?:\/\/[^\s)]+)/g;
+
+function parse(input: string): Run[] {
+  const runs: Run[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = TOKEN.exec(input)) !== null) {
+    if (m.index > last) runs.push({ t: "text", v: input.slice(last, m.index) });
+    if (m[1] && m[2]) {
+      runs.push({ t: "link", v: m[1], href: m[2] });
+    } else if (m[3]) {
+      runs.push({ t: "bold", v: m[3] });
+    } else if (m[4]) {
+      const tok = m[4];
+      const href =
+        tok[0] === "@"
+          ? `https://x.com/${tok.slice(1)}`
+          : `https://x.com/hashtag/${tok.slice(1)}`;
+      runs.push({ t: "link", v: tok, href });
+    } else {
+      runs.push({ t: "link", v: m[5], href: m[5] });
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < input.length) runs.push({ t: "text", v: input.slice(last) });
+  return runs;
+}
+
+const runs = parse(text);
+---
+
+{
+  runs.map((r) =>
+    r.t === "text" ? (
+      r.v
+    ) : r.t === "bold" ? (
+      <strong class="font-semibold text-foreground">{r.v}</strong>
+    ) : (
+      <a
+        href={r.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-primary underline-offset-2 hover:underline"
+      >
+        {r.v}
+      </a>
+    ),
+  )
+}

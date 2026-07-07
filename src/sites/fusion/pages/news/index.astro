@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@/shared/layouts/base-layout.astro";
+import Nav from "../../components/nav.astro";
+import Footer from "@/shared/components/footer.astro";
+import CookieBanner from "@/shared/components/cookie-banner.astro";
+import ArticleCard from "../../components/article-card.astro";
+import { getArticles } from "../../data/articles";
+
+const articles = getArticles();
+const featured = articles[0];
+const rest = articles.slice(1);
+---
+
+<BaseLayout
+  title="Ecosystem News | Fusion by IPOR"
+  description="Partnerships, integrations and milestones from the teams building institutional-grade onchain yield on Fusion."
+>
+  <Nav />
+  <div class="min-h-screen bg-background">
+    <main class="mx-auto max-w-[1200px] px-6 pt-32 pb-20 md:pt-40 md:pb-28">
+      <!-- Back link -->
+      <a
+        href="/"
+        class="mb-8 inline-flex items-center gap-2 text-[14px] text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Back to home
+      </a>
+
+      <!-- Header -->
+      <header class="mb-12 max-w-3xl md:mb-16">
+        <p class="mb-4 text-[13px] font-medium uppercase tracking-wide text-primary">
+          Ecosystem News
+        </p>
+        <h1
+          class="mb-5 text-balance text-foreground"
+          style="font-size: clamp(32px, 6vw, 56px); line-height: 1.1;"
+        >
+          News from the Fusion ecosystem
+        </h1>
+        <p class="text-base text-muted-foreground sm:text-lg" style="line-height: 1.7;">
+          Partnerships, integrations and milestones from the institutions,
+          curators and custodians building institutional-grade onchain yield on
+          Fusion.
+        </p>
+      </header>
+
+      {featured && (
+        <div class="mb-6">
+          <ArticleCard article={featured} featured />
+        </div>
+      )}
+
+      {rest.length > 0 && (
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {rest.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+      )}
+    </main>
+  </div>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>
