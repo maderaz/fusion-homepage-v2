@@ -37,9 +37,28 @@ function deriveToken(id: string): string {
     .replace(/(0+|\.)/g, "");
 }
 
+/**
+ * `fetch` with a hard timeout so a slow or hanging X endpoint can never stall
+ * the build. On timeout the request is aborted and the caller's catch returns
+ * the graceful fallback.
+ */
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit = {},
+  ms = 8000,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function toDataUri(url: string): Promise<string | null> {
   try {
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url);
     if (!res.ok) return null;
     const type = res.headers.get("content-type") || "image/jpeg";
     const buf = Buffer.from(await res.arrayBuffer());
@@ -59,7 +78,7 @@ async function load(id: string): Promise<FetchedTweet | null> {
     const url =
       `https://cdn.syndication.twimg.com/tweet-result?id=${id}` +
       `&token=${token}&lang=en`;
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
       headers: {
         // The endpoint 404s without a browser-ish UA.
         "User-Agent":
