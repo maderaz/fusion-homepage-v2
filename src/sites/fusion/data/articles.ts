@@ -477,6 +477,222 @@ export const articles: Article[] = [
     ],
   },
   {
+    slug: "how-vault-curators-navigate-mica-2026",
+    title: "How Vault Curators Can Navigate MiCA in 2026",
+    excerpt:
+      "At Vault Summit during EthCC Cannes 2026, Stéphane Daniel of d&a partners laid out the MiCA legal considerations for vault curators, from CASP reclassification risk to three structuring strategies. A guest article, with a note on how Fusion's architecture relates.",
+    date: "2026-04-30",
+    category: "Regulation",
+    author: { name: "Fusion Team", handle: "ipor_io" },
+    readingMinutes: 10,
+    coverImage: "/brand/navigating-mica.png",
+    body: [
+      {
+        type: "lead",
+        text: "At Vault Summit during EthCC Cannes 2026, Stéphane Daniel (@stephdan_law), Founding Partner at d&a partners, one of the largest blockchain-dedicated law firms in the EU, delivered a keynote on the legal considerations facing vault curators under Europe's MiCA regulation.",
+      },
+      {
+        type: "paragraph",
+        text: "The structuring strategies outlined in the presentation, control minimization, jurisdictional planning, transparency frameworks, closely mirror principles that Fusion has been building toward at the infrastructure level. We invited Stéphane to turn his keynote into a guest article for the Fusion community.",
+      },
+      {
+        type: "paragraph",
+        text: "**What you will take away from this article:**",
+      },
+      {
+        type: "list",
+        items: [
+          "Why the Curator role might create regulatory exposure under MiCA",
+          "Which crypto-asset services a Curator might inadvertently trigger",
+          "Three structuring strategies to mitigate legal risk: technical safeguards, jurisdictional planning, and public documentation",
+          "Where the regulatory landscape is heading and why the window to influence it is open now",
+          "How Fusion's vault architecture relates to this legal framework",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The following is authored by Stéphane Daniel, Founding Partner at d&a partners: [dnapartners.fr/en/](https://dnapartners.fr/en/)",
+      },
+      { type: "heading", text: "1. The Curator Role: A New Legal Question" },
+      {
+        type: "paragraph",
+        text: "Vaults serve many purposes: yield aggregation, lending optimization, restaking, delta-neutral strategies, RWA tokenization. This flexibility is also a legal challenge. Each vault architecture creates different roles and responsibilities that need to be assessed on a case-by-case basis.",
+      },
+      {
+        type: "paragraph",
+        text: "At the center of this analysis is the Curator. The entity selecting eligible markets and protocols, determining allocation strategy, and defining caps and risk parameters.",
+      },
+      {
+        type: "paragraph",
+        text: "But the Curator is rarely the only role. Depending on the architecture, there may also be other roles. For example, in the Morpho protocol, there is an Allocator executing onchain orders, a Guardian ensuring compliance with parameters, and a Sentinel providing automated monitoring and alerts. Design and roles may be different and vary from one protocol to another.",
+      },
+      {
+        type: "paragraph",
+        text: "The legal complexity increases when these roles are combined under a single entity. This is a common pattern in practice, and one that heightens regulatory risk.",
+      },
+      { type: "heading", text: "2. Which Law Applies?" },
+      {
+        type: "paragraph",
+        text: "Before assessing regulatory qualification, vault operators face a more fundamental question: which jurisdiction's law applies?",
+      },
+      {
+        type: "paragraph",
+        text: "A Curator incorporated in one country, operating on a stateless blockchain, serving users worldwide. Traditional legal connecting factors struggle with this reality.",
+      },
+      {
+        type: "paragraph",
+        text: "Multiple entities may be involved in a single vault setup: the protocol developer, the Curator configuring strategies, the Guardian monitoring compliance, and the depositors themselves, each potentially subject to different jurisdictions. At least three conflict points arise.",
+      },
+      {
+        type: "paragraph",
+        text: "First, the law of the Curator's jurisdiction of incorporation. Second, MiCA's broad extraterritorial scope, where provision of services within the EU triggers application. Third, Rome I consumer protection rules tied to the habitual residence of targeted consumers.",
+      },
+      {
+        type: "paragraph",
+        text: "The practical risk is a positive conflict of jurisdiction: multiple regulators claiming authority simultaneously, with no international resolution mechanism in place.",
+      },
+      { type: "heading", text: "3. MiCA and DeFi: The Infrastructure Layer" },
+      {
+        type: "paragraph",
+        text: "MiCA's position on DeFi is built on a single sentence: “Where crypto-asset services are provided in a fully decentralised manner without any intermediary, they should not fall within the scope of this Regulation.”",
+      },
+      {
+        type: "paragraph",
+        text: "Two sentences for an entire sector. No definition of “fully decentralised” is provided.",
+      },
+      {
+        type: "paragraph",
+        text: "In practice, decentralization is assessed through two lenses.",
+      },
+      {
+        type: "paragraph",
+        text: "First, technical decentralization. Self-executing smart contracts with no entity controlling activity after deployment. No embedded control rights such as admin keys, upgrade proxies, or pause functions. Permissionless blockchain with decentralized consensus. Non-custodial protocol where users retain control of assets at all times. Open-source and verifiable code with automatic execution. If the protocol satisfies these criteria, it falls outside MiCA.",
+      },
+      {
+        type: "paragraph",
+        text: "If technical decentralization is incomplete, a second test applies: governance decentralization. This examines whether there is an identifiable legal entity acting as counterparty, how governance tokens are distributed, whether decision-making power can be attributed to a core team, and whether governance processes are transparent and onchain.",
+      },
+      { type: "heading", text: "4. The Curation Layer: CASP Reclassification Risk" },
+      {
+        type: "paragraph",
+        text: "While the infrastructure layer may be outside MiCA's scope, the curation layer is a different matter entirely. Curators are identifiable entities. They have names, websites, founders. The question is whether what they do qualifies as a regulated crypto-asset service.",
+      },
+      {
+        type: "paragraph",
+        text: "Several centralization indicators might raise concern. Decision-making power concentrated in a single entity. An identifiable legal entity operating as a counterparty to depositors. Admin keys enabling unilateral modification of vault parameters. The ability to pause, upgrade, or redirect fund allocations. Fee structures suggesting a commercial, intermediary relationship.",
+      },
+      {
+        type: "paragraph",
+        text: "Under MiCA, three services might potentially be triggered: Custody and transfer of deposited crypto-assets within the vault. Portfolio management through discretionary allocation of third-party assets. And investment advisory through recommending or selecting markets on behalf of depositors.",
+      },
+      {
+        type: "paragraph",
+        text: "Stéphane Daniel's analysis suggests these services should likely not be qualified under MiCA, primarily because curators generally do not custody crypto-assets and do not operate with individualized relationships with depositors. Assets are self-custodied, users are public addresses, and there is no formal onboarding or KYC in permissionless settings.",
+      },
+      {
+        type: "paragraph",
+        text: "However, this remains a grey zone to be assessed on a case-by-case basis depending on the design of each vault and the legal structuring of each curator. It also has yet to be tested with regulators, and the landscape is evolving.",
+      },
+      {
+        type: "paragraph",
+        text: "The risk scenario is clear. A partially decentralized vault with an identifiable Curator who selects markets, sets parameters, and receives fees would, if reclassified as a CASP, trigger full MiCA compliance obligations including KYC/AML, asset segregation, prudential requirements, and governance rules.",
+      },
+      {
+        type: "paragraph",
+        text: "In practice, full KYC/AML compliance is the main issue. It is currently almost impossible, or at least not viable, to implement in retail permissionless DeFi markets.",
+      },
+      { type: "heading", text: "5. Three Structuring Strategies for Curators" },
+      {
+        type: "paragraph",
+        text: "To mitigate legal risk, three complementary strategies are recommended. Combining them reduces the overall regulatory exposure for Curators and other vault actors.",
+      },
+      {
+        type: "paragraph",
+        text: "**Control Minimization (Technical Safeguards)**",
+      },
+      {
+        type: "paragraph",
+        text: "Timelock all strategic decisions to provide users with exit rights. Predefine allocation rules onchain to reduce discretion. Separate decision, execution, and control layers so that Curator, Allocator, Guardian, and Sentinel are distinct roles. Limit discretionary power to parameterization rather than allocation execution. Use multi-sig with independent, unaffiliated actors. Ensure transparent and onchain governance processes.",
+      },
+      {
+        type: "paragraph",
+        text: "**Legal Structuring (Jurisdictional Strategy)**",
+      },
+      {
+        type: "paragraph",
+        text: "Choose jurisdiction carefully. Establish clear terms and conditions governing the Curator-depositor relationship, specifying the Curator's role as non-custodial, without mandate or advisory function, and including disclaimers and limitations of liability. Document and enforce geofencing policies where applicable. Ensure marketing practices are consistent with all of the above.",
+      },
+      {
+        type: "paragraph",
+        text: "**Public Documentation (Transparency Framework)**",
+      },
+      {
+        type: "paragraph",
+        text: "Publish onchain strategy docs including allocation rules, market selection criteria, and rebalancing logic as verifiable data. Disclose all risk caps, collateral ratios, and liquidation thresholds in real time. Commission independent smart contract audits and publish full reports. Provide depositors with regular performance reports, fee breakdowns, and risk summaries. Clearly document all management, performance, and protocol fees before deposit.",
+      },
+      { type: "heading", text: "6. Regulatory Outlook" },
+      {
+        type: "paragraph",
+        text: "The regulatory landscape for DeFi and Curated Vaults is evolving fast.",
+      },
+      {
+        type: "paragraph",
+        text: "Under Article 142 of MiCA, the European Commission is mandated to deliver a comprehensive report on DeFi, originally due by December 2024, still pending. This report may clarify what qualifies as “fully decentralised,” propose new legislative measures targeting DeFi protocols, and directly affect how Curated Vaults are classified.",
+      },
+      {
+        type: "paragraph",
+        text: "There is a window of influence. Regulatory frameworks are still being drafted, creating a rare opportunity to shape the rules before they crystallize. Protocols that demonstrate robust governance, transparency, and risk management set de facto industry standards. Proactive structuring now positions projects favorably for whatever regime emerges.",
+      },
+      {
+        type: "paragraph",
+        text: "**The following section is authored by the Fusion team.**",
+      },
+      { type: "heading", text: "How Fusion's Architecture Relates to This Framework" },
+      {
+        type: "paragraph",
+        text: "Fusion is a modular onchain vault framework built on ERC-4626 compliant PlasmaVaults. The structuring principles outlined above describe what vault operators should aim for. Fusion's architecture provides the infrastructure to get there.",
+      },
+      {
+        type: "paragraph",
+        text: "**Control Minimization.** Role separation is enforced at the smart contract level: Owner, Atomist, Alpha, Fuse Manager, and Guardian are architecturally distinct. The actions a vault can take through them are gated by these roles and subject to timelocks, with full onchain visibility into current configuration and pending changes. Alpha execution operates exclusively within pre-defined, governance-approved boundaries. Multi-sig and KYC/blacklist capabilities are available at the vault level.",
+      },
+      {
+        type: "paragraph",
+        text: "**Public Documentation.** Fusion's vault architecture makes all fees, permissions, access roles, strategy flow maps, and contract addresses readable directly from the smart contracts, verifiable via any block explorer or custom front-end. Operators can surface this data through their own interfaces or third-party tools. All vault data is recorded onchain with full historical granularity, extractable down to a single block.",
+      },
+      {
+        type: "paragraph",
+        text: "**Legal Structuring.** How these capabilities are configured is a decision for each vault operator (Atomist), in consultation with their legal counsel.",
+      },
+      {
+        type: "paragraph",
+        text: "Fusion provides the tools. Lawyers like Stéphane Daniel from the law firm d&a partners provide the legal guidance to deploy them compliantly.",
+      },
+      { type: "heading", text: "About d&a partners" },
+      {
+        type: "paragraph",
+        text: "d&a partners is a French law firm entirely dedicated to blockchain and crypto, with 17+ lawyers advising crypto-native projects, DeFi protocols, and institutional investors on EU regulation and MiCA implementation.",
+      },
+      {
+        type: "paragraph",
+        text: "Contact: s.daniel@dnapartners.fr | [dnapartners.fr](https://dnapartners.fr)",
+      },
+      { type: "heading", text: "About Fusion" },
+      {
+        type: "paragraph",
+        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.",
+      },
+      {
+        type: "paragraph",
+        text: "For the curator community. If any of these structuring questions are part of your conversations, we'd value your perspective:",
+      },
+      {
+        type: "paragraph",
+        text: "@BlockAnalitica @bprotocoleth @flowdesk_co @galaxyhq @gauntlet_xyz @hyperithm @k3_capital @kpk_io @LlamaRisk @Rockaway_X @SentoraHQ @SteakhouseFi @keyrock @628Labs",
+      },
+    ],
+  },
+  {
     slug: "tesseract-selects-fusion-institutional-vault-infrastructure",
     title:
       "Tesseract Selects IPOR Fusion as Onchain Vault Infrastructure for Institutional Clients",

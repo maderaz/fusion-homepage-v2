@@ -16,8 +16,10 @@ interface Props {
 
 const { text } = Astro.props;
 
+// Order: markdown link, bold, @mention/#hashtag (not when preceded by a word
+// char or dot, so emails like name@host.tld are left alone), bare URL.
 const TOKEN =
-  /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+|https?:\/\/[^\s)]+)/g;
+  /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|(?<![\w.])([@#][A-Za-z0-9_]+)|(https?:\/\/[^\s)]+)/g;
 
 function parse(input: string): Run[] {
   const runs: Run[] = [];
@@ -29,15 +31,15 @@ function parse(input: string): Run[] {
       runs.push({ t: "link", v: m[1], href: m[2] });
     } else if (m[3]) {
       runs.push({ t: "bold", v: m[3] });
-    } else {
+    } else if (m[4]) {
       const tok = m[4];
       const href =
         tok[0] === "@"
           ? `https://x.com/${tok.slice(1)}`
-          : tok[0] === "#"
-            ? `https://x.com/hashtag/${tok.slice(1)}`
-            : tok;
+          : `https://x.com/hashtag/${tok.slice(1)}`;
       runs.push({ t: "link", v: tok, href });
+    } else {
+      runs.push({ t: "link", v: m[5], href: m[5] });
     }
     last = m.index + m[0].length;
   }
