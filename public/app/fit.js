@@ -1,5 +1,7 @@
 // Scale the fixed 1880px design canvas to fit the viewport width so the
-// layout never overflows the right edge on narrower screens.
+// layout never overflows and stays horizontally centered on any screen.
+// The flex parent (#fv-scale-outer) handles horizontal centering; this only
+// computes the uniform scale and reserves the scaled height.
 (function () {
   var CANVAS_W = 1880;
   var scale = document.getElementById('fv-scale');
@@ -8,8 +10,8 @@
   function fit() {
     var vw = document.documentElement.clientWidth;
     var s = Math.min(1, vw / CANVAS_W);
-    var tx = s < 1 ? 0 : Math.round((vw - CANVAS_W) / 2);
-    scale.style.transform = 'translateX(' + tx + 'px) scale(' + s + ')';
+    scale.style.transform = 'scale(' + s + ')';
+    // Transform doesn't affect layout, so reserve the scaled height only.
     outer.style.height = (scale.offsetHeight * s) + 'px';
   }
   window.addEventListener('resize', fit);
