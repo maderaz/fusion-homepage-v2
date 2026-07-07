@@ -419,10 +419,6 @@ export const articles: Article[] = [
         type: "paragraph",
         text: "Operators running strategies on Fusion can request cover for their own deployment. The OpenCover team handles quotes and onboarding at [opencover.com/institutional](https://opencover.com/institutional).",
       },
-      {
-        type: "paragraph",
-        text: "@k3_capital @hyperithm @LlamaRisk @ClearstarLabs @628Labs @reservoir_xyz @tankencapital @Sentinel_codes @BTCDOfficial @tesseractcrypto",
-      },
       { type: "heading", text: "About OpenCover" },
       {
         type: "paragraph",

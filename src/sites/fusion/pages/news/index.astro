@@ -6,9 +6,14 @@ import CookieBanner from "@/shared/components/cookie-banner.astro";
 import ArticleCard from "../../components/article-card.astro";
 import { getArticles } from "../../data/articles";
 
-const articles = getArticles();
-const featured = articles[0];
-const rest = articles.slice(1);
+// Keep the BitGo announcement pinned to the top of the hub, then the rest
+// newest-first.
+const STICKY_SLUG = "bitgo-institutional-access-tesseract-dedicated-client-vaults";
+const sorted = getArticles();
+const articles = [
+  ...sorted.filter((a) => a.slug === STICKY_SLUG),
+  ...sorted.filter((a) => a.slug !== STICKY_SLUG),
+];
 ---
 
 <BaseLayout
@@ -48,15 +53,9 @@ const rest = articles.slice(1);
         </p>
       </header>
 
-      {featured && (
-        <div class="mb-6">
-          <ArticleCard article={featured} featured />
-        </div>
-      )}
-
-      {rest.length > 0 && (
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {rest.map((article) => (
+      {articles.length > 0 && (
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
             <ArticleCard article={article} />
           ))}
         </div>
