@@ -107,6 +107,18 @@ await Promise.all(
           All Ecosystem News
         </a>
 
+        {article.coverImage && (
+          <img
+            src={article.coverImage}
+            alt={article.title}
+            width="1200"
+            height="480"
+            decoding="async"
+            class="mb-8 w-full rounded-2xl border border-border object-cover"
+            style="aspect-ratio: 5 / 2;"
+          />
+        )}
+
         <!-- Header -->
         <header class="mb-10">
           <div class="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -123,7 +135,7 @@ await Promise.all(
 
           <h1
             class="text-balance font-medium text-foreground"
-            style="font-size: clamp(28px, 5vw, 44px); line-height: 1.15;"
+            style="font-size: clamp(20px, 3.5vw, 31px); line-height: 1.2;"
           >
             {article.title}
           </h1>
@@ -158,24 +170,12 @@ await Promise.all(
           </div>
         </header>
 
-        {article.coverImage && (
-          <img
-            src={article.coverImage}
-            alt={article.title}
-            width="1200"
-            height="480"
-            decoding="async"
-            class="mb-10 w-full rounded-2xl border border-border object-cover"
-            style="aspect-ratio: 5 / 2;"
-          />
-        )}
-
         <!-- Body -->
         <div class="flex flex-col">
           {article.body.map((block) => {
             if (block.type === "lead") {
               return (
-                <p class="mb-7 text-balance text-[18px] font-normal text-foreground md:text-[20px]" style="line-height: 1.6;">
+                <p class="mb-7 text-balance text-[16px] font-normal text-foreground" style="line-height: 1.7;">
                   <RichText text={block.text} />
                 </p>
               );

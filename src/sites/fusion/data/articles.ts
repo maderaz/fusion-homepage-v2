@@ -68,12 +68,12 @@ export const articles: Article[] = [
   {
     slug: "fusion-automates-aave-yield-cbeth-looping",
     title:
-      "Fusion automates Aave yield — turning native Aave liquidity into high-performance strategies (example: ~15% on cbETH)",
+      "Turning cbETH's 2.75% Native Yield to 15% on Aave with Fusion Automation",
     excerpt:
-      "There is far more yield inside Aave's markets than most participants ever reach. Fusion's automation turns that depth into performance — like TAU Labs' cbETH Dynamic Looping vault, which stacks cbETH's native yield into roughly 15% on Base.",
+      "There is far more yield inside Aave's markets than most participants ever reach. Fusion's automation turns that depth into performance, like TAU Labs' cbETH Dynamic Looping vault, which stacks cbETH's native yield into roughly 15% on Base.",
     date: "2026-06-24",
     category: "Strategies",
-    author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
+    author: { name: "Fusion Team", handle: "ipor_io" },
     readingMinutes: 6,
     coverImage: "/brand/aave-cbeth.png",
     body: [
@@ -231,9 +231,9 @@ export const articles: Article[] = [
       {
         type: "list",
         items: [
-          "[1] cbETH native staking yield, Coinbase — https://www.coinbase.com/en-gb/earn/staking/coinbase-wrapped-staked-eth",
-          "[2] TAU cbETH Dynamic Looping vault — https://app.ipor.io/fusion/base/0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8",
-          "[3] cbETH looping mechanism, TAU Labs — https://x.com/628Labs/status/2066488153792450599",
+          "[1] cbETH native staking yield, Coinbase: https://www.coinbase.com/en-gb/earn/staking/coinbase-wrapped-staked-eth",
+          "[2] TAU cbETH Dynamic Looping vault: https://app.ipor.io/fusion/base/0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8",
+          "[3] cbETH looping mechanism, TAU Labs: https://x.com/628Labs/status/2066488153792450599",
         ],
       },
     ],
@@ -243,10 +243,10 @@ export const articles: Article[] = [
     title:
       "BitGo Opens Institutional Access to Tesseract's Dedicated Client Vaults Powered by Fusion",
     excerpt:
-      "Eligible institutions can now allocate to Tesseract's Dedicated Client Vaults — powered by Fusion — directly from BitGo qualified custody, with assets staying inside the custodial perimeter.",
+      "Eligible institutions can now allocate to Tesseract's Dedicated Client Vaults, powered by Fusion, directly from BitGo qualified custody, with assets staying inside the custodial perimeter.",
     date: "2026-06-09",
     category: "Ecosystem",
-    author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
+    author: { name: "Fusion Team", handle: "ipor_io" },
     readingMinutes: 4,
     coverImage: "/brand/bitgo-announcement.png",
     body: [
@@ -269,7 +269,19 @@ export const articles: Article[] = [
       { type: "heading", text: "Context" },
       {
         type: "paragraph",
-        text: "In March 2026, Tesseract announced it had selected Fusion to power its Dedicated Client Vaults for institutional onchain yield, with 21Shares among the pilot partners (https://x.com/ipor_io/status/2038960123066892489).",
+        text: "In March 2026, Tesseract announced it had selected Fusion to power its Dedicated Client Vaults for institutional onchain yield, with 21Shares among the pilot partners.",
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Fusion (by IPOR)",
+          handle: "ipor_io",
+          verified: true,
+          id: "2038960123066892489",
+          date: "Mar 31, 2026",
+          text: "Tesseract Selects Fusion for Institutional Vault Infrastructure, 21Shares Among Pilot Partners.\n\nTesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield.",
+          url: "https://x.com/ipor_io/status/2038960123066892489",
+        },
       },
       {
         type: "paragraph",
@@ -289,23 +301,19 @@ export const articles: Article[] = [
         type: "paragraph",
         text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies.",
       },
-      {
-        type: "source",
-        label: "Discover fusion.ipor.io",
-        url: "https://fusion.ipor.io",
-      },
     ],
   },
   {
     slug: "tesseract-selects-fusion-institutional-vault-infrastructure",
     title:
-      "Tesseract selects IPOR Fusion as onchain vault infrastructure for institutional clients",
+      "Tesseract Selects IPOR Fusion as Onchain Vault Infrastructure for Institutional Clients",
     excerpt:
-      "Tesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield — with 21Shares among the launch partners.",
+      "Tesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield, with 21Shares among the launch partners.",
     date: "2026-03-31",
     category: "Ecosystem",
-    author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
+    author: { name: "Fusion Team", handle: "ipor_io" },
     readingMinutes: 5,
+    coverImage: "/brand/tesseract-selects-fusion.png",
     body: [
       {
         type: "lead",
@@ -317,7 +325,7 @@ export const articles: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Tesseract is working with a select group of launch partners across asset management, custody, and institutional distribution, including 21Shares — one of the world's leading crypto ETP issuers with products listed across SIX, Deutsche Börse, Euronext, and the London Stock Exchange.",
+        text: "Tesseract is working with a select group of launch partners across asset management, custody, and institutional distribution, including 21Shares, one of the world's leading crypto ETP issuers with products listed across SIX, Deutsche Börse, Euronext, and the London Stock Exchange.",
       },
       {
         type: "paragraph",
