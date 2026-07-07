@@ -1,0 +1,91 @@
+---
+import type { Article } from "../data/articles";
+import { formatDate } from "../data/articles";
+
+interface Props {
+  article: Article;
+  featured?: boolean;
+}
+
+const { article, featured = false } = Astro.props;
+const href = `/news/${article.slug}`;
+---
+
+<a
+  href={href}
+  class:list={[
+    "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5",
+    featured ? "p-7 md:p-10" : "p-6 md:p-7",
+  ]}
+>
+  <!-- Meta row -->
+  <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+    <span
+      class="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-secondary-foreground"
+    >
+      {article.category}
+    </span>
+    <time
+      datetime={article.date}
+      class="text-[13px] text-muted-foreground"
+    >
+      {formatDate(article.date)}
+    </time>
+    <span class="text-[13px] text-muted-foreground/60">
+      &middot; {article.readingMinutes} min read
+    </span>
+  </div>
+
+  <!-- Title -->
+  <h3
+    class:list={[
+      "text-balance font-medium text-foreground transition-colors group-hover:text-primary",
+      featured ? "text-[22px] leading-snug md:text-[30px]" : "text-lg leading-snug md:text-xl",
+    ]}
+  >
+    {article.title}
+  </h3>
+
+  <!-- Excerpt -->
+  <p
+    class:list={[
+      "mt-3 flex-1 text-body-foreground",
+      featured ? "text-[15px] md:text-base" : "text-[14px]",
+    ]}
+    style="line-height: 1.7;"
+  >
+    {article.excerpt}
+  </p>
+
+  <!-- Footer -->
+  <div class="mt-6 flex items-center justify-between">
+    <div class="flex items-center gap-2 text-[13px] text-muted-foreground">
+      <span
+        class="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-[10px] font-semibold text-primary"
+        aria-hidden="true"
+      >
+        F
+      </span>
+      <span>{article.author.name}</span>
+    </div>
+    <span
+      class="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary"
+    >
+      Read article
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform duration-300 group-hover:translate-x-0.5"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </span>
+  </div>
+</a>
