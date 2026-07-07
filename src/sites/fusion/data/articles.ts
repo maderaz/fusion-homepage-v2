@@ -24,6 +24,8 @@ export type ArticleBlock =
 export interface Tweet {
   author: string;
   handle: string;
+  /** Show the blue verified checkmark next to the display name. */
+  verified?: boolean;
   date: string;
   text: string;
   url?: string;
@@ -65,12 +67,6 @@ export const articles: Article[] = [
         text: "Fusion congratulates Tesseract Investment Oy (@tesseractcrypto), the Helsinki-based MiCA-authorised CASP, on its integration with BitGo Bank & Trust, N.A. (“BitGo Bank & Trust”), an OCC-regulated digital asset trust bank and subsidiary of BitGo Holdings, Inc. (NYSE: BTGO) (“BitGo”).",
       },
       {
-        type: "source",
-        label:
-          "BitGo Launches Institutional DeFi Access to Aave, Spark and Tesseract Through Narval Integration",
-        url: "https://www.businesswire.com/news/home/20260609049680/en/BitGo-Launches-Institutional-DeFi-Access-to-Aave-Spark-and-Tesseract-Through-Narval-Integration",
-      },
-      {
         type: "paragraph",
         text: "Eligible institutions can now allocate to Tesseract's Dedicated Client Vaults, powered by Fusion's vault infrastructure, directly from BitGo qualified custody, while their assets stay inside the custodial perimeter.",
       },
@@ -92,8 +88,10 @@ export const articles: Article[] = [
         tweet: {
           author: "Fusion (by IPOR)",
           handle: "ipor_io",
-          date: "Mar 31",
+          verified: true,
+          date: "Mar 31, 2026",
           text: "Tesseract Selects Fusion for Institutional Vault Infrastructure — 21Shares Among Pilot Partners\n\nTesseract Investment Oy, a Helsinki-based digital asset service provider (est. 2017, MiCA-authorised CASP), has selected Fusion as its onchain vault infrastructure for institutional onchain yield…",
+          url: "https://x.com/ipor_io/status/2038960123066892489",
         },
       },
       {
@@ -105,22 +103,6 @@ export const articles: Article[] = [
         text: "As the infrastructure beneath these vaults, Fusion provides the per-client isolation, deterministic risk enforcement, and onchain transparency that let a custodian and a compliance team stand behind an onchain mandate. The work of assembling this custody route belongs to Tesseract, BitGo, and Narval.",
       },
       {
-        type: "tweet",
-        tweet: {
-          author: "James Harris",
-          handle: "jemharris11",
-          date: "Jun 9",
-          text: "Really pleased to share this one.\n\nTesseract is live today as a launch partner in @BitGo's DeFi gateway, built with @Narvalgmi, alongside @aave and @sparkdotfi.\n\nBitGo clients can now allocate to a Dedicated Client Vault (powered by @ipor_io) straight from custody. Huge…",
-          quoted: {
-            author: "BitGo",
-            handle: "BitGo",
-            date: "Jun 9",
-            text: "BitGo now integrates @Narvalgmi's DeFi Gateway, giving institutional clients secure access to @Aave, @sparkdotfi, and @tesseractcrypto directly from qualified custody.\n\nZero blind signing. Full transaction verification. Institutional DeFi, done right. 👇",
-            url: "https://www.businesswire.com/news/home/20260609049680/en/BitGo-Launches-Institutional-DeFi-Access-to-Aave-Spark-and-Tesseract-Through-Narval-Integration",
-          },
-        },
-      },
-      {
         type: "pullquote",
         text: "Congratulations to James and the Tesseract team on being selected by BitGo for its institutional DeFi gateway, alongside industry giants Aave and Spark. This widens the path for institutional capital to allocate onchain at scale. Fusion powers Tesseract's Dedicated Client Vaults: per-client isolation, deterministic risk enforcement, and onchain transparency. We are ready to support every partner involved.",
         author: "Darren Camas",
@@ -129,6 +111,11 @@ export const articles: Article[] = [
       {
         type: "paragraph",
         text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies.",
+      },
+      {
+        type: "source",
+        label: "Discover fusion.ipor.io",
+        url: "https://fusion.ipor.io",
       },
     ],
   },
