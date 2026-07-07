@@ -66,6 +66,80 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "base-rewards-fusion-strategies-anchorage-digital",
+    title:
+      "Base Rewards Now Live for Select Fusion Strategies via Anchorage Digital",
+    excerpt:
+      "From 29 June, wallets that reach select Fusion strategies on Base through the Porto by Anchorage Digital portal may earn Base-supported rewards in cbETH via Merkl, on top of each strategy's onchain results.",
+    date: "2026-06-29",
+    category: "Incentives",
+    author: { name: "Fusion Team", handle: "ipor_io" },
+    readingMinutes: 3,
+    coverImage: "/brand/anchorage-base-rewards.png",
+    body: [
+      {
+        type: "lead",
+        text: "Starting today at 4PM UTC, wallets that access select Fusion strategies on Base Network through the Porto by @Anchorage Digital Web3 portal may be eligible to receive @base supported rewards, distributed through Merkl, in addition to each strategy's onchain results.",
+      },
+      { type: "heading", text: "Who is eligible" },
+      {
+        type: "paragraph",
+        text: "Users who allocate to eligible Fusion strategies on Base through the Porto by Anchorage Digital web3 portal in the client web dashboard.",
+      },
+      {
+        type: "paragraph",
+        text: "A wallet may be eligible to receive rewards for as long as it remains allocated to an eligible strategy, and the amount depends on the size of the allocation and the prevailing target and program conditions, both of which can vary.",
+      },
+      {
+        type: "paragraph",
+        text: "There is no minimum allocation to take part. Eligibility applies across all allocation sizes.",
+      },
+      { type: "heading", text: "Eligible strategies" },
+      {
+        type: "list",
+        items: [
+          "[TAU cbETH Dynamic Looping](https://app.ipor.io/fusion/base/0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8)",
+          "[Base ETH Lending Optimizer](https://app.ipor.io/fusion/base/0x17d0f109ee895bad0b68aa104aa72bd0b003ad8e)",
+          "[Autopilot WETH Base](https://app.ipor.io/fusion/base/0x7872893e528fe2c0829e405960db5b742112aa97)",
+          "[Base cbETH Loooper](https://app.ipor.io/fusion/base/0x5900c3b72458f12967dc1bef35b92d271f5cdbc1)",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "This list can expand. New additions are marked with the [base] badge under the incentives column in the Fusion app.",
+      },
+      { type: "heading", text: "Rewards" },
+      {
+        type: "list",
+        items: [
+          "**Reward asset:** rewards are paid in cbETH.",
+          "**Reward size:** a capped reward rate of up to 0.5% across the eligible strategies, applied on top of each strategy's onchain performance.",
+          "**Funding:** rewards launch with an initial budget of 5,000 USD equivalent in cbETH and scale up from 25 July in line with participation growth.",
+        ],
+      },
+      { type: "heading", text: "Duration" },
+      {
+        type: "paragraph",
+        text: "The program's first phase runs from 29 June 2026, 4PM UTC through 25 July 2026. From 25 July the program is set to scale up in line with participation. Daily participation spend can be monitored through the Merkl portal.",
+      },
+      { type: "heading", text: "How to participate" },
+      {
+        type: "paragraph",
+        text: "Access eligible Fusion strategies on Base through the Porto by Anchorage Digital ecosystem. Anchorage Digital routes participants to a dedicated section of the Fusion app that lists eligible strategies only.",
+      },
+      { type: "heading", text: "How to claim" },
+      {
+        type: "paragraph",
+        text: "Rewards are claimed through the independent platform @merkl_xyz at [app.merkl.xyz/users](https://app.merkl.xyz/users). Rewards start accruing within the first 24 hours after allocation.",
+      },
+      { type: "heading", text: "Important notes" },
+      {
+        type: "paragraph",
+        text: "Rewards are variable and not guaranteed. The effective rate depends on total participating TVL and remaining budget. The onchain risks of the underlying strategy remain separate from these rewards.",
+      },
+    ],
+  },
+  {
     slug: "fusion-automates-aave-yield-cbeth-looping",
     title:
       "Turning cbETH's 2.75% Native Yield to 15% on Aave with Fusion Automation",
