@@ -18,6 +18,19 @@ const href = `/news/${article.slug}`;
     featured ? "p-7 md:p-10" : "p-6 md:p-7",
   ]}
 >
+  {article.coverImage && (
+    <img
+      src={article.coverImage}
+      alt={article.title}
+      width="1200"
+      height="480"
+      loading="lazy"
+      decoding="async"
+      class="mb-5 w-full rounded-xl border border-border object-cover"
+      style="aspect-ratio: 5 / 2;"
+    />
+  )}
+
   <!-- Meta row -->
   <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
     <span

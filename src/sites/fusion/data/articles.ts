@@ -54,6 +54,12 @@ export interface Article {
   };
   /** Approximate reading time in minutes. */
   readingMinutes: number;
+  /**
+   * Optional cover image (absolute path under `/public`). Used at the top of
+   * the article page, as the news-card thumbnail, and as the article's social
+   * share image.
+   */
+  coverImage?: string;
   body: ArticleBlock[];
 }
 
@@ -68,6 +74,7 @@ export const articles: Article[] = [
     category: "Ecosystem",
     author: { name: "Fusion (by IPOR)", handle: "ipor_io" },
     readingMinutes: 4,
+    coverImage: "/brand/bitgo-announcement.png",
     body: [
       {
         type: "lead",

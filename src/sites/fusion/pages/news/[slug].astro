@@ -75,7 +75,13 @@ await Promise.all(
 );
 ---
 
-<BaseLayout title={`${article.title} | Fusion by IPOR`} description={article.excerpt}>
+<BaseLayout
+  title={`${article.title} | Fusion by IPOR`}
+  description={article.excerpt}
+  image={article.coverImage}
+  imageWidth={article.coverImage ? 1200 : undefined}
+  imageHeight={article.coverImage ? 480 : undefined}
+>
   <Nav />
   <div class="min-h-screen bg-background">
     <!-- Ambient brand glow behind the header -->
@@ -150,6 +156,18 @@ await Promise.all(
             </div>
           </div>
         </header>
+
+        {article.coverImage && (
+          <img
+            src={article.coverImage}
+            alt={article.title}
+            width="1200"
+            height="480"
+            decoding="async"
+            class="mb-10 w-full rounded-2xl border border-border object-cover"
+            style="aspect-ratio: 5 / 2;"
+          />
+        )}
 
         <!-- Body -->
         <div class="flex flex-col">
