@@ -43,7 +43,7 @@ const author = article.author;
 type Run = { t: "text" | "mention" | "hashtag" | "link"; v: string };
 function tweetRuns(text: string): Run[] {
   const runs: Run[] = [];
-  const re = /(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+|https?:\/\/[^\s]+)/g;
+  const re = /(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+|https?:\/\/[^\s)]+)/g;
   let last = 0;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
@@ -157,14 +157,18 @@ await Promise.all(
             if (block.type === "lead") {
               return (
                 <p class="mb-7 text-balance text-[18px] font-normal text-foreground md:text-[20px]" style="line-height: 1.6;">
-                  {block.text}
+                  {tweetRuns(block.text).map((r) => r.t === "text"
+                    ? r.v
+                    : <a href={runHref(r)} target="_blank" rel="noopener noreferrer" class="text-primary underline-offset-2 hover:underline">{r.v}</a>)}
                 </p>
               );
             }
             if (block.type === "paragraph") {
               return (
                 <p class="mb-6 text-[16px] text-body-foreground" style="line-height: 1.8;">
-                  {block.text}
+                  {tweetRuns(block.text).map((r) => r.t === "text"
+                    ? r.v
+                    : <a href={runHref(r)} target="_blank" rel="noopener noreferrer" class="text-primary underline-offset-2 hover:underline">{r.v}</a>)}
                 </p>
               );
             }

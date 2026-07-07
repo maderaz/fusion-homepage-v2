@@ -88,7 +88,7 @@ export const articles: Article[] = [
       { type: "heading", text: "Context" },
       {
         type: "paragraph",
-        text: "In March 2026, Tesseract announced it had selected Fusion to power its Dedicated Client Vaults for institutional onchain yield, with 21Shares among the pilot partners.",
+        text: "In March 2026, Tesseract announced it had selected Fusion to power its Dedicated Client Vaults for institutional onchain yield, with 21Shares among the pilot partners (https://x.com/ipor_io/status/2038960123066892489).",
       },
       {
         type: "paragraph",
@@ -97,22 +97,6 @@ export const articles: Article[] = [
       {
         type: "paragraph",
         text: "As the infrastructure beneath these vaults, Fusion provides the per-client isolation, deterministic risk enforcement, and onchain transparency that let a custodian and a compliance team stand behind an onchain mandate. The work of assembling this custody route belongs to Tesseract, BitGo, and Narval.",
-      },
-      {
-        type: "paragraph",
-        text: "The throughline is a simple thesis: vaults are infrastructure, meant to be distributed wherever institutional capital already lives — from qualified custody to wallets, wealth managers and traditional fund wrappers.",
-      },
-      {
-        type: "tweet",
-        tweet: {
-          author: "Fusion (by IPOR)",
-          handle: "ipor_io",
-          verified: true,
-          id: "1978070150818521291",
-          date: "Oct 14, 2025",
-          text: "Fusion. Everywhere.\n\nFusion is infrastructure. Vaults are funds, structured products, and yield accounts. They don't have to live in Fusion's app, they can be:\n\n🔸 Embedded into Web3 wallets.\n🔸 Distributed through RIAs and wealth managers.\n🔸 Wrapped into traditional funds.",
-          url: "https://x.com/ipor_io/status/1978070150818521291",
-        },
       },
       {
         type: "pullquote",
