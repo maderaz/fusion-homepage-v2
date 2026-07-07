@@ -1,34 +1,28 @@
 ## Project Overview
 
-This repository contains two websites sharing a common codebase:
-
-- **fusion.ipor.io** — Fusion product landing page
-- **ipor.io** — IPOR main website (single-page)
+This repository contains the **fusion.ipor.io** landing page — the Fusion by IPOR product homepage.
 
 ## Tech Stack
 
 - **Framework**: Astro 5 (static site generation) with React islands for interactive components
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/vite`
 - **Animations**: Motion (formerly Framer Motion) in React islands
-- **Build**: Dual Astro configs with separate `srcDir`/`outDir` per site
-- **Deployment**: AWS Amplify via GitHub Actions
+- **Build**: Astro static build → `dist/`
+- **Deployment**: Vercel
 - **Testing**: Vitest + Testing Library
 
 ## Architecture
 
-- `src/shared/` — Code shared across both sites (components, layouts, styles, data)
+- `src/shared/` — Shared code (components, layouts, styles, data)
 - `src/sites/fusion/` — Fusion site (fusion.ipor.io) pages, components, React islands
-- `src/sites/ipor/` — IPOR site (ipor.io) pages and components
 - `src/integrations/` — Custom Astro integrations (CSP fix)
-- `public/` — Static assets shared by both sites
+- `public/` — Static assets
 
 ### Build Commands
 
-- `npm run build:fusion` — Build fusion.ipor.io → `dist/`
-- `npm run build:ipor` — Build ipor.io → `dist/`
-- `npm run build` — Build both sites
-- `npm run dev:fusion` — Dev server for fusion (port 4321)
-- `npm run dev:ipor` — Dev server for ipor (port 4322)
+- `npm run build` — Build fusion.ipor.io → `dist/`
+- `npm run dev` — Dev server (port 4321)
+- `npm run preview` — Preview the built site
 
 ## Theme System
 

@@ -1,9 +1,6 @@
 import { defineConfig } from "@playwright/test";
 
-const site = process.env.SITE || "fusion";
-
-const buildCommand =
-  site === "fusion" ? "npm run build:fusion" : "npm run build:ipor";
+const buildCommand = "npm run build:fusion";
 
 export default defineConfig({
   fullyParallel: true,
@@ -23,15 +20,6 @@ export default defineConfig({
     {
       name: "fusion",
       testDir: "./tests/visual/fusion",
-      use: {
-        baseURL: "http://localhost:4567",
-        browserName: "chromium",
-        viewport: { width: 1280, height: 720 },
-      },
-    },
-    {
-      name: "ipor",
-      testDir: "./tests/visual/ipor",
       use: {
         baseURL: "http://localhost:4567",
         browserName: "chromium",

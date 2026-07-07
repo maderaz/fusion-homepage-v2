@@ -4,27 +4,9 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import cspStyleFix from "./src/integrations/csp-style-fix";
 
-const site = process.env.SITE || "fusion";
-
-const sites = {
-  fusion: {
-    url: "https://fusion.ipor.io",
-    integrations: [react(), sitemap(), cspStyleFix()],
-  },
-  ipor: {
-    url: "https://ipor.io",
-    integrations: [sitemap(), cspStyleFix()],
-  },
-};
-
-const current = sites[site];
-if (!current) {
-  throw new Error(`Unknown SITE="${site}". Use "fusion" or "ipor".`);
-}
-
 export default defineConfig({
-  site: current.url,
-  srcDir: `./src/sites/${site}`,
+  site: "https://fusion.ipor.io",
+  srcDir: "./src/sites/fusion",
   outDir: "./dist",
   output: "static",
   security: {
@@ -42,7 +24,7 @@ export default defineConfig({
       },
     },
   },
-  integrations: current.integrations,
+  integrations: [react(), sitemap(), cspStyleFix()],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
