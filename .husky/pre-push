@@ -1,0 +1,5 @@
+npm run knip
+npm run lint
+npm test
+npm run build
+npm run test:visual

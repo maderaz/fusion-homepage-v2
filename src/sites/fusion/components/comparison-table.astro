@@ -1,0 +1,161 @@
+---
+import { IconIsland } from "../app/components/ui/icon-island";
+
+const rows = [
+  { feature: "Strategy gating", icon: "shield", fusion: "Smart contract enforced, transparent onchain", merkle: "Proof enforced, opaque and sidechain/offchain" },
+  { feature: "Trust assumptions", icon: "lock", fusion: "Trust minimized", merkle: "Trust minimized but opaque" },
+  { feature: "Onchain transparency", icon: "transparency", fusion: "Assets, actions, markets", merkle: "Execution result only" },
+  { feature: "Operations: Execution", icon: "fuse", fusion: "Flexible, adaptable", merkle: "Rigid, Proof must be updated for any change" },
+  { feature: "Operations: Speed", icon: "speed", fusion: "On the fly", merkle: "Governance latency" },
+  { feature: "Composability", icon: "vault", fusion: "Administrative, onchain configured", merkle: "Administrative heavy, prepare proof and verify" },
+  { feature: "Technical expertise", icon: "builder", fusion: "No smart contract experience required for strategy iteration", merkle: "Each path requires a merkle proof, explosion of paths means operational bloat" },
+  { feature: "IP Protection", icon: "energy", fusion: "IP can be fully protected within bespoke execution logic", merkle: "IP is either fully opaque to all parties, or fully disclosed once proof is exposed" },
+  { feature: "Risk management", icon: "chart", fusion: "Adaptable and agile", merkle: "Rigid and time consuming requiring proof updates (admin coordination)" },
+  { feature: "Security", icon: "network", fusion: "Fuses are modular and reusable pieces, secure and fast to market", merkle: "Each path requires a new risk surface assessment" },
+];
+---
+
+<section id="comparison-table" class="relative py-12 md:py-32 overflow-hidden">
+  <!-- Purple glow on sides -->
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -left-40 top-1/2 -translate-y-1/2 h-[500px] w-[400px] rounded-full bg-primary/[0.07] blur-[120px]"></div>
+    <div class="absolute -right-40 top-1/2 -translate-y-1/2 h-[500px] w-[400px] rounded-full bg-primary/[0.07] blur-[120px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-[1200px] px-6">
+    <!-- Header -->
+    <div class="mb-10 text-center">
+      <p
+        class="mb-4 text-[13px] font-medium uppercase text-primary"
+        style="letter-spacing: 0.05em;"
+      >
+        Better by Design
+      </p>
+      <h2
+        class="mb-5 font-medium text-balance text-foreground"
+        style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+      >
+        How Fusion Vaults <span class="text-primary">outperform</span> the alternative.
+      </h2>
+      <p class="mx-auto max-w-lg text-lg leading-relaxed text-muted-foreground">
+        Merkle proof vaults were a first step. Fusion is the leap forward:
+        transparent, composable, and built for speed.
+      </p>
+    </div>
+
+    <!-- Desktop table -->
+    <div
+      role="table"
+      aria-label="Fusion vs Merkle Proof Vaults comparison"
+      class="hidden md:block rounded-2xl border overflow-hidden bg-card border-border"
+    >
+      <!-- Header row -->
+      <div role="row" class="grid grid-cols-[240px_1fr_1fr] border-b border-border">
+        <div role="columnheader" class="p-5 bg-background"></div>
+        <div role="columnheader" class="flex items-center justify-center gap-3 p-5 border-l bg-background border-border">
+          <img
+            src="/brand/full-logo/fusion-full-logo-black-text.svg"
+            alt="Fusion by IPOR"
+            class="h-7 w-auto object-contain block dark:hidden"
+            loading="lazy"
+            width="91"
+            height="28"
+          />
+          <img
+            src="/brand/full-logo/fusion-full-logo-white-text.svg"
+            alt="Fusion by IPOR"
+            class="h-7 w-auto object-contain hidden dark:block"
+            loading="lazy"
+            width="91"
+            height="28"
+          />
+        </div>
+        <div role="columnheader" class="flex items-center justify-center p-5 border-l bg-background border-border">
+          <span class="text-[15px] font-semibold text-muted-foreground">
+            Merkle Proof Vaults
+          </span>
+        </div>
+      </div>
+
+      <!-- Data rows -->
+      {rows.map((row, i) => (
+        <div
+          role="row"
+          class={`grid grid-cols-[240px_1fr_1fr] transition-colors hover:bg-accent${i < rows.length - 1 ? " border-b border-border" : ""}`}
+        >
+          <!-- Feature name with icon -->
+          <div role="cell" class="flex items-center gap-3 p-5">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-[0.75px] border-border bg-secondary text-primary">
+              <IconIsland client:visible name={row.icon} size={20} />
+            </div>
+            <span
+              class="text-[13px] font-semibold text-foreground"
+              style="line-height: 1.4;"
+            >
+              {row.feature}
+            </span>
+          </div>
+          <!-- Fusion value -->
+          <div role="cell" class="flex items-center gap-3 p-5 border-l bg-primary/[0.03] border-border">
+            <svg class="h-4 w-4 shrink-0 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+            <span class="text-[13px] text-body-foreground" style="line-height: 1.5;">
+              {row.fusion}
+            </span>
+          </div>
+          <!-- Merkle value -->
+          <div role="cell" class="flex items-center gap-3 p-5 border-l border-border">
+            <svg class="h-4 w-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            <span class="text-[13px] text-muted-foreground" style="line-height: 1.5;">
+              {row.merkle}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile card layout -->
+    <div class="md:hidden space-y-4">
+      {rows.map((row) => (
+        <div class="rounded-xl border overflow-hidden bg-card border-border">
+          <!-- Feature label with icon -->
+          <div class="flex items-center gap-3 px-5 py-3 border-b bg-background border-border">
+            <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border-[0.75px] border-border bg-secondary text-primary">
+              <IconIsland client:visible name={row.icon} size={20} />
+            </div>
+            <span class="text-[13px] font-semibold text-foreground">
+              {row.feature}
+            </span>
+          </div>
+          <!-- Fusion -->
+          <div class="flex items-start gap-3 px-5 py-4 border-b bg-primary/[0.03] border-border">
+            <div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
+              <svg class="h-3 w-3 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+            </div>
+            <div>
+              <span class="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-primary">
+                Fusion
+              </span>
+              <span class="text-[13px] text-body-foreground" style="line-height: 1.5;">
+                {row.fusion}
+              </span>
+            </div>
+          </div>
+          <!-- Merkle -->
+          <div class="flex items-start gap-3 px-5 py-4">
+            <div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-border">
+              <svg class="h-3 w-3 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            </div>
+            <div>
+              <span class="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Merkle Proof
+              </span>
+              <span class="text-[13px] text-muted-foreground" style="line-height: 1.5;">
+                {row.merkle}
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

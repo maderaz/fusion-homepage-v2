@@ -1,0 +1,76 @@
+---
+// Pure static template — zero client-side JavaScript
+import { Image } from "astro:assets";
+import aaveLogo from "@/shared/assets/logos/aave.png";
+import morphoLogo from "@/shared/assets/logos/morpho.png";
+import uniswapLogo from "@/shared/assets/logos/uniswap.png";
+import compoundLogo from "@/shared/assets/logos/compound.png";
+import pendleLogo from "@/shared/assets/logos/pendle.png";
+import moreProtocolsLogo from "@/shared/assets/logos/more-protocols.png";
+
+const protocols = [
+  { name: "Aave V3", logo: aaveLogo, scale: 0.8 },
+  { name: "Morpho", logo: morphoLogo, scale: 0.9 },
+  { name: "Uniswap", logo: uniswapLogo, scale: 0.99 },
+  { name: "Compound", logo: compoundLogo, scale: 1 },
+  { name: "Pendle", logo: pendleLogo, scale: 1 },
+  { name: "More Protocols", logo: moreProtocolsLogo, scale: 1 },
+];
+---
+
+<section id="trust-bar" class="py-8 md:py-16">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <!-- Header -->
+    <div class="mb-10 text-center">
+      <h2
+        class="mb-5 text-balance text-foreground font-medium"
+        style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+      >
+        Plug & Play
+      </h2>
+      <p
+        class="mx-auto max-w-md text-lg text-muted-foreground leading-relaxed"
+      >
+        Connect to leading onchain liquidity protocols through composable
+        fuse modules.
+      </p>
+    </div>
+
+    <!-- Grid: 3 columns, 2 rows -->
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+      {protocols.map((p) => (
+        <a
+          href="https://github.com/IPOR-Labs/ipor-fusion/tree/main/contracts/fuses"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative flex items-center justify-center rounded-xl border px-6 py-8 transition-all duration-300 border-border bg-card hover:border-primary/30 hover:bg-accent"
+        >
+          <!-- Arrow top-right -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="absolute top-3 right-3 size-4 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 text-primary"
+          >
+            <path d="M7 7h10v10" />
+            <path d="M7 17 17 7" />
+          </svg>
+          <Image
+            src={p.logo}
+            alt={p.name}
+            class="w-auto object-contain transition-all duration-300 brightness-0 opacity-60 group-hover:opacity-90 dark:invert"
+            height={Math.round(28 * p.scale)}
+            loading="lazy"
+            densities={[1, 2]}
+          />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

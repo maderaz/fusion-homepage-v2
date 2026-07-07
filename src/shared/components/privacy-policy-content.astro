@@ -1,0 +1,132 @@
+---
+const sections = [
+  {
+    title: "What We Collect",
+    content: ["When you interact with our Services, we may collect:"],
+    bullets: [
+      "Your cryptocurrency address and associated information, such as transaction history, trading data and associated fees paid;",
+      "Information related to your use of the Services, such as geographic location, operating system, browser name and version, and/or IP addresses; and",
+      "Information from cookies and other tracking technologies to identify your preferences, track the use of our Services, and collect information about the use of the Services.",
+    ],
+  },
+  {
+    title: "How We Use Information",
+    content: [
+      "We may use the information we collect to provide, maintain, and improve our Services, or to comply with applicable laws and regulations. We may also use the information we collect to investigate or address claims or disputes relating to use of our Services, or as otherwise allowed by applicable law, or as requested by regulators, government entities, and official inquiries.",
+    ],
+  },
+  {
+    title: "How We Share & Disclose Information",
+    content: [
+      "We do not sell, trade, or otherwise transfer your information to outside parties. This does not include trusted third parties who assist us in operating our site, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our policies, or protect ours or others' rights, property, or safety.",
+    ],
+  },
+  {
+    title: "Third Party Links",
+    content: [
+      "Occasionally, at our discretion, we may include or offer third party products or services. These third-party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.",
+    ],
+  },
+  {
+    title: "Changes to This Policy",
+    content: [
+      "If we make any changes to this Policy, we will post those changes on this page. All modifications will be effective when posted, and your continued use of the Services will serve as acceptance of those modifications.",
+    ],
+  },
+  {
+    title: "Questions",
+    content: [
+      "If you have any questions about this Policy, you may contact us at privacy@ipor.io.",
+    ],
+  },
+];
+---
+
+<div class="min-h-screen bg-background">
+  <main class="mx-auto max-w-[1200px] px-6 pt-32 pb-20 md:pt-40 md:pb-28">
+    <!-- Back link -->
+    <a
+      href="/"
+      class="mb-8 inline-flex items-center gap-2 text-[14px] transition-colors text-muted-foreground hover:text-foreground"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </svg>
+      Back to Home
+    </a>
+
+    <!-- Header -->
+    <h1
+      class="mb-3 text-foreground font-medium"
+      style="font-size: clamp(28px, 4vw, 42px); line-height: 1.2;"
+    >
+      Privacy Policy
+    </h1>
+    <p class="mb-12 text-[14px] text-muted-foreground">
+      Last updated: 2026-03-23
+    </p>
+
+    <!-- Intro -->
+    <p class="mb-10 max-w-[800px] text-[15px] text-muted-foreground leading-[1.8]">
+      This Privacy Policy (&ldquo;Policy&rdquo;) sets out how IPOR Labs AG
+      (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) may
+      collect, use and disclose information, and your choices when you use
+      our services hosted at app.ipor.io, fusion.ipor.io, or any other sites
+      or services we own or operate (collectively, the
+      &ldquo;Services&rdquo;). If you do not agree with the terms of this
+      Policy, please do not access or use the Services.
+    </p>
+
+    <!-- Sections -->
+    <div class="flex flex-col gap-10 max-w-[800px]">
+      {sections.map((section) => (
+        <div>
+          <h2
+            class="mb-4 text-foreground font-medium"
+            style="font-size: 20px; line-height: 1.3;"
+          >
+            {section.title}
+          </h2>
+          {section.content.map((p) => (
+            <p class="text-[15px] text-muted-foreground leading-[1.8]">
+              {section.title === "Questions" ? (
+                <>
+                  If you have any questions about this Policy, you may
+                  contact us at{" "}
+                  <a
+                    href="mailto:privacy@ipor.io"
+                    class="text-primary hover:underline"
+                  >
+                    privacy@ipor.io
+                  </a>.
+                </>
+              ) : (
+                p
+              )}
+            </p>
+          ))}
+          {section.bullets && (
+            <ul class="mt-3 flex flex-col gap-2 pl-5">
+              {section.bullets.map((b) => (
+                <li class="text-[15px] list-disc text-muted-foreground leading-[1.8]">
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </main>
+</div>

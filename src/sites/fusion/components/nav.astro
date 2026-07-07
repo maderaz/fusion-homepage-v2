@@ -1,0 +1,268 @@
+---
+const menuItems = [
+  { name: "How It Works", href: "#how-it-works" },
+  { name: "Solutions", href: "#solutions" },
+  { name: "Security", href: "#security" },
+  { name: "Docs", href: "https://docs.ipor.io/" },
+  { name: "For Institutions", href: "https://docs.ipor.io/fusion-for-institutions" },
+];
+---
+
+<header>
+  <nav
+    id="main-nav"
+    class="group fixed z-20 w-full transition-all duration-300 bg-background/80 backdrop-blur-2xl"
+  >
+    <div class="mx-auto max-w-[1200px] px-6 transition-all duration-300">
+      <div
+        id="nav-inner"
+        class="relative flex flex-wrap items-center justify-between gap-6 border-b border-transparent py-4 transition-all duration-300 lg:gap-0 min-h-[60px]"
+      >
+        <!-- Left: logo + desktop nav -->
+        <div class="flex w-full items-center justify-between gap-12 lg:w-auto">
+          <a href="/" aria-label="home" class="flex items-center">
+            <img
+              src="/brand/full-logo/fusion-full-logo-black-text.svg"
+              alt="Fusion by IPOR"
+              class="h-8 w-auto object-contain block dark:hidden"
+              width="105"
+              height="32"
+            />
+            <img
+              src="/brand/full-logo/fusion-full-logo-white-text.svg"
+              alt="Fusion by IPOR"
+              class="h-8 w-auto object-contain hidden dark:block"
+              width="105"
+              height="32"
+            />
+          </a>
+
+          <!-- Mobile hamburger -->
+          <button
+            id="menu-toggle"
+            aria-label="Open Menu"
+            aria-expanded="false"
+            class="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+          >
+            <svg
+              id="icon-menu"
+              class="m-auto size-6 duration-200 text-black/70 dark:text-white/70"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+            <svg
+              id="icon-close"
+              class="absolute inset-0 m-auto size-6 duration-200 text-black/70 dark:text-white/70 hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+
+          <!-- Desktop links -->
+          <div class="hidden lg:block">
+            <ul class="flex gap-2 text-[15px]">
+              {menuItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="block rounded-lg px-3 py-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent hover:text-foreground"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right: CTA + mobile dropdown -->
+        <div
+          id="nav-dropdown"
+          class="mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-2xl border p-6 shadow-2xl md:flex-nowrap border-black/[0.06] bg-card shadow-black/5 dark:border-border dark:bg-card dark:shadow-black/30 lg:m-0 lg:flex lg:w-fit lg:gap-4 lg:space-y-0 lg:!border-0 lg:!bg-transparent lg:p-0 lg:!shadow-none"
+        >
+          <!-- Mobile links -->
+          <div class="lg:hidden">
+            <ul class="space-y-2 text-base">
+              {menuItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="nav-mobile-link block rounded-lg px-3 py-2.5 text-muted-foreground transition-all duration-300 hover:bg-accent hover:text-foreground"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex w-full flex-col gap-3 lg:w-fit lg:flex-row lg:items-center">
+            <!-- Theme toggle -->
+            <button
+              id="theme-toggle"
+              aria-label="Toggle theme"
+              class="flex items-center justify-center rounded-full border p-2 transition-all duration-300 border-[#9BA3AF] text-muted-foreground hover:bg-[#EFEFEF] hover:text-foreground dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
+            >
+              <!-- Sun icon (shown in dark mode) -->
+              <svg
+                class="size-[18px] hidden dark:block"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+              <!-- Moon icon (shown in light mode) -->
+              <svg
+                class="size-[18px] block dark:hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
+            </button>
+
+            <!-- Secondary button: Build -->
+            <a
+              href="https://docs.ipor.io/build-on-fusion"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex w-full items-center justify-center rounded-full border px-5 py-2 text-sm transition-all duration-300 lg:w-auto border-[#9BA3AF] text-black hover:bg-[#EFEFEF] dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
+            >
+              Build
+            </a>
+
+            <!-- Primary button: Launch App -->
+            <a
+              href="https://app.ipor.io/fusion"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="nav-mobile-link brand-gradient inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary px-5 py-2 text-sm font-semibold text-white lg:w-auto transition-opacity duration-300 hover:opacity-70"
+            >
+              <span>Launch App</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu backdrop -->
+  <div id="menu-backdrop" class="fixed inset-0 z-10 lg:hidden hidden"></div>
+</header>
+
+<script>
+  const navInner = document.getElementById("nav-inner")!;
+  const menuToggle = document.getElementById("menu-toggle")!;
+  const iconMenu = document.getElementById("icon-menu")!;
+  const iconClose = document.getElementById("icon-close")!;
+  const dropdown = document.getElementById("nav-dropdown")!;
+  const backdrop = document.getElementById("menu-backdrop")!;
+  const themeToggle = document.getElementById("theme-toggle")!;
+  const mobileLinks = document.querySelectorAll(".nav-mobile-link");
+
+  let menuOpen = false;
+
+  function setMenu(open: boolean) {
+    menuOpen = open;
+    menuToggle.setAttribute("aria-label", open ? "Close Menu" : "Open Menu");
+    menuToggle.setAttribute("aria-expanded", String(open));
+    iconMenu.classList.toggle("hidden", open);
+    iconClose.classList.toggle("hidden", !open);
+
+    if (open) {
+      dropdown.classList.remove("hidden");
+      dropdown.classList.add("block");
+      backdrop.classList.remove("hidden");
+    } else {
+      dropdown.classList.add("hidden");
+      dropdown.classList.remove("block");
+      backdrop.classList.add("hidden");
+    }
+
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
+  menuToggle.addEventListener("click", () => setMenu(!menuOpen));
+  backdrop.addEventListener("click", () => setMenu(false));
+  mobileLinks.forEach((link) =>
+    link.addEventListener("click", () => setMenu(false)),
+  );
+
+  // Scroll detection for bottom border
+  window.addEventListener(
+    "scroll",
+    () => {
+      navInner.classList.toggle("border-border/50", window.scrollY > 50);
+    },
+    { passive: true },
+  );
+
+  // Theme toggle
+  themeToggle.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", !isDark);
+    try {
+      localStorage.setItem("fusion-theme", isDark ? "light" : "dark");
+    } catch {
+      /* localStorage unavailable */
+    }
+  });
+</script>

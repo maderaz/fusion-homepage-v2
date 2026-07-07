@@ -1,0 +1,66 @@
+name: Test webapp
+
+on:
+  workflow_call:
+
+    inputs:
+      node-version:
+        description: 'NodeJS version'
+        type: string
+        default: 22.14.0
+        required: false
+
+      build-enabled:
+        description: 'Enable build'
+        type: boolean
+        default: true
+        required: false
+
+      tests-enabled:
+        description: 'Enable React tests'
+        type: boolean
+        default: true
+        required: false
+
+      ci-env-var:
+        description: 'Set CI env variable value'
+        type: boolean
+        default: false
+        required: false
+
+jobs:
+  webapp:
+    runs-on:
+      group: ubuntu-8-core-32gb-ram
+    steps:
+      - name: Checkout
+        # from tag: v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Set up node
+        # from tag: v6.3.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Dead code check
+        if: inputs.tests-enabled
+        run: npm run knip
+
+      - name: Tests
+        if: inputs.tests-enabled
+        run: npm test
+
+      - name: Build
+        if: inputs.build-enabled
+        run: npm run build
+        env:
+          CI: ${{ inputs.ci-env-var }}
+
+      # Visual regression tests disabled in CI — snapshot font rendering
+      # differs between macOS (local) and Linux (CI). Run locally only.
+      # TODO: re-enable once snapshots are generated via Playwright Docker.

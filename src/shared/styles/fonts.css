@@ -1,0 +1,58 @@
+/* Poppins */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-600.woff2") format("woff2");
+}
+
+/* Source Sans Pro */
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/source-sans-pro-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/source-sans-pro-latin-600.woff2") format("woff2");
+}
+
+/* JetBrains Mono */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin-500.woff2") format("woff2");
+}

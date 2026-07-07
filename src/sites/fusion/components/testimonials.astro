@@ -1,0 +1,154 @@
+---
+// Pure static template — minimal client-side JavaScript for image fallback
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import jamesAvatar from "@/shared/assets/avatars/james.png";
+import vladAvatar from "@/shared/assets/avatars/vlad.png";
+import nickAvatar from "@/shared/assets/avatars/nick.png";
+import tesseractLogo from "@/shared/assets/logos/tesseract.png";
+import tauLabsLogo from "@/shared/assets/logos/tau-labs.png";
+import reservoirLogo from "@/shared/assets/logos/reservoir.png";
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  logo: ImageMetadata;
+  avatar: ImageMetadata;
+  badge: string;
+  logoHeightPx: number;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Working with the IPOR Fusion team has been an exceptional experience. They bring a deep level of technical expertise and market understanding, but just as importantly, they are highly collaborative and really great to work with. Throughout our vault build, they have partnered closely with us, showing real commitment to getting the details right and helping us solve complex challenges as they arise. What stands out is their ability to combine strong infrastructure with a practical, delivery-focused mindset. The result is a solution that is not only truly institutional-grade, but also at the forefront of where the market is heading. They have been a key partner in helping us bring our vault vision to life, and couldn\u2019t recommend them more highly.",
+    name: "James Harris",
+    role: "CEO",
+    company: "Tesseract",
+    logo: tesseractLogo,
+    avatar: jamesAvatar,
+    badge: "$500M+ AUM, MiCA-Authorized",
+    logoHeightPx: 20,
+  },
+  {
+    quote:
+      "IPOR Fusion drastically reduces our operational overhead, allowing us to launch better vaults, faster. Their team is always responsive to address any technical needs and proactive in helping us optimize our strategies.",
+    name: "Vlad Totia",
+    role: "Founder",
+    company: "TAU Labs",
+    logo: tauLabsLogo,
+    avatar: vladAvatar,
+    badge: "$100M+ TVM",
+    logoHeightPx: 23,
+  },
+  {
+    quote:
+      "Reservoir has leveraged IPOR Fusion vaults to deliver high-efficiency, leveraged exposure to our yield-bearing stablecoin (wsrUSD) optimizing for liquidity and high returns. Reservoir\u2019s BTC, ETH, and USDC denominated yield vaults offer industry leading risk adjusted yields through automated onchain risk management. IPOR Fusion is robust, user-friendly, and seamless for onchain asset management\u2014making it effortless for partners like us to scale sophisticated strategies with strong risk controls. The IPOR Labs team has been exceptional to work with: responsive, innovative, and deeply aligned on building composable DeFi infrastructure.",
+    name: "Nick Garcia",
+    role: "Founder",
+    company: "Reservoir",
+    logo: reservoirLogo,
+    avatar: nickAvatar,
+    badge: "$100M+ TVM",
+    logoHeightPx: 12,
+  },
+];
+
+function logoHeight(company: string): string {
+  if (company === "Reservoir") return "h-3";
+  if (company === "TAU Labs") return "h-[23px]";
+  return "h-5";
+}
+---
+
+<section id="testimonials" class="relative bg-muted py-10 md:py-28">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <!-- Header -->
+    <div class="mb-14 text-center md:mb-16">
+      <p
+        class="mb-4 text-[13px] font-medium uppercase tracking-wide text-primary"
+      >
+        Testimonials
+      </p>
+      <h2
+        class="mb-5 text-balance text-foreground"
+        style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+      >
+        Trusted by the teams building the{" "}
+        <span class="text-primary">future</span>
+        {" "}of onchain capital.
+      </h2>
+      <p
+        class="mx-auto max-w-lg text-base text-muted-foreground sm:text-lg"
+        style="line-height: 1.7;"
+      >
+        Leading curators, asset managers and projects rely on Fusion to
+        power their onchain strategies.
+      </p>
+    </div>
+
+    <!-- Testimonial Cards -->
+    <div class="grid grid-cols-1 gap-6">
+      {/* Featured testimonial — full width */}
+      {(() => { const t = testimonials[0]; return (
+        <div class="group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/40 md:p-8">
+          <div class="mb-5 flex items-center justify-between">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="shrink-0 text-primary opacity-20 dark:opacity-50">
+              <path d="M6 18.5C6 14.36 8.69 10.73 12.5 9.5L13.26 11.35C11.14 12.24 9.75 14.05 9.42 16H12.5C13.33 16 14 16.67 14 17.5V23.5C14 24.33 13.33 25 12.5 25H7.5C6.67 25 6 24.33 6 23.5V18.5ZM18 18.5C18 14.36 20.69 10.73 24.5 9.5L25.26 11.35C23.14 12.24 21.75 14.05 21.42 16H24.5C25.33 16 26 16.67 26 17.5V23.5C26 24.33 25.33 25 24.5 25H19.5C18.67 25 18 24.33 18 23.5V18.5Z" fill="currentColor" />
+            </svg>
+            <Image src={t.logo} alt={t.company} class:list={["w-auto object-contain brightness-0 opacity-30 dark:invert", logoHeight(t.company)]} loading="lazy" height={t.logoHeightPx} densities={[1, 2]} />
+          </div>
+          <p class="mb-8 flex-1 text-[15px] text-body-foreground md:columns-2 md:gap-8" style="line-height: 1.75;">
+            &ldquo;{t.quote}&rdquo;
+          </p>
+          <div class="mt-auto mb-6 h-px w-full bg-border"></div>
+          <div class="flex items-center gap-3">
+            <div class="shrink-0">
+              <Image src={t.avatar} alt={t.name} class="h-10 w-10 rounded-full object-cover" loading="lazy" width={40} height={40} densities={[1, 2]} />
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-[14px] font-semibold text-foreground">{t.name}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-[13px] text-muted-foreground">{t.role} &bull; {t.company}</span>
+              </div>
+              <span class="text-[11px] text-muted-foreground/50">{t.badge}</span>
+            </div>
+          </div>
+        </div>
+      ); })()}
+
+      {/* Remaining testimonials — 2-column grid */}
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {testimonials.slice(1).map((t) => (
+          <div class="group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/40 md:p-8">
+            <div class="mb-5 flex items-center justify-between">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="shrink-0 text-primary opacity-20 dark:opacity-50">
+                <path d="M6 18.5C6 14.36 8.69 10.73 12.5 9.5L13.26 11.35C11.14 12.24 9.75 14.05 9.42 16H12.5C13.33 16 14 16.67 14 17.5V23.5C14 24.33 13.33 25 12.5 25H7.5C6.67 25 6 24.33 6 23.5V18.5ZM18 18.5C18 14.36 20.69 10.73 24.5 9.5L25.26 11.35C23.14 12.24 21.75 14.05 21.42 16H24.5C25.33 16 26 16.67 26 17.5V23.5C26 24.33 25.33 25 24.5 25H19.5C18.67 25 18 24.33 18 23.5V18.5Z" fill="currentColor" />
+              </svg>
+              <Image src={t.logo} alt={t.company} class:list={["w-auto object-contain brightness-0 opacity-30 dark:invert", logoHeight(t.company)]} loading="lazy" height={t.logoHeightPx} densities={[1, 2]} />
+            </div>
+            <p class="mb-8 flex-1 text-[15px] text-body-foreground" style="line-height: 1.75;">
+              &ldquo;{t.quote}&rdquo;
+            </p>
+            <div class="mt-auto mb-6 h-px w-full bg-border"></div>
+            <div class="flex items-center gap-3">
+              <div class="shrink-0">
+                <Image src={t.avatar} alt={t.name} class="h-10 w-10 rounded-full object-cover" loading="lazy" width={40} height={40} densities={[1, 2]} />
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[14px] font-semibold text-foreground">{t.name}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[13px] text-muted-foreground">{t.role} &bull; {t.company}</span>
+                </div>
+                <span class="text-[11px] text-muted-foreground/50">{t.badge}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</section>

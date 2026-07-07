@@ -1,0 +1,118 @@
+---
+import { IconIsland } from "../app/components/ui/icon-island";
+
+const cards = [
+  {
+    icon: "institution",
+    title: "Institutions & Fund Managers",
+    body: "Sovereign vault infrastructure for onchain asset management. Deploy capital with institutional-grade security, full transparency, and customizable risk parameters. Your vault, your rules, your alpha.",
+    features: [
+      "Privacy-preserving strategy execution",
+      "Configurable fee structures & governance",
+      "Python SDK, no Solidity required",
+      "White-label ready for distribution partners",
+    ],
+  },
+  {
+    icon: "builder",
+    title: "Builders & Curators",
+    body: "Create automated onchain vaults without writing a single smart contract. Pick your fuses, set your parameters, and launch. Earn curator fees from the strategies you design.",
+    features: [
+      "Plug-and-play fuse library",
+      "One-click vault deployment via Factory",
+      "Composable across 20+ protocols",
+      "Earn fees as an Atomist",
+    ],
+  },
+  {
+    icon: "liquidity",
+    title: "Liquidity Providers",
+    body: "Access professionally curated, auto-optimized yield strategies with a single deposit. From lending optimization to leveraged looping, risk-adjusted to your preference.",
+    features: [
+      "One-click deposit into curated strategies",
+      "Automated rebalancing & compounding",
+      "Siloed risk, no socialized losses",
+      "Instant liquidity, no lockups",
+    ],
+  },
+  {
+    icon: "plug",
+    title: "Protocols & Distributors",
+    body: "Embed Fusion vaults as plug-and-play yield products. Wallets, exchanges, and fintechs can offer 'Earn' features powered by Fusion infrastructure without building from scratch.",
+    features: [
+      "Embed vaults into any interface",
+      "White-label for wallets & CEXs",
+      "Referral system built-in",
+      "Invisible infrastructure, visible yield",
+    ],
+  },
+];
+---
+
+<section id="solutions" class="py-12 md:py-24">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <!-- Header -->
+    <div class="mb-16 max-w-[700px]">
+      <p class="mb-4 text-[13px] font-medium uppercase tracking-wide text-primary">
+        Solutions
+      </p>
+      <h2
+        class="mb-5 text-balance font-medium text-foreground"
+        style="font-size: clamp(25px, 5vw, 45px); line-height: clamp(38px, 5vw, 60px);"
+      >
+        Built for every participant in the <span class="text-primary">vault</span> stack.
+      </h2>
+      <p class="text-pretty text-base text-muted-foreground sm:text-lg">
+        Whether you&rsquo;re allocating treasury capital or building the next
+        yield product, Fusion is the infrastructure layer underneath.
+      </p>
+    </div>
+
+    <!-- 2x2 grid -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {cards.map((card) => (
+        <div class="group relative rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary">
+          <!-- Hover glow -->
+          <div class="pointer-events-none absolute top-0 right-0 h-40 w-40 rounded-full bg-primary opacity-0 blur-[80px] transition-opacity group-hover:opacity-[0.08]" />
+
+          <div class="relative z-10">
+            <div class="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border-[0.75px] border-border bg-secondary text-primary">
+              <IconIsland client:visible name={card.icon} size={24} />
+            </div>
+            <h3 class="mb-3 text-[18px] font-semibold text-foreground">
+              {card.title}
+            </h3>
+            <p
+              class="mb-5 text-[14px] text-muted-foreground"
+              style="line-height: 1.7;"
+            >
+              {card.body}
+            </p>
+            <ul class="flex flex-col gap-2.5">
+              {card.features.map((f) => (
+                <li class="flex items-center gap-2 text-[14px] text-muted-foreground">
+                  <svg
+                    class="h-3.5 w-3.5 shrink-0 text-primary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

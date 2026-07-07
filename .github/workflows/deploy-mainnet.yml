@@ -1,0 +1,50 @@
+name: Deploy mainnet
+
+on: workflow_dispatch
+
+jobs:
+  notify:
+    uses: ./.github/workflows/notify-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.MAINNET_SLACK_BOT_TOKEN }}
+    with:
+      status-slack-channel-name: github-mainnet-ci
+
+  deploy-mainnet-fusion:
+    needs:
+       - notify
+    uses: ./.github/workflows/deploy-amplify.yml
+    with:
+      aws-region: eu-central-1
+      app-name: ipor-mainnet-fusion-website
+      branch: main
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.MAINNET_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.MAINNET_AWS_SECRET_ACCESS_KEY }}
+
+  deploy-mainnet-ipor:
+    needs:
+       - notify
+    uses: ./.github/workflows/deploy-amplify.yml
+    with:
+      aws-region: eu-central-1
+      app-name: ipor-mainnet-main-website
+      branch: main
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.MAINNET_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.MAINNET_AWS_SECRET_ACCESS_KEY }}
+
+  report:
+    if: ${{ always() }}
+    needs:
+      - notify
+      - deploy-mainnet-fusion
+      - deploy-mainnet-ipor
+    uses: ./.github/workflows/report-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.MAINNET_SLACK_BOT_TOKEN }}
+    with:
+      success: ${{ needs.deploy-mainnet-fusion.result == 'success' && needs.deploy-mainnet-ipor.result == 'success' }}
+      slack-status-msg-id: ${{ needs.notify.outputs.slack-status-msg-id }}
+      status-slack-channel-name: github-mainnet-ci
+      alarms-slack-channel-name: alarms-mainnet-github
