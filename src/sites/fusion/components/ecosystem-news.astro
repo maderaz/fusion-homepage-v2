@@ -3,12 +3,10 @@ import { getArticles } from "../data/articles";
 import ArticleCard from "./article-card.astro";
 
 const articles = getArticles();
-const featured = articles[0];
-const rest = articles.slice(1, 3);
-const hasRest = rest.length > 0;
+const items = articles.slice(0, 3);
 ---
 
-{featured && (
+{items.length > 0 && (
   <section id="ecosystem-news" class="relative bg-background py-10 md:py-28">
     <div class="mx-auto max-w-[1200px] px-6">
       <!-- Header -->
@@ -41,20 +39,10 @@ const hasRest = rest.length > 0;
       </div>
 
       <!-- Cards -->
-      <div
-        class:list={[
-          "grid gap-6",
-          hasRest ? "lg:grid-cols-2" : "grid-cols-1",
-        ]}
-      >
-        <ArticleCard article={featured} featured={!hasRest} />
-        {hasRest && (
-          <div class="grid grid-cols-1 gap-6">
-            {rest.map((article) => (
-              <ArticleCard article={article} />
-            ))}
-          </div>
-        )}
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((article) => (
+          <ArticleCard article={article} />
+        ))}
       </div>
     </div>
   </section>

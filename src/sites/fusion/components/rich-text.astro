@@ -16,6 +16,40 @@ interface Props {
 
 const { text } = Astro.props;
 
+// Display real entity names in prose instead of raw @handles, while still
+// linking to the X profile. Keys are lowercased handles (without the @).
+const HANDLES: Record<string, string> = {
+  ipor_io: "IPOR Labs",
+  bitgo: "BitGo",
+  tesseractcrypto: "Tesseract",
+  "21shares": "21Shares",
+  aave: "Aave",
+  base: "Base",
+  coinbase: "Coinbase",
+  merkl_xyz: "Merkl",
+  opencover: "OpenCover",
+  nexusmutual: "Nexus Mutual",
+  sentinel_codes: "Sentinel",
+  liquityprotocol: "Liquity",
+  darrencamas: "Darren Camas",
+  stephdan_law: "Stéphane Daniel",
+  anchorage: "Anchorage",
+  blockanalitica: "BlockAnalitica",
+  bprotocoleth: "bprotocol",
+  flowdesk_co: "Flowdesk",
+  galaxyhq: "Galaxy",
+  gauntlet_xyz: "Gauntlet",
+  hyperithm: "Hyperithm",
+  k3_capital: "K3 Capital",
+  kpk_io: "KPK",
+  llamarisk: "LlamaRisk",
+  rockaway_x: "Rockaway",
+  sentorahq: "Sentora",
+  steakhousefi: "Steakhouse",
+  keyrock: "Keyrock",
+  "628labs": "TAU Labs",
+};
+
 // Order: markdown link, bold, @mention/#hashtag (not when preceded by a word
 // char or dot, so emails like name@host.tld are left alone), bare URL.
 const TOKEN =
@@ -33,11 +67,20 @@ function parse(input: string): Run[] {
       runs.push({ t: "bold", v: m[3] });
     } else if (m[4]) {
       const tok = m[4];
-      const href =
-        tok[0] === "@"
-          ? `https://x.com/${tok.slice(1)}`
-          : `https://x.com/hashtag/${tok.slice(1)}`;
-      runs.push({ t: "link", v: tok, href });
+      if (tok[0] === "#") {
+        runs.push({
+          t: "link",
+          v: tok,
+          href: `https://x.com/hashtag/${tok.slice(1)}`,
+        });
+      } else {
+        const handle = tok.slice(1);
+        runs.push({
+          t: "link",
+          v: HANDLES[handle.toLowerCase()] ?? tok,
+          href: `https://x.com/${handle}`,
+        });
+      }
     } else {
       runs.push({ t: "link", v: m[5], href: m[5] });
     }
