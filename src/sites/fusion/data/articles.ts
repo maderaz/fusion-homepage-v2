@@ -313,6 +313,105 @@ export const articles: Article[] = [
     ],
   },
   {
+    slug: "covered-vaults-fusion-opencover-onchain-protection",
+    title:
+      "Covered Vaults Come to Fusion: Embedded Onchain Protection by OpenCover",
+    excerpt:
+      "Onchain cover is now available for select Fusion vaults, provided by OpenCover and underwritten by Nexus Mutual, starting with a Covered Vault for the Liquity ETH Carry strategy.",
+    date: "2026-06-18",
+    category: "Ecosystem",
+    author: { name: "Fusion Team", handle: "ipor_io" },
+    readingMinutes: 4,
+    coverImage: "/brand/opencover.png",
+    body: [
+      {
+        type: "lead",
+        text: "Onchain cover is now available for select Fusion vaults, provided by @OpenCover, a pioneer of embedded onchain cover and underwritten by @NexusMutual.",
+      },
+      {
+        type: "paragraph",
+        text: "This integration features the first Covered Vault for the Liquity ETH Carry deployment operated by @Sentinel_codes, anchored to @LiquityProtocol ecosystem.",
+      },
+      { type: "heading", text: "Covered Vaults explained" },
+      {
+        type: "paragraph",
+        text: "OpenCover's Covered Vaults are a DeFi primitive that wraps an existing yield-generating vault and adds embedded protection to it, bringing risk transfer into the vault lifecycle rather than treating it as a separate product.",
+      },
+      {
+        type: "paragraph",
+        text: "**How it works:**",
+      },
+      {
+        type: "paragraph",
+        text: "A participant supplies liquidity into the Fusion vault, for example the Liquity ETH Carry strategy.",
+      },
+      {
+        type: "paragraph",
+        text: "They stake the resulting vault shares into the associated Covered Vault to activate protection.",
+      },
+      {
+        type: "paragraph",
+        text: "From there, protection is active, with coverage premiums streamed from the strategy's performance on an ongoing basis. There is no upfront payment and no fixed duration. Cover ends automatically when a participant exits the Covered Vault.",
+      },
+      {
+        type: "paragraph",
+        text: "Withdrawals from the Covered Vault mirror deposits and settle in seconds, and the full process is visible and self-directed from the OpenCover interface.",
+      },
+      { type: "heading", text: "What is covered" },
+      {
+        type: "paragraph",
+        text: "The Nexus Mutual Vault Cover addresses defined technical and economic failure events set out in the policy, including, but not limited to:",
+      },
+      {
+        type: "list",
+        items: [
+          "Smart contract exploits",
+          "Oracle manipulation and failure",
+          "Liquidation failure, including bad debt",
+          "Governance attacks",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A deductible and per-protocol sublimits apply, with each underlying protocol in a strategy carrying its own share of the overall cover. The full scope, deductible, and sublimits for a given Covered Vault are documented in its policy and annex.",
+      },
+      { type: "heading", text: "Where to find it" },
+      {
+        type: "paragraph",
+        text: "A dedicated Fusion page, hosted by OpenCover, lists the currently eligible Covered Vaults at [opencover.com/vaults/fusion](https://opencover.com/vaults/fusion).",
+      },
+      {
+        type: "paragraph",
+        text: "Each listing links to its policy, annex, and proof of cover, so participants have the coverage terms upfront. The cover is underwritten by Nexus Mutual, and the contracts are audited by Nethermind and Sherlock.",
+      },
+      {
+        type: "pullquote",
+        text: "Verifiable systems get risk-rated, and risk-rated systems get covered. That has been part of how we describe the path to institutional scale, and this is that step taking shape onchain. Credit to the OpenCover and Nexus Mutual teams for building it. Fusion is glad to be the vault layer underneath, and I invite our ecosystem operators to explore Covered Vaults for their Fusion deployments.",
+        author: "Darren Camas",
+        title: "CEO, IPOR Labs",
+      },
+      { type: "heading", text: "For Fusion vault operators" },
+      {
+        type: "paragraph",
+        text: "Operators running strategies on Fusion can request cover for their own deployment. The OpenCover team handles quotes and onboarding at [opencover.com/institutional](https://opencover.com/institutional).",
+      },
+      {
+        type: "paragraph",
+        text: "@k3_capital @hyperithm @LlamaRisk @ClearstarLabs @628Labs @reservoir_xyz @tankencapital @Sentinel_codes @BTCDOfficial @tesseractcrypto",
+      },
+      { type: "heading", text: "About OpenCover" },
+      {
+        type: "paragraph",
+        text: "@OpenCover is the leading onchain risk transfer provider for complex and embedded use cases such as vault-native and transaction cover. Backed by Coinbase, Alliance, NFX, Village Global, Jump, and Lloyd's of London, OpenCover has safeguarded over $1 billion in onchain value in 2025 alone.",
+      },
+      { type: "heading", text: "About Fusion" },
+      {
+        type: "paragraph",
+        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure for institutional-grade yield strategies. Its compliance-friendly vault stack is accessed by leading curators and regulated institutions, including Fortune 500 custodian BitGo (NYSE: BTGO) and leading ETP issuer 21Shares, with vault isolation and verifiable, deterministic risk controls.",
+      },
+    ],
+  },
+  {
     slug: "bitgo-institutional-access-tesseract-dedicated-client-vaults",
     title:
       "BitGo Opens Institutional Access to Tesseract's Dedicated Client Vaults Powered by Fusion",
