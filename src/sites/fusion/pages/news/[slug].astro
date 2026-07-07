@@ -94,7 +94,7 @@ await Promise.all(
       >
       </div>
 
-      <article class="relative mx-auto max-w-[760px] px-6 pt-32 pb-16 md:pt-40">
+      <article class="relative mx-auto max-w-[760px] px-4 pt-32 pb-16 sm:px-6 md:pt-40">
         <!-- Back link -->
         <a
           href="/news"
@@ -175,7 +175,7 @@ await Promise.all(
           {article.body.map((block) => {
             if (block.type === "lead") {
               return (
-                <p class="mb-7 text-balance text-[16px] font-normal text-foreground" style="line-height: 1.7;">
+                <p class="mb-7 text-[16px] font-normal text-foreground" style="line-height: 1.7;">
                   <RichText text={block.text} />
                 </p>
               );
