@@ -34,8 +34,8 @@ const author = article.author;
 ---
 
 <BaseLayout
-  title={`${article.title} | Fusion by IPOR`}
-  description={article.excerpt}
+  title={`${article.seoTitle ?? article.title} | Fusion`}
+  description={article.seoDescription ?? article.excerpt}
   image={article.coverImage}
   imageWidth={article.coverImage ? 1200 : undefined}
   imageHeight={article.coverImage ? 480 : undefined}

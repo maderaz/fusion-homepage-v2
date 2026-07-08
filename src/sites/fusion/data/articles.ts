@@ -46,6 +46,10 @@ export interface Article {
   title: string;
   /** One-line summary used on cards and meta descriptions. */
   excerpt: string;
+  /** SEO <title> text; the article page appends " | Fusion". Falls back to `title`. */
+  seoTitle?: string;
+  /** SEO meta description (SERP snippet). Falls back to `excerpt`. */
+  seoDescription?: string;
   /** ISO date (YYYY-MM-DD) — used for sorting and <time>. */
   date: string;
   category: string;
@@ -71,6 +75,9 @@ export const articles: Article[] = [
       "Base Rewards Now Live for Select Fusion Strategies via Anchorage Digital",
     excerpt:
       "From 29 June, wallets that reach select Fusion strategies on Base through the Porto by Anchorage Digital portal may earn Base-supported rewards in cbETH via Merkl, on top of each strategy's onchain results.",
+    seoTitle: "Base Rewards for Fusion Strategies via Anchorage",
+    seoDescription:
+      "Reach select Fusion strategies on Base through Anchorage Digital's Porto portal and earn Base-backed cbETH rewards via Merkl, on top of onchain yield.",
     date: "2026-06-29",
     category: "Incentives",
     author: { name: "Fusion Team", handle: "ipor_io" },
@@ -157,6 +164,9 @@ export const articles: Article[] = [
       "Turning cbETH's 2.75% Native Yield to 15% on Aave with Fusion Automation",
     excerpt:
       "There is far more yield inside Aave's markets than most participants ever reach. Fusion's automation turns that depth into performance, like TAU Labs' cbETH Dynamic Looping vault, which stacks cbETH's native yield into roughly 15% on Base.",
+    seoTitle: "Turn cbETH's 2.75% Yield into ~15% on Aave",
+    seoDescription:
+      "See how Fusion automation turns cbETH's ~2.75% native yield into roughly 15% on Aave, through TAU Labs' cbETH Dynamic Looping vault on Base.",
     date: "2026-06-24",
     category: "Strategies",
     author: { name: "Fusion Team", handle: "ipor_io" },
@@ -354,6 +364,9 @@ export const articles: Article[] = [
       "Covered Vaults Come to Fusion: Embedded Onchain Protection by OpenCover",
     excerpt:
       "Onchain cover is now available for select Fusion vaults, provided by OpenCover and underwritten by Nexus Mutual, starting with a Covered Vault for the Liquity ETH Carry strategy.",
+    seoTitle: "Covered Vaults for Fusion, Insured by OpenCover",
+    seoDescription:
+      "Onchain cover is now live for select Fusion vaults, provided by OpenCover and underwritten by Nexus Mutual, starting with the Liquity ETH Carry strategy.",
     date: "2026-06-18",
     category: "Ecosystem",
     author: { name: "Fusion Team", handle: "ipor_io" },
@@ -449,6 +462,9 @@ export const articles: Article[] = [
       "BitGo Opens Institutional Access to Tesseract's Dedicated Client Vaults Powered by Fusion",
     excerpt:
       "Eligible institutions can now allocate to Tesseract's Dedicated Client Vaults, powered by Fusion, directly from BitGo qualified custody, with assets staying inside the custodial perimeter.",
+    seoTitle: "BitGo Opens Institutional Access to Fusion Ecosystem",
+    seoDescription:
+      "Eligible institutions can now allocate to Tesseract's Dedicated Client Vaults, powered by Fusion, directly from BitGo qualified custody.",
     date: "2026-06-09",
     category: "Ecosystem",
     author: { name: "Fusion Team", handle: "ipor_io" },
@@ -513,6 +529,9 @@ export const articles: Article[] = [
     title: "How Vault Curators Can Navigate MiCA in 2026",
     excerpt:
       "At Vault Summit during EthCC Cannes 2026, Stéphane Daniel of d&a partners laid out the MiCA legal considerations for vault curators, from CASP reclassification risk to three structuring strategies. A guest article, with a note on how Fusion's architecture relates.",
+    seoTitle: "How Vault Curators Can Navigate MiCA in 2026",
+    seoDescription:
+      "A guest guide from d&a partners: MiCA legal risks for vault curators, CASP reclassification, and three structuring strategies to stay compliant.",
     date: "2026-04-30",
     category: "Regulation",
     author: { name: "Fusion Team", handle: "ipor_io" },
@@ -730,6 +749,9 @@ export const articles: Article[] = [
       "Tesseract Selects IPOR Fusion as Onchain Vault Infrastructure for Institutional Clients",
     excerpt:
       "Tesseract Investment Oy, a Helsinki-based MiCA-authorised CASP, has selected Fusion as its onchain vault infrastructure for institutional onchain yield, with 21Shares among the launch partners.",
+    seoTitle: "Tesseract Selects Fusion for Institutional Vaults",
+    seoDescription:
+      "Tesseract, a MiCA-authorised CASP, selects Fusion as its onchain vault infrastructure for institutional yield, with 21Shares among launch partners.",
     date: "2026-03-31",
     category: "Ecosystem",
     author: { name: "Fusion Team", handle: "ipor_io" },
