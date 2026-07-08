@@ -1,133 +1,182 @@
 ---
 import BaseLayout from "@/shared/layouts/base-layout.astro";
-import Nav from "../components/nav.astro";
-import Footer from "@/shared/components/footer.astro";
-// Fusion UI Kit — vendored design-system stylesheet (.uk-c-* classes).
-// The kit is a design spec reimplemented locally; nothing loads from
-// fusionecosystem.xyz at runtime.
-import "../styles/fusion-ui.css";
+
+// NOTE: intentionally built with plain, generic "default AI" components —
+// system font, light theme, gray borders, indigo buttons. The Fusion design
+// system is layered on top in a later step.
+
+const buildNav = [
+  { label: "Vault Wizard", icon: "sparkles" },
+  { label: "Custom Vault", icon: "plus" },
+  { label: "Vault Wrapper", icon: "plus" },
+  { label: "Price Feed", icon: "plus" },
+  { label: "My Fusion Vaults", icon: "grid", active: true },
+];
+const manageSub = [
+  "General Settings",
+  "Access Manager",
+  "Integrations",
+  "Scheduled Ops",
+  "Withdrawals",
+  "Fees",
+  "Price Oracle",
+  "Prehooks",
+];
+
+type Vault = {
+  asset: string;
+  name: string;
+  strategy: string;
+  roles: string[];
+};
+const groups: { chain: string; vaults: Vault[] }[] = [
+  {
+    chain: "Ethereum",
+    vaults: [
+      { asset: "stETH", name: "IPOR stETH Ethereum", strategy: "Leveraged Looping", roles: ["Owner", "Atomist", "Fuse Manager"] },
+      { asset: "USDC", name: "IPOR USDC Prime", strategy: "Lending Optimizer", roles: ["Owner"] },
+    ],
+  },
+  {
+    chain: "Arbitrum",
+    vaults: [
+      { asset: "USDC", name: "Test Vault 1", strategy: "Leveraged Looping", roles: ["Owner"] },
+      { asset: "ETH", name: "Test Vault 2", strategy: "Leveraged Looping", roles: ["Owner", "Atomist", "Alpha"] },
+      { asset: "USDC", name: "Test Vault 3", strategy: "Lending Optimizer", roles: ["Owner", "Atomist", "Alpha", "Fuse Manager", "PreHooks Manager"] },
+    ],
+  },
+];
+
+const assetColor: Record<string, string> = {
+  USDC: "background:#dbeafe;color:#1d4ed8",
+  stETH: "background:#e0e7ff;color:#4338ca",
+  ETH: "background:#e5e7eb;color:#374151",
+};
 ---
 
-<BaseLayout
-  title="Deposit — Test | Fusion by IPOR"
-  description="A deposit module built from the Fusion UI Kit design system."
->
-  <Nav />
-  <main class="flex min-h-screen items-center justify-center bg-background px-6 pt-32 pb-20">
-    <div class="flex w-full max-w-[310px] flex-col items-center gap-5">
-      <p class="text-[13px] font-medium uppercase tracking-wide text-primary">Fusion UI Kit</p>
-      <h1 class="text-[24px] font-medium text-foreground">Deposit</h1>
-
-      <!-- Deposit Area — Fusion UI Kit (.uk-c-deposit) -->
-      <div class="uk-c-deposit" id="deposit" data-state="default">
-        <div class="uk-dep-row">
-          <span class="uk-dep-label">Deposit cbETH</span>
-          <span class="uk-dep-balance">Balance:&nbsp;<b id="dep-balance">1.245</b></span>
-        </div>
-        <div class="uk-dep-mid">
-          <input
-            id="dep-input"
-            class="uk-dep-value"
-            inputmode="decimal"
-            autocomplete="off"
-            placeholder="0.00"
-            aria-label="Deposit amount"
-          />
-          <span class="uk-dep-token" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-              <circle cx="13" cy="13" r="13" fill="#2151F5"></circle>
-              <path d="M13 4.5l5 8.4-5 2.9-5-2.9z" fill="#fff" fill-opacity="0.9"></path>
-              <path d="M13 16.6l5-2.9L13 21.5 8 13.7z" fill="#fff" fill-opacity="0.6"></path>
-            </svg>
-          </span>
-        </div>
-        <div class="uk-dep-row">
-          <span class="uk-dep-fiat" id="dep-fiat">$0.00</span>
-          <button class="uk-dep-max" id="dep-max" type="button">MAX</button>
+<BaseLayout title="Fusion Terminal — Test" description="My Fusion Vaults dashboard (generic build).">
+  <div style="font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;" class="flex min-h-screen bg-gray-50 text-gray-900">
+    <!-- Sidebar -->
+    <aside class="hidden w-64 shrink-0 flex-col border-r border-gray-200 bg-white lg:flex">
+      <div class="flex items-center gap-2 border-b border-gray-200 px-5 py-4">
+        <div class="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white">F</div>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold">Fusion</div>
+          <div class="text-xs text-gray-400">Terminal</div>
         </div>
       </div>
 
-      <!-- Primary Button — Fusion UI Kit (.uk-c-primary) -->
-      <button class="uk-c-primary" id="dep-submit" type="button" disabled>Deposit</button>
-    </div>
-  </main>
-  <Footer />
+      <nav class="flex-1 overflow-y-auto px-3 py-4 text-sm">
+        <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Build on Fusion</p>
+        {buildNav.map((item) => (
+          <a
+            href="#"
+            class:list={[
+              "mb-0.5 flex items-center gap-2.5 rounded-md px-3 py-2",
+              item.active ? "bg-indigo-50 font-medium text-indigo-700" : "text-gray-600 hover:bg-gray-100",
+            ]}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              {item.icon === "sparkles" && <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9zM19 3v4M21 5h-4" />}
+              {item.icon === "plus" && <><circle cx="12" cy="12" r="9" /><path d="M12 8v8M8 12h8" /></>}
+              {item.icon === "grid" && <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></>}
+            </svg>
+            {item.label}
+          </a>
+        ))}
+
+        <p class="mt-6 px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Manage Vaults</p>
+        <a href="#" class="mb-0.5 flex items-center gap-2.5 rounded-md px-3 py-2 text-gray-600 hover:bg-gray-100">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 3.5M12 17h.01" /></svg>
+          Select Vault
+        </a>
+        <div class="ml-3 border-l border-gray-200 pl-2">
+          {manageSub.map((label) => (
+            <span class="flex items-center gap-2.5 rounded-md px-3 py-1.5 text-gray-300">
+              <span class="h-1.5 w-1.5 rounded-full bg-gray-200"></span>
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <p class="mt-6 px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Resources</p>
+        <a href="#" class="flex items-center gap-2.5 rounded-md px-3 py-2 text-gray-600 hover:bg-gray-100">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z" /><path d="M8 3v18" /></svg>
+          Fusion Docs
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 overflow-x-auto p-6 md:p-8">
+      <div class="mb-8 flex items-center justify-between">
+        <h1 class="text-2xl font-semibold">My Fusion Vaults</h1>
+        <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm">
+          <span class="h-2 w-2 rounded-full bg-green-500"></span>
+          xyz0cz…EfEc
+        </div>
+      </div>
+
+      {groups.map((group) => (
+        <section class="mb-6 rounded-lg border border-gray-200 bg-white">
+          <div class="flex items-center gap-2 border-b border-gray-100 px-5 py-4">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-600">
+              {group.chain.charAt(0)}
+            </span>
+            <h2 class="font-semibold">{group.chain}</h2>
+            <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">{group.vaults.length} vaults</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[720px] text-sm">
+              <thead>
+                <tr class="text-left text-xs uppercase tracking-wide text-gray-400">
+                  <th class="px-5 py-3 font-medium">Chain / Asset</th>
+                  <th class="px-5 py-3 font-medium">Vault Name / Strategy</th>
+                  <th class="px-5 py-3 font-medium">My Role</th>
+                  <th class="px-5 py-3 font-medium">View</th>
+                  <th class="px-5 py-3 text-right font-medium">Manage Vault</th>
+                </tr>
+              </thead>
+              <tbody>
+                {group.vaults.map((v) => (
+                  <tr class="border-t border-gray-100 align-middle">
+                    <td class="px-5 py-4">
+                      <span class="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold" style={assetColor[v.asset] ?? "background:#f3f4f6;color:#374151"}>
+                        {v.asset === "USDC" ? "$" : v.asset.slice(0, 2)}
+                      </span>
+                    </td>
+                    <td class="px-5 py-4">
+                      <div class="font-medium">{v.name}</div>
+                      <div class="text-xs text-gray-500">{v.strategy}</div>
+                    </td>
+                    <td class="px-5 py-4">
+                      <div class="flex flex-wrap gap-1.5">
+                        {v.roles.map((role) => (
+                          <span class="inline-flex items-center gap-1 rounded-full border border-gray-300 px-2 py-0.5 text-xs text-gray-600">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                            {role}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                    <td class="px-5 py-4">
+                      <a href="#" class="inline-flex text-gray-400 hover:text-gray-600" aria-label="View vault">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>
+                      </a>
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <button type="button" class="rounded-md bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-indigo-700">
+                        Manage
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+    </main>
+  </div>
 </BaseLayout>
-
-<style>
-  /* Turn the kit's presentational value slot into a live input while keeping
-     its exact look (the kit ships a static <span>). */
-  input.uk-dep-value {
-    min-width: 0;
-    flex: 1 1 auto;
-    border: 0;
-    background: transparent;
-    outline: none;
-    caret-color: var(--uk-purple);
-  }
-  input.uk-dep-value::placeholder {
-    color: var(--uk-white-50);
-  }
-  /* hide number spinners */
-  input.uk-dep-value::-webkit-outer-spin-button,
-  input.uk-dep-value::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-</style>
-
-<script>
-  const dep = document.getElementById("deposit") as HTMLElement;
-  const input = document.getElementById("dep-input") as HTMLInputElement;
-  const fiat = document.getElementById("dep-fiat") as HTMLElement;
-  const maxBtn = document.getElementById("dep-max") as HTMLButtonElement;
-  const submit = document.getElementById("dep-submit") as HTMLButtonElement;
-
-  if (dep && input && fiat && maxBtn && submit) {
-    const BALANCE = 1.245; // mock cbETH balance
-    const PRICE = 3187.42; // mock cbETH/USD
-
-    const fmt = (n: number) =>
-      "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    function refresh() {
-      const v = parseFloat(input.value);
-      const has = input.value.trim() !== "" && !Number.isNaN(v);
-      fiat.textContent = fmt(has ? v * PRICE : 0);
-      const focused = document.activeElement === input;
-      dep.dataset.state = has
-        ? focused ? "typing" : "typed"
-        : focused ? "clicked" : "default";
-      submit.disabled = !(has && v > 0 && v <= BALANCE);
-    }
-
-    input.addEventListener("input", () => {
-      // keep it a clean decimal
-      input.value = input.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
-      refresh();
-    });
-    input.addEventListener("focus", refresh);
-    input.addEventListener("blur", refresh);
-
-    maxBtn.addEventListener("click", () => {
-      input.value = String(BALANCE);
-      input.focus();
-      refresh();
-    });
-
-    submit.addEventListener("click", () => {
-      if (submit.disabled) return;
-      const original = "Deposit";
-      submit.textContent = `Deposited ${input.value} cbETH ✓`;
-      submit.disabled = true;
-      window.setTimeout(() => {
-        input.value = "";
-        submit.textContent = original;
-        refresh();
-        input.blur();
-      }, 1600);
-    });
-
-    refresh();
-  }
-</script>
