@@ -7,12 +7,6 @@ import ArticleCard from "../../components/article-card.astro";
 import RichText from "../../components/rich-text.astro";
 import { getArticles, formatDate } from "../../data/articles";
 import type { Article } from "../../data/articles";
-import {
-  fetchTweet,
-  formatCount,
-  formatTweetDate,
-  type FetchedTweet,
-} from "../../lib/fetch-tweet";
 
 export function getStaticPaths() {
   return getArticles().map((article) => ({
@@ -36,44 +30,7 @@ const shareUrl = encodeURIComponent(canonicalURL.toString());
 const xShare = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
 const liShare = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
 
-// Reusable tweet renderer helper is inlined below via the Tweet markup.
 const author = article.author;
-
-// Split tweet text into plain / @mention / #hashtag / link runs so the embed
-// can highlight entities in X blue, exactly like a real tweet.
-type Run = { t: "text" | "mention" | "hashtag" | "link"; v: string };
-function tweetRuns(text: string): Run[] {
-  const runs: Run[] = [];
-  const re = /(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+|https?:\/\/[^\s)]+)/g;
-  let last = 0;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text)) !== null) {
-    if (m.index > last) runs.push({ t: "text", v: text.slice(last, m.index) });
-    const v = m[0];
-    runs.push({ t: v[0] === "@" ? "mention" : v[0] === "#" ? "hashtag" : "link", v });
-    last = m.index + v.length;
-  }
-  if (last < text.length) runs.push({ t: "text", v: text.slice(last) });
-  return runs;
-}
-function runHref(r: Run): string {
-  if (r.t === "mention") return `https://x.com/${r.v.slice(1)}`;
-  if (r.t === "hashtag") return `https://x.com/hashtag/${r.v.slice(1)}`;
-  return r.v;
-}
-
-// Fetch live data (real avatar, verified state, like/reply counts) at build
-// time for any tweet block that carries an `id`. Failures resolve to null and
-// the renderer transparently falls back to the authored fields.
-const liveTweets = new Map<string, FetchedTweet | null>();
-await Promise.all(
-  article.body
-    .filter((b) => b.type === "tweet" && b.tweet.id)
-    .map(async (b) => {
-      const id = (b as { tweet: { id: string } }).tweet.id;
-      liveTweets.set(id, await fetchTweet(id));
-    }),
-);
 ---
 
 <BaseLayout
@@ -237,92 +194,23 @@ await Promise.all(
             }
             if (block.type === "tweet") {
               const t = block.tweet;
-              // Live syndication data (real avatar + engagement) when available,
-              // otherwise the authored fallback fields.
-              const live = t.id ? liveTweets.get(t.id) ?? null : null;
-              const name = live?.name || t.author;
-              const handle = live?.handle || t.handle;
-              const verified = live ? live.verified : Boolean(t.verified);
-              // When live data is present use its (cleaned) text even if empty —
-              // a media-only tweet has no text and shows the image instead.
-              const text = live ? live.text : t.text;
-              const date = live ? formatTweetDate(live.createdAt, t.date) : t.date;
-              const avatar = live?.avatarDataUri ?? null;
-              const media = live?.mediaDataUri ?? null;
-              const isIpor = handle === "ipor_io";
-              const tweetHref = t.url ?? `https://x.com/${handle}`;
+              const statusUrl = t.id
+                ? `https://twitter.com/${t.handle}/status/${t.id}`
+                : t.url ?? `https://x.com/${t.handle}`;
+              // Official X embed. widgets.js (loaded once at page end) upgrades
+              // this blockquote into the live tweet. The inner markup is the
+              // pre-render / no-JS fallback.
               return (
                 <figure class="my-8 flex justify-center">
-                  <div class="w-full max-w-[550px] rounded-2xl border border-border bg-card p-4 transition-colors hover:border-primary/30 md:p-5">
-                    {/* header */}
-                    <div class="flex items-start justify-between gap-3">
-                      <div class="flex items-center gap-3">
-                        {avatar ? (
-                          <img src={avatar} width="44" height="44" alt={`${name} avatar`} loading="lazy" decoding="async" class="h-11 w-11 shrink-0 rounded-full object-cover" />
-                        ) : isIpor ? (
-                          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full" style="background:linear-gradient(135deg,#8429ff,#6c00ff)">
-                            <svg width="24" height="24" viewBox="0 0 38 38" fill="#fff"><path d="M38 19c0-3.95-4.03-7.3-10.06-8.98C26.34 4.03 22.99 0 19.04 0S11.74 4.03 10.06 10.06C4.03 11.75 0 15.1 0 19.04s4.03 7.3 10.06 8.99C11.75 34.06 15.1 38.09 19.04 38.09s7.3-4.03 8.98-10.06C34.06 26.34 38 22.99 38 19.04zM19.04 11.59c2.27-.01 4.54.23 6.76.7.47 2.22.7 4.47.69 6.74.01 1.73-.13 3.45-.4 5.16L13.88 11.98c1.71-.27 3.44-.4 5.16-.39zm-7.46 7.44c0-1.73.13-3.44.4-5.15l12.22 12.22c-1.71.27-3.44.4-5.16.4-2.27 0-4.54-.24-6.76-.7-.47-2.23-.7-4.47-.7-6.77z"></path></svg>
-                          </span>
-                        ) : (
-                          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-slate-500 to-slate-700 text-[16px] font-semibold text-white" aria-hidden="true">{name.charAt(0)}</span>
-                        )}
-                        <div class="flex flex-col leading-tight">
-                          <span class="flex items-center gap-1">
-                            <span class="text-[15px] font-bold text-foreground">{name}</span>
-                            {verified && (
-                              <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Verified account" class="text-[#1d9bf0]"><path fill="currentColor" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"></path></svg>
-                            )}
-                          </span>
-                          <span class="text-[14px] text-muted-foreground">@{handle}</span>
-                        </div>
-                      </div>
-                      <a href={tweetHref} target="_blank" rel="noopener noreferrer" aria-label="View on X" class="shrink-0 text-foreground/80 transition-colors hover:text-foreground">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-                      </a>
-                    </div>
-                    {/* body */}
-                    {text && (
-                      <p class="mt-3 whitespace-pre-line break-words text-[16px] text-foreground" style="line-height: 1.55;">
-                        {tweetRuns(text).map((r) => r.t === "text"
-                          ? r.v
-                          : <a href={runHref(r)} target="_blank" rel="noopener noreferrer" class="break-words text-[#1d9bf0] hover:underline">{r.v}</a>)}
-                      </p>
-                    )}
-                    {/* media */}
-                    {media && (
-                      <a href={tweetHref} target="_blank" rel="noopener noreferrer" class="mt-3 block overflow-hidden rounded-2xl border border-border">
-                        <img src={media} alt="Tweet media" loading="lazy" decoding="async" class="w-full object-cover" />
-                      </a>
-                    )}
-                    {/* quoted */}
-                    {t.quoted && (
-                      <a href={t.quoted.url ?? `https://x.com/${t.quoted.handle}`} target="_blank" rel="noopener noreferrer" class="mt-3 block rounded-xl border border-border p-3 transition-colors hover:bg-accent/40">
-                        <div class="flex items-center gap-1.5">
-                          <span class="text-[13px] font-bold text-foreground">{t.quoted.author}</span>
-                          <span class="text-[12px] text-muted-foreground">@{t.quoted.handle}</span>
-                        </div>
-                        <p class="mt-1 whitespace-pre-line text-[14px] text-body-foreground" style="line-height: 1.5;">{t.quoted.text}</p>
-                      </a>
-                    )}
-                    {/* timestamp */}
-                    <div class="mt-3 text-[13px] text-muted-foreground">{date}</div>
-                    {/* footer: engagement + read on X */}
-                    <div class="mt-3 flex items-center gap-5 border-t border-border pt-3 text-[13px] text-muted-foreground sm:gap-6">
-                      <span class="inline-flex items-center gap-1.5">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                        {live && <span>{formatCount(live.replies)}</span>}
-                      </span>
-                      <span class="inline-flex items-center gap-1.5">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                        {live && <span>{formatCount(live.retweets)}</span>}
-                      </span>
-                      <span class="inline-flex items-center gap-1.5">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                        {live && <span>{formatCount(live.likes)}</span>}
-                      </span>
-                      <a href={tweetHref} target="_blank" rel="noopener noreferrer" class="ml-auto font-medium text-[#1d9bf0] hover:underline">Read on X</a>
-                    </div>
-                  </div>
+                  <blockquote
+                    class="twitter-tweet"
+                    data-dnt="true"
+                    data-align="center"
+                    style="max-width:550px;width:100%"
+                  >
+                    <p>{t.text}</p>
+                    <a href={statusUrl}>{t.author} (@{t.handle}) on X</a>
+                  </blockquote>
                 </figure>
               );
             }
@@ -371,4 +259,21 @@ await Promise.all(
       }
     });
   });
+</script>
+
+<script>
+  // Load X's official embed widget once, matched to the current theme, only
+  // when the article actually contains an embedded tweet.
+  (function () {
+    const tweets = document.querySelectorAll("blockquote.twitter-tweet");
+    if (!tweets.length) return;
+    const dark = document.documentElement.classList.contains("dark");
+    tweets.forEach((el) =>
+      el.setAttribute("data-theme", dark ? "dark" : "light"),
+    );
+    const s = document.createElement("script");
+    s.src = "https://platform.twitter.com/widgets.js";
+    s.async = true;
+    document.head.appendChild(s);
+  })();
 </script>
