@@ -137,6 +137,18 @@ export const articles: Article[] = [
         type: "paragraph",
         text: "Rewards are variable and not guaranteed. The effective rate depends on total participating TVL and remaining budget. The onchain risks of the underlying strategy remain separate from these rewards.",
       },
+      { type: "heading", text: "References" },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Anchorage Digital",
+          handle: "Anchorage",
+          date: "",
+          text: "Anchorage Digital on access to Fusion strategies on Base.",
+          id: "2071625828660552132",
+          url: "https://x.com/Anchorage/status/2071625828660552132",
+        },
+      },
     ],
   },
   {
