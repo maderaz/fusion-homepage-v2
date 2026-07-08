@@ -1,0 +1,133 @@
+---
+import BaseLayout from "@/shared/layouts/base-layout.astro";
+import Nav from "../components/nav.astro";
+import Footer from "@/shared/components/footer.astro";
+// Fusion UI Kit — vendored design-system stylesheet (.uk-c-* classes).
+// The kit is a design spec reimplemented locally; nothing loads from
+// fusionecosystem.xyz at runtime.
+import "../styles/fusion-ui.css";
+---
+
+<BaseLayout
+  title="Deposit — Test | Fusion by IPOR"
+  description="A deposit module built from the Fusion UI Kit design system."
+>
+  <Nav />
+  <main class="flex min-h-screen items-center justify-center bg-background px-6 pt-32 pb-20">
+    <div class="flex w-full max-w-[310px] flex-col items-center gap-5">
+      <p class="text-[13px] font-medium uppercase tracking-wide text-primary">Fusion UI Kit</p>
+      <h1 class="text-[24px] font-medium text-foreground">Deposit</h1>
+
+      <!-- Deposit Area — Fusion UI Kit (.uk-c-deposit) -->
+      <div class="uk-c-deposit" id="deposit" data-state="default">
+        <div class="uk-dep-row">
+          <span class="uk-dep-label">Deposit cbETH</span>
+          <span class="uk-dep-balance">Balance:&nbsp;<b id="dep-balance">1.245</b></span>
+        </div>
+        <div class="uk-dep-mid">
+          <input
+            id="dep-input"
+            class="uk-dep-value"
+            inputmode="decimal"
+            autocomplete="off"
+            placeholder="0.00"
+            aria-label="Deposit amount"
+          />
+          <span class="uk-dep-token" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <circle cx="13" cy="13" r="13" fill="#2151F5"></circle>
+              <path d="M13 4.5l5 8.4-5 2.9-5-2.9z" fill="#fff" fill-opacity="0.9"></path>
+              <path d="M13 16.6l5-2.9L13 21.5 8 13.7z" fill="#fff" fill-opacity="0.6"></path>
+            </svg>
+          </span>
+        </div>
+        <div class="uk-dep-row">
+          <span class="uk-dep-fiat" id="dep-fiat">$0.00</span>
+          <button class="uk-dep-max" id="dep-max" type="button">MAX</button>
+        </div>
+      </div>
+
+      <!-- Primary Button — Fusion UI Kit (.uk-c-primary) -->
+      <button class="uk-c-primary" id="dep-submit" type="button" disabled>Deposit</button>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Turn the kit's presentational value slot into a live input while keeping
+     its exact look (the kit ships a static <span>). */
+  input.uk-dep-value {
+    min-width: 0;
+    flex: 1 1 auto;
+    border: 0;
+    background: transparent;
+    outline: none;
+    caret-color: var(--uk-purple);
+  }
+  input.uk-dep-value::placeholder {
+    color: var(--uk-white-50);
+  }
+  /* hide number spinners */
+  input.uk-dep-value::-webkit-outer-spin-button,
+  input.uk-dep-value::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+
+<script>
+  const dep = document.getElementById("deposit") as HTMLElement;
+  const input = document.getElementById("dep-input") as HTMLInputElement;
+  const fiat = document.getElementById("dep-fiat") as HTMLElement;
+  const maxBtn = document.getElementById("dep-max") as HTMLButtonElement;
+  const submit = document.getElementById("dep-submit") as HTMLButtonElement;
+
+  if (dep && input && fiat && maxBtn && submit) {
+    const BALANCE = 1.245; // mock cbETH balance
+    const PRICE = 3187.42; // mock cbETH/USD
+
+    const fmt = (n: number) =>
+      "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    function refresh() {
+      const v = parseFloat(input.value);
+      const has = input.value.trim() !== "" && !Number.isNaN(v);
+      fiat.textContent = fmt(has ? v * PRICE : 0);
+      const focused = document.activeElement === input;
+      dep.dataset.state = has
+        ? focused ? "typing" : "typed"
+        : focused ? "clicked" : "default";
+      submit.disabled = !(has && v > 0 && v <= BALANCE);
+    }
+
+    input.addEventListener("input", () => {
+      // keep it a clean decimal
+      input.value = input.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+      refresh();
+    });
+    input.addEventListener("focus", refresh);
+    input.addEventListener("blur", refresh);
+
+    maxBtn.addEventListener("click", () => {
+      input.value = String(BALANCE);
+      input.focus();
+      refresh();
+    });
+
+    submit.addEventListener("click", () => {
+      if (submit.disabled) return;
+      const original = "Deposit";
+      submit.textContent = `Deposited ${input.value} cbETH ✓`;
+      submit.disabled = true;
+      window.setTimeout(() => {
+        input.value = "";
+        submit.textContent = original;
+        refresh();
+        input.blur();
+      }, 1600);
+    });
+
+    refresh();
+  }
+</script>
