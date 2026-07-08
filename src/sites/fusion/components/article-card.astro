@@ -16,7 +16,7 @@ const href = `/news/${article.slug}`;
   class:list={[
     "group relative flex overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5",
     featured
-      ? "flex-col p-6 md:flex-row md:items-stretch md:gap-8 md:p-8"
+      ? "flex-col p-6 md:flex-row md:items-center md:gap-8 md:p-8"
       : "flex-col p-6 md:p-7",
   ]}
 >
@@ -31,7 +31,7 @@ const href = `/news/${article.slug}`;
       class:list={[
         "rounded-xl border border-border object-cover",
         featured
-          ? "mb-5 aspect-[5/2] w-full md:mb-0 md:aspect-auto md:w-[54%] md:self-stretch"
+          ? "mb-5 aspect-[5/2] w-full md:mb-0 md:w-[54%]"
           : "mb-5 aspect-[5/2] w-full",
       ]}
     />
