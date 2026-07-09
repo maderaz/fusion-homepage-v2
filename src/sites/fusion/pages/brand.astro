@@ -153,16 +153,16 @@ const poppinsWeights = [
 // Backgrounds
 // ---------------------------------------------------------------------------
 const backgrounds = [
-  { file: "/brand/backgrounds/fusion-bg-glow-top.png", label: "Glow · top center" },
-  { file: "/brand/backgrounds/fusion-bg-glow-center.png", label: "Glow · symmetric" },
-  { file: "/brand/backgrounds/fusion-bg-glow-right.png", label: "Glow · upper right" },
-  { file: "/brand/backgrounds/fusion-bg-glow-corner.png", label: "Glow · lower right" },
+  { file: "/brand/backgrounds/fusion-bg-glow-top.png", label: "Glow · top & floor" },
+  { file: "/brand/backgrounds/fusion-bg-glow-center.png", label: "Grid · top center" },
+  { file: "/brand/backgrounds/fusion-bg-glow-right.png", label: "Grid · upper right" },
+  { file: "/brand/backgrounds/fusion-bg-glow-corner.png", label: "Grid · lower right" },
 ];
 
 // Press-ready company boilerplate — the standard description woven together
 // with the institutional-adoption fact.
 const boilerplate =
-  "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies — now accessed by Fortune 500, ETP, and MiCA-authorised entities. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.";
+  "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies, now accessed by Fortune 500, ETP, and MiCA-authorised entities. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.";
 
 const sectionEyebrow = "text-[13px] font-medium uppercase tracking-[0.14em] text-primary";
 const copyBtnCls =
@@ -171,7 +171,7 @@ const copyBtnCls =
 
 <BaseLayout
   title="Brand & Media Kit | Fusion"
-  description="Download Fusion logos, colors, typography, and backgrounds. Copy any logo as SVG or grab hex values in one click — everything you need to represent the Fusion brand."
+  description="Download Fusion logos, colors, typography, and backgrounds. Copy any logo as SVG or grab hex values in one click. Everything you need to represent the Fusion brand."
   image="/brand/fusion-logo-square.png"
   imageWidth={1408}
   imageHeight={1408}
@@ -187,7 +187,7 @@ const copyBtnCls =
         </h1>
         <p class="mt-6 text-[16px] text-muted-foreground" style="line-height: 1.7;">
           Everything you need to represent Fusion by IPOR. Copy any logo as
-          clean SVG, grab a hex value, or download a background — one click each.
+          clean SVG, grab a hex value, or download a background, one click each.
           Whenever possible, use the logo icon in Fusion purple; it's the
           primary brand color and strengthens recognition.
         </p>
@@ -267,20 +267,20 @@ const copyBtnCls =
         <p class={sectionEyebrow}>Boilerplate</p>
         <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Company description</h2>
         <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
-          Press-ready copy for articles, decks, and partner pages. Copy it as-is.
+          Press-ready copy for articles, decks, and partner pages.
         </p>
 
         <article class="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
           <div class="p-6 md:p-8">
-            <p class="max-w-3xl text-[15px] text-foreground" style="line-height: 1.8;">
+            <p class="text-[15px] text-foreground" style="line-height: 1.8;">
               {boilerplate}
             </p>
           </div>
           <div class="flex items-center justify-between gap-3 border-t border-border px-5 py-3">
-            <p class="text-[12px] text-muted-foreground">Standard boilerplate · press-ready</p>
-            <button type="button" class={copyBtnCls} data-copy={boilerplate} data-copy-label="Copy boilerplate">
+            <p class="text-[12px] text-muted-foreground">Standard boilerplate</p>
+            <button type="button" class={copyBtnCls} data-copy={boilerplate} data-copy-label="Boilerplate">
               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              Copy text
+              Copy
             </button>
           </div>
         </article>
@@ -330,7 +330,7 @@ const copyBtnCls =
         <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
           <span class="font-medium text-foreground">Poppins</span> is the primary
           typeface. For numbers, use
-          <span class="font-medium text-foreground">Source Sans Pro</span> — when
+          <span class="font-medium text-foreground">Source Sans Pro</span>. When
           set alongside Poppins, height adjustments are usually needed so both
           fonts appear visually aligned.
         </p>
@@ -384,8 +384,8 @@ const copyBtnCls =
         <p class={sectionEyebrow}>Backgrounds</p>
         <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Brand backgrounds</h2>
         <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
-          Full-resolution 1920×1080 wallpapers — the Fusion glow and isometric
-          grid. Download and use behind titles, covers, and social cards.
+          Full-resolution 1920×1080 wallpapers with the Fusion glow and
+          isometric grid. Download and use behind titles, covers, and social cards.
         </p>
 
         <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -393,7 +393,7 @@ const copyBtnCls =
             <article class="group relative overflow-hidden rounded-2xl border border-border bg-card">
               <img
                 src={bg.file}
-                alt={`Fusion background — ${bg.label}`}
+                alt={`Fusion background: ${bg.label}`}
                 loading="lazy"
                 width="1920"
                 height="1080"
@@ -405,7 +405,7 @@ const copyBtnCls =
                   class={copyBtnCls}
                   href={bg.file}
                   download
-                  aria-label={`Download background — ${bg.label}`}
+                  aria-label={`Download background: ${bg.label}`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
                   PNG
@@ -460,10 +460,10 @@ const copyBtnCls =
     }, 1600);
   }
 
-  async function copy(text: string, label: string) {
+  async function copy(text: string) {
     try {
       await navigator.clipboard.writeText(text);
-      showToast(`${label} — copied`);
+      showToast("Copied to clipboard");
     } catch {
       // Fallback for browsers without the async clipboard API.
       const ta = document.createElement("textarea");
@@ -474,7 +474,7 @@ const copyBtnCls =
       ta.select();
       try {
         document.execCommand("copy");
-        showToast(`${label} — copied`);
+        showToast("Copied to clipboard");
       } catch {
         showToast("Copy failed");
       }
@@ -488,8 +488,7 @@ const copyBtnCls =
       const value = el.getAttribute("data-copy");
       if (value === null) return;
       e.preventDefault();
-      const label = el.getAttribute("data-copy-label") || "Copied";
-      copy(value, label);
+      copy(value);
     });
   });
 </script>
