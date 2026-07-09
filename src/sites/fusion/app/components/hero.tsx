@@ -115,9 +115,17 @@ export function Hero({
                       </div>
                       <a
                         href="/contact"
-                        className="text-sm underline underline-offset-4 transition-colors text-muted-foreground hover:text-foreground"
+                        className="group inline-flex items-center gap-1.5 text-sm font-medium transition-colors text-foreground/80 hover:text-foreground"
                       >
-                        or Get in touch
+                        <span className="underline decoration-dotted decoration-from-font underline-offset-4">
+                          or Get in touch
+                        </span>
+                        <span
+                          className="transition-transform duration-200 group-hover:translate-x-1"
+                          aria-hidden="true"
+                        >
+                          &rarr;
+                        </span>
                       </a>
                     </div>
 
