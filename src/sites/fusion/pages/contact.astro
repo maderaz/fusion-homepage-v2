@@ -1,0 +1,135 @@
+---
+import BaseLayout from "@/shared/layouts/base-layout.astro";
+import Nav from "../components/nav.astro";
+import Footer from "@/shared/components/footer.astro";
+import CookieBanner from "@/shared/components/cookie-banner.astro";
+
+// Form submissions are emailed via FormSubmit (no backend on a static site).
+// Recipient is a test address for now.
+const FORM_ENDPOINT = "https://formsubmit.co/z@ipor.io";
+const nextUrl = new URL("/contact?sent=1", Astro.site).toString();
+
+const orgTypes = [
+  "Asset Manager", "Crypto Platform", "DeFi Platform", "Family Office",
+  "Fintech", "Institutional Investor", "Investment Fund", "Press",
+  "Regulator", "VC", "Other",
+];
+const interests = [
+  "Launching a vault",
+  "Accessing offchain optimization algorithm",
+  "General / Other Conversation",
+];
+
+const inputCls =
+  "w-full rounded-xl border border-border bg-secondary/40 px-4 py-3 text-[15px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:bg-secondary/60";
+const labelCls = "mb-2 block text-[14px] text-muted-foreground";
+---
+
+<BaseLayout
+  title="Contact | Fusion by IPOR"
+  description="Get in touch with the Fusion team — launch a vault, access offchain optimization, or start a conversation."
+>
+  <Nav />
+  <div class="min-h-screen bg-background">
+    <main class="mx-auto grid max-w-[1120px] grid-cols-1 gap-12 px-6 pt-32 pb-24 md:grid-cols-2 md:gap-16 md:pt-40">
+      <!-- Left -->
+      <div class="md:pt-4">
+        <h1 class="text-foreground" style="font-size: clamp(34px, 6vw, 56px); line-height: 1.05;">
+          Contact us
+        </h1>
+        <p class="mt-6 max-w-md text-[16px] text-muted-foreground" style="line-height: 1.7;">
+          Whether you want to launch a vault, tap into Fusion's offchain
+          optimization, or explore a partnership, tell us a bit about you and
+          the team will get back to you.
+        </p>
+      </div>
+
+      <!-- Right -->
+      <div>
+        <!-- Success banner (shown after redirect) -->
+        <div id="contact-success" class="hidden rounded-2xl border border-primary/30 bg-secondary/50 p-6">
+          <h2 class="text-[20px] font-medium text-foreground">Thanks, we got it.</h2>
+          <p class="mt-2 text-[15px] text-muted-foreground">
+            Your message is on its way to the Fusion team. We'll be in touch shortly.
+          </p>
+          <a href="/" class="mt-5 inline-flex text-[14px] font-medium text-primary hover:underline">Back to home</a>
+        </div>
+
+        <form
+          id="contact-form"
+          action={FORM_ENDPOINT}
+          method="POST"
+          class="flex flex-col gap-6"
+        >
+          <!-- FormSubmit config -->
+          <input type="hidden" name="_subject" value="New Fusion contact form submission" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value={nextUrl} />
+          <!-- honeypot -->
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+
+          <div>
+            <label class={labelCls} for="firstName">First name<span class="text-primary">*</span></label>
+            <input class={inputCls} id="firstName" name="First name" type="text" required autocomplete="given-name" />
+          </div>
+
+          <div>
+            <label class={labelCls} for="lastName">Last name</label>
+            <input class={inputCls} id="lastName" name="Last name" type="text" autocomplete="family-name" />
+          </div>
+
+          <div>
+            <label class={labelCls} for="email">Email<span class="text-primary">*</span></label>
+            <input class={inputCls} id="email" name="Email" type="email" required autocomplete="email" />
+          </div>
+
+          <div>
+            <label class={labelCls} for="org">Organization name<span class="text-primary">*</span></label>
+            <input class={inputCls} id="org" name="Organization name" type="text" required autocomplete="organization" />
+          </div>
+
+          <div>
+            <label class={labelCls} for="orgType">Organization type<span class="text-primary">*</span></label>
+            <select class={inputCls} id="orgType" name="Organization type" required>
+              <option value="" disabled selected>Please Select</option>
+              {orgTypes.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label class={labelCls} for="interest">What product/service are you interested in?<span class="text-primary">*</span></label>
+            <select class={inputCls} id="interest" name="Interested in" required>
+              <option value="" disabled selected>Please Select</option>
+              {interests.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label class={labelCls} for="message">Message</label>
+            <textarea class={`${inputCls} min-h-[120px] resize-y`} id="message" name="Message" rows="4"></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="brand-gradient inline-flex w-full items-center justify-center rounded-full border border-primary px-6 py-3 text-[15px] font-semibold text-white transition-opacity duration-300 hover:opacity-80 sm:w-auto"
+          >
+            Send message
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>
+
+<script>
+  // Show the success state when FormSubmit redirects back with ?sent=1.
+  if (new URLSearchParams(window.location.search).get("sent") === "1") {
+    document.getElementById("contact-form")?.classList.add("hidden");
+    const ok = document.getElementById("contact-success");
+    ok?.classList.remove("hidden");
+    ok?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+</script>
