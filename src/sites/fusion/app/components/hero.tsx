@@ -87,45 +87,28 @@ export function Hero({
 
                   {/* CTAs + Stats Row */}
                   <div className="mt-12 flex flex-col items-center gap-6 md:items-start lg:flex-row lg:items-center lg:gap-8">
-                    {/* CTA group: buttons + contact link */}
-                    <div className="flex flex-col items-center gap-3 md:items-start">
-                      {/* CTA Buttons */}
-                      <div className="flex items-center gap-4">
-                        <a
-                          href="https://app.ipor.io/fusion"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 rounded-full border px-7 py-3 text-sm font-semibold tracking-wide text-white border-primary brand-gradient transition-opacity duration-300 hover:opacity-70"
-                          style={{
-                            letterSpacing: "0.04em",
-                          }}
-                        >
-                          <span className="text-nowrap">Launch App</span>
-                          <ArrowUpRight className="size-4" />
-                        </a>
-                        <a
-                          href="https://docs.ipor.io/build-on-fusion"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border px-7 py-3 text-sm tracking-wide transition-colors duration-300 border-[#9BA3AF] text-black hover:bg-[#EFEFEF] dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
-                          style={{ letterSpacing: "0.04em" }}
-                        >
-                          <span className="text-nowrap">Start Building</span>
-                        </a>
-                      </div>
+                    {/* CTA Buttons */}
+                    <div className="flex items-center gap-4">
                       <a
-                        href="/contact"
-                        className="group inline-flex items-center gap-1.5 text-sm font-medium transition-colors text-foreground/80 hover:text-foreground"
+                        href="https://app.ipor.io/fusion"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-3 rounded-full border px-7 py-3 text-sm font-semibold tracking-wide text-white border-primary brand-gradient transition-opacity duration-300 hover:opacity-70"
+                        style={{
+                          letterSpacing: "0.04em",
+                        }}
                       >
-                        <span className="underline decoration-dotted decoration-from-font underline-offset-4">
-                          or Get in touch
-                        </span>
-                        <span
-                          className="transition-transform duration-200 group-hover:translate-x-1"
-                          aria-hidden="true"
-                        >
-                          &rarr;
-                        </span>
+                        <span className="text-nowrap">Launch App</span>
+                        <ArrowUpRight className="size-4" />
+                      </a>
+                      <a
+                        href="https://docs.ipor.io/build-on-fusion"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border px-7 py-3 text-sm tracking-wide transition-colors duration-300 border-[#9BA3AF] text-black hover:bg-[#EFEFEF] dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
+                        style={{ letterSpacing: "0.04em" }}
+                      >
+                        <span className="text-nowrap">Start Building</span>
                       </a>
                     </div>
 
