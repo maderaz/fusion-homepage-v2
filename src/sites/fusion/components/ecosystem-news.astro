@@ -2,8 +2,16 @@
 import { getArticles } from "../data/articles";
 import ArticleCard from "./article-card.astro";
 
-const articles = getArticles();
-const items = articles.slice(0, 3);
+// Two hand-picked, most prominent announcements (order matters).
+const featuredSlugs = [
+  "tesseract-selects-fusion-institutional-vault-infrastructure",
+  "bitgo-institutional-access-tesseract-dedicated-client-vaults",
+];
+const bySlug = new Map(getArticles().map((a) => [a.slug, a]));
+const items = featuredSlugs.flatMap((slug) => {
+  const article = bySlug.get(slug);
+  return article ? [article] : [];
+});
 ---
 
 {items.length > 0 && (
@@ -39,7 +47,7 @@ const items = articles.slice(0, 3);
       </div>
 
       <!-- Cards -->
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-6 sm:grid-cols-2">
         {items.map((article) => (
           <ArticleCard article={article} />
         ))}
