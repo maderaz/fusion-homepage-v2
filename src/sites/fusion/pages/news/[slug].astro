@@ -31,6 +31,36 @@ const xShare = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUr
 const liShare = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
 
 const author = article.author;
+
+// Structured data: establishes IPOR as author/publisher of this content and
+// declares the canonical URL and original publish date.
+const imageAbs = new URL(article.coverImage ?? "/brand/bitgo-announcement.png", Astro.site).toString();
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.title,
+  description: article.seoDescription ?? article.excerpt,
+  image: [imageAbs],
+  datePublished: article.date,
+  dateModified: article.date,
+  inLanguage: "en",
+  author: {
+    "@type": "Organization",
+    name: author.name,
+    url: new URL("/", Astro.site).toString(),
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "IPOR Labs",
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("/icons/fusion-light.png", Astro.site).toString(),
+    },
+    sameAs: ["https://x.com/ipor_io", "https://docs.ipor.io/"],
+  },
+  mainEntityOfPage: { "@type": "WebPage", "@id": canonicalURL.toString() },
+  url: canonicalURL.toString(),
+});
 ---
 
 <BaseLayout
@@ -39,7 +69,12 @@ const author = article.author;
   image={article.coverImage}
   imageWidth={article.coverImage ? 1200 : undefined}
   imageHeight={article.coverImage ? 480 : undefined}
+  ogType="article"
+  publishedTime={article.date}
+  modifiedTime={article.date}
 >
+  <script type="application/ld+json" set:html={jsonLd} />
+
   <Nav />
   <div class="min-h-screen bg-background">
     <!-- Ambient brand glow behind the header -->
@@ -217,6 +252,13 @@ const author = article.author;
             return null;
           })}
         </div>
+
+        {article.originalUrl && (
+          <p class="mt-10 border-t border-border pt-5 text-[13px] text-muted-foreground">
+            Originally posted by {author.name} on{" "}
+            <a href={article.originalUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">X</a>.
+          </p>
+        )}
       </article>
     </div>
 
