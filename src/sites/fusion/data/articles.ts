@@ -14,6 +14,7 @@ export type ArticleBlock =
   | { type: "heading"; text: string }
   | { type: "list"; items: string[] }
   | { type: "source"; label: string; url: string }
+  | { type: "image"; src: string; alt: string; caption?: string }
   | {
       type: "pullquote";
       text: string;
@@ -224,6 +225,12 @@ const articles: Article[] = [
         text: "In simple terms, the vault supplies cbETH as collateral on Aave, borrows WETH against it, acquires more cbETH, and repeats. The position can reach an effective leverage of close to 10x.",
       },
       {
+        type: "image",
+        src: "/brand/aave-looping-mechanism.png",
+        alt: "Fusion looping mechanism: a user deposits cbETH into Fusion, which allocates it to Aave as collateral and recursively borrows WETH against cbETH to acquire more cbETH.",
+        caption: "Looping mechanism as described by TAU Labs [3]",
+      },
+      {
         type: "paragraph",
         text: "The yield comes from a spread. cbETH earns its staking yield, the borrowed WETH carries a cost, and the difference between the two is small on a single pass. Looped close to ten times, that small spread compounds into an amplified result.",
       },
@@ -261,6 +268,12 @@ const articles: Article[] = [
         text: "That vault runs around 95% of its allocation through Aave v3 Core, and the relationship runs both ways.",
       },
       {
+        type: "image",
+        src: "/brand/aave-historical-allocation.png",
+        alt: "TAU cbETH Dynamic Looping vault historical liquidity allocation, with Aave v3 Core (in blue) the dominant share of the position over time.",
+        caption: "TAU cbETH Dynamic Looping vault, Historical liquidity allocation breakdown, Aave marked in blue. The Fusion interface offers a full, historical breakdown of liquidity allocation across credit markets, down to a cent.",
+      },
+      {
         type: "paragraph",
         text: "As the vault grew, it became a meaningful source of demand on Aave V3's Base market, supplying as much as 70% of the cbETH supply side at its peak and contributing a significant share of WETH borrows. Aave provided the liquidity, and the strategy put it to work at scale.",
       },
@@ -269,12 +282,42 @@ const articles: Article[] = [
         text: "This strategy now benefits hundreds of users, sourcing yield from Aave in automated fashion. Its impact has been clearly reflected by the need to raise cbETH caps, as communicated in May.",
       },
       {
+        type: "tweet",
+        tweet: {
+          author: "Aave",
+          handle: "aave",
+          verified: true,
+          id: "2059307116226138357",
+          date: "May 2026",
+          text: "An update from Aave on cbETH supply caps.",
+          url: "https://x.com/aave/status/2059307116226138357",
+        },
+      },
+      {
         type: "paragraph",
         text: "The impact of that looping strategy is also reflected in the marketcap of @coinbase cbETH, supporting growth of the entire supply by 10%+ from 11 May.",
       },
       {
+        type: "image",
+        src: "/brand/cbeth-marketcap.png",
+        alt: "Coinbase Wrapped Staked ETH (cbETH) market cap chart denominated in ETH, marking the launch of the TAU cbETH Dynamic Looping vault in May and the subsequent growth in supply.",
+        caption: "Coinbase cbETH marketcap, denominated in ETH.",
+      },
+      {
         type: "paragraph",
         text: "Across the Fusion ecosystem, strategies tapping into Aave liquidity account for **~11.72% of the entire cbETH circulating supply** as of 23 June 2026.",
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Fusion (by IPOR)",
+          handle: "ipor_io",
+          verified: true,
+          id: "2069374709695742326",
+          date: "Jun 2026",
+          text: "Fusion strategies tapping into Aave liquidity account for a meaningful share of the entire cbETH circulating supply.",
+          url: "https://x.com/ipor_io/status/2069374709695742326",
+        },
       },
       { type: "heading", text: "Accessing automated Aave strategies: for retail participants" },
       {
@@ -433,6 +476,12 @@ const articles: Article[] = [
       {
         type: "paragraph",
         text: "A dedicated Fusion page, hosted by OpenCover, lists the currently eligible Covered Vaults at [opencover.com/vaults/fusion](https://opencover.com/vaults/fusion).",
+      },
+      {
+        type: "image",
+        src: "/brand/opencover-fusion-vaults.png",
+        alt: "The OpenCover x Fusion page listing an eligible Covered Vault, the Covered Liquity ETH Carry vault, with its APY, cover capacity, and coverage details.",
+        caption: "The Fusion page on OpenCover, listing the currently eligible Covered Vaults.",
       },
       {
         type: "paragraph",

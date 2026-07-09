@@ -229,6 +229,24 @@ const jsonLd = JSON.stringify({
                 </figure>
               );
             }
+            if (block.type === "image") {
+              return (
+                <figure class="my-8">
+                  <img
+                    src={block.src}
+                    alt={block.alt}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full rounded-2xl border border-border bg-card"
+                  />
+                  {block.caption && (
+                    <figcaption class="mt-3 text-[13px] text-muted-foreground" style="line-height: 1.6;">
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
             if (block.type === "tweet") {
               const t = block.tweet;
               const statusUrl = t.id
