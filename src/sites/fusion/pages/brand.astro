@@ -1,0 +1,466 @@
+---
+import BaseLayout from "@/shared/layouts/base-layout.astro";
+import Nav from "../components/nav.astro";
+import Footer from "@/shared/components/footer.astro";
+import CookieBanner from "@/shared/components/cookie-banner.astro";
+import { horizontalSvg, squareSvg } from "../data/brand-logo";
+
+// ---------------------------------------------------------------------------
+// Logo color variations — mirrors the "Color Variations" board in the Fusion
+// Media Kit. Whenever possible the icon is Fusion purple; on backgrounds that
+// don't give it enough contrast it flips to white or black.
+// ---------------------------------------------------------------------------
+const PURPLE = "#8429FF";
+const BLACK = "#000000";
+const WHITE = "#FFFFFF";
+const DARK = "#090E14";
+const LIGHT = "#F5F5FA";
+
+interface LogoCard {
+  id: string;
+  label: string;
+  note: string;
+  bg: string;
+  /** true when the swatch behind the logo is light (card needs a hairline). */
+  lightSurface: boolean;
+  svg: string;
+}
+
+const horizontalCards: LogoCard[] = [
+  {
+    id: "fusion-logo-purple-on-black",
+    label: "Purple icon · white text",
+    note: "On black",
+    bg: BLACK,
+    lightSurface: false,
+    svg: horizontalSvg(PURPLE, WHITE),
+  },
+  {
+    id: "fusion-logo-purple-on-white",
+    label: "Purple icon · black text",
+    note: "On white",
+    bg: WHITE,
+    lightSurface: true,
+    svg: horizontalSvg(PURPLE, BLACK),
+  },
+  {
+    id: "fusion-logo-white-on-purple",
+    label: "White icon · white text",
+    note: "On Fusion purple",
+    bg: PURPLE,
+    lightSurface: false,
+    svg: horizontalSvg(WHITE, WHITE),
+  },
+  {
+    id: "fusion-logo-black-on-light",
+    label: "Black icon · black text",
+    note: "On light grey",
+    bg: LIGHT,
+    lightSurface: true,
+    svg: horizontalSvg(BLACK, BLACK),
+  },
+  {
+    id: "fusion-logo-white-on-dark",
+    label: "White icon · white text",
+    note: "On dark",
+    bg: DARK,
+    lightSurface: false,
+    svg: horizontalSvg(WHITE, WHITE),
+  },
+];
+
+const squareCard: LogoCard = {
+  id: "fusion-mark-square",
+  label: "Square app mark",
+  note: "Icon only",
+  bg: PURPLE,
+  lightSurface: false,
+  svg: squareSvg(PURPLE, WHITE),
+};
+
+// Encode an SVG string as a downloadable data URL.
+const dataUrl = (svg: string) =>
+  "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+
+// ---------------------------------------------------------------------------
+// Colors
+// ---------------------------------------------------------------------------
+interface Swatch {
+  name: string;
+  hex: string;
+  /** optional secondary line (CMYK, gradient stops, usage). */
+  meta?: string;
+  /** css value copied by the button — defaults to hex. */
+  copy?: string;
+  copyLabel?: string;
+  /** rendered fill; defaults to hex. Use for the gradient chip. */
+  fill?: string;
+  lightSurface: boolean;
+}
+
+const swatches: Swatch[] = [
+  {
+    name: "Fusion Purple",
+    hex: "#8429FF",
+    meta: "Primary · CMYK 81 95 0 0",
+    lightSurface: false,
+  },
+  {
+    name: "Purple Gradient",
+    hex: "#8429FF → #6C00FF",
+    meta: "linear-gradient · 90°",
+    copy: "linear-gradient(90deg, #8429FF 0%, #6C00FF 100%)",
+    copyLabel: "Copy CSS",
+    fill: "linear-gradient(90deg, #8429FF 0%, #6C00FF 100%)",
+    lightSurface: false,
+  },
+  {
+    name: "Background Dark",
+    hex: "#090E14",
+    meta: "Surfaces · dark UI",
+    lightSurface: false,
+  },
+  {
+    name: "Black",
+    hex: "#000000",
+    meta: "Text · dark backgrounds",
+    lightSurface: false,
+  },
+  {
+    name: "White",
+    hex: "#FFFFFF",
+    meta: "Text · light backgrounds",
+    lightSurface: true,
+  },
+  {
+    name: "Border / Stroke",
+    hex: "#2E3137",
+    meta: "Dividers · containers",
+    lightSurface: false,
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Typography
+// ---------------------------------------------------------------------------
+const poppinsWeights = [
+  { name: "Poppins Regular", weight: 400, use: "Body text and general UI text." },
+  { name: "Poppins Medium", weight: 500, use: "Headings, subheadings, and titles." },
+  { name: "Poppins SemiBold", weight: 600, use: "When additional emphasis or variation is needed." },
+];
+
+// ---------------------------------------------------------------------------
+// Backgrounds
+// ---------------------------------------------------------------------------
+const backgrounds = [
+  { file: "/brand/backgrounds/fusion-bg-glow-top.png", label: "Glow · top center" },
+  { file: "/brand/backgrounds/fusion-bg-glow-center.png", label: "Glow · symmetric" },
+  { file: "/brand/backgrounds/fusion-bg-glow-right.png", label: "Glow · upper right" },
+  { file: "/brand/backgrounds/fusion-bg-glow-corner.png", label: "Glow · lower right" },
+];
+
+const sectionEyebrow = "text-[13px] font-medium uppercase tracking-[0.14em] text-primary";
+const copyBtnCls =
+  "copy-btn inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-3 py-1.5 text-[12px] font-medium text-foreground backdrop-blur transition-colors hover:border-primary/60 hover:text-primary";
+---
+
+<BaseLayout
+  title="Brand & Media Kit | Fusion"
+  description="Download Fusion logos, colors, typography, and backgrounds. Copy any logo as SVG or grab hex values in one click — everything you need to represent the Fusion brand."
+  image="/brand/fusion-logo-square.png"
+  imageWidth={1408}
+  imageHeight={1408}
+>
+  <Nav />
+  <div class="min-h-screen bg-background">
+    <main class="mx-auto max-w-[1120px] px-6 pt-32 pb-24 md:pt-40">
+      <!-- Hero -->
+      <header class="max-w-2xl">
+        <p class={sectionEyebrow}>Media Kit</p>
+        <h1 class="mt-4 text-foreground" style="font-size: clamp(36px, 6vw, 60px); line-height: 1.04;">
+          Brand &amp; assets
+        </h1>
+        <p class="mt-6 text-[16px] text-muted-foreground" style="line-height: 1.7;">
+          Everything you need to represent Fusion by IPOR. Copy any logo as
+          clean SVG, grab a hex value, or download a background — one click each.
+          Whenever possible, use the logo icon in Fusion purple; it's the
+          primary brand color and strengthens recognition.
+        </p>
+      </header>
+
+      <!-- ============================ LOGO ============================ -->
+      <section class="mt-20" id="logo">
+        <div class="flex items-end justify-between gap-6">
+          <div>
+            <p class={sectionEyebrow}>Logo</p>
+            <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Color variations</h2>
+          </div>
+        </div>
+        <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
+          These examples show how the logo should appear on different background
+          colors. When a background doesn't provide enough contrast for purple,
+          use white or black to keep the mark clearly visible.
+        </p>
+
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {horizontalCards.map((card) => (
+            <article class="group overflow-hidden rounded-2xl border border-border bg-card">
+              <div
+                class="relative flex h-40 items-center justify-center px-8"
+                style={`background:${card.bg};`}
+                data-light={card.lightSurface ? "true" : undefined}
+              >
+                <div class={`logo-render ${card.lightSurface ? "" : "on-dark"}`} set:html={card.svg} />
+                <div class="absolute bottom-3 right-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-within:opacity-100">
+                  <a
+                    class={copyBtnCls}
+                    href={dataUrl(card.svg)}
+                    download={`${card.id}.svg`}
+                    aria-label={`Download ${card.label} as SVG`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                    SVG
+                  </a>
+                  <button type="button" class={copyBtnCls} data-copy={card.svg} data-copy-label="Copy SVG">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    Copy
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-3 border-t border-border px-4 py-3">
+                <p class="text-[14px] font-medium text-foreground">{card.note}</p>
+                <p class="text-[12px] text-muted-foreground">{card.label}</p>
+              </div>
+            </article>
+          ))}
+
+          <!-- Square app mark -->
+          <article class="group overflow-hidden rounded-2xl border border-border bg-card">
+            <div class="relative flex h-40 items-center justify-center px-8" style={`background:${squareCard.bg};`}>
+              <div class="logo-render logo-render--square on-dark" set:html={squareCard.svg} />
+              <div class="absolute bottom-3 right-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-within:opacity-100">
+                <a class={copyBtnCls} href={dataUrl(squareCard.svg)} download={`${squareCard.id}.svg`} aria-label="Download square mark as SVG">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                  SVG
+                </a>
+                <button type="button" class={copyBtnCls} data-copy={squareCard.svg} data-copy-label="Copy SVG">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div class="flex items-center justify-between gap-3 border-t border-border px-4 py-3">
+              <p class="text-[14px] font-medium text-foreground">{squareCard.note}</p>
+              <p class="text-[12px] text-muted-foreground">{squareCard.label}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- =========================== COLORS =========================== -->
+      <section class="mt-24" id="colors">
+        <p class={sectionEyebrow}>Colors</p>
+        <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Brand palette</h2>
+        <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
+          Fusion purple leads. Tap any value to copy it to your clipboard.
+        </p>
+
+        <div class="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-3">
+          {swatches.map((s) => (
+            <button
+              type="button"
+              class="swatch group overflow-hidden rounded-2xl border border-border bg-card text-left transition-colors hover:border-primary/50"
+              data-copy={s.copy ?? s.hex}
+              data-copy-label={s.copyLabel ?? "Copy hex"}
+            >
+              <span
+                class="relative block h-28"
+                style={`background:${s.fill ?? s.hex};`}
+                data-light={s.lightSurface ? "true" : undefined}
+              >
+                {s.lightSurface && <span class="absolute inset-0 rounded-t-2xl ring-1 ring-inset ring-black/[0.06]"></span>}
+                <span class="copy-pill absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/85 px-3 py-1.5 text-[12px] font-medium text-foreground opacity-0 backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  {s.copyLabel ?? "Copy"}
+                </span>
+              </span>
+              <span class="block px-4 py-3">
+                <span class="block text-[14px] font-medium text-foreground">{s.name}</span>
+                <span class="mt-0.5 block font-mono text-[13px] text-muted-foreground">{s.hex}</span>
+                {s.meta && <span class="mt-1 block text-[12px] text-muted-foreground/80">{s.meta}</span>}
+              </span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <!-- ========================= TYPOGRAPHY ========================= -->
+      <section class="mt-24" id="typography">
+        <p class={sectionEyebrow}>Typography</p>
+        <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Typeface usage</h2>
+        <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
+          <span class="font-medium text-foreground">Poppins</span> is the primary
+          typeface. For numbers, use
+          <span class="font-medium text-foreground">Source Sans Pro</span> — when
+          set alongside Poppins, height adjustments are usually needed so both
+          fonts appear visually aligned.
+        </p>
+
+        <!-- Poppins -->
+        <div class="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
+          <div class="flex items-center justify-between border-b border-border px-6 py-4">
+            <p class="text-[15px] font-medium text-foreground">Poppins</p>
+            <p class="text-[12px] text-muted-foreground">Headings · body · UI</p>
+          </div>
+          <div class="divide-y divide-border">
+            {poppinsWeights.map((w) => (
+              <div class="flex flex-col gap-2 px-6 py-6 sm:flex-row sm:items-baseline sm:justify-between">
+                <p
+                  class="text-foreground"
+                  style={`font-family:'Poppins',sans-serif;font-weight:${w.weight};font-size:34px;line-height:1.1;`}
+                >
+                  Aa Bb Cc 123
+                </p>
+                <div class="sm:text-right">
+                  <p class="text-[14px] font-medium text-foreground">{w.name}</p>
+                  <p class="mt-0.5 text-[13px] text-muted-foreground">{w.use}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Source Sans Pro (numbers) -->
+        <div class="mt-5 overflow-hidden rounded-2xl border border-border bg-card">
+          <div class="flex items-center justify-between border-b border-border px-6 py-4">
+            <p class="text-[15px] font-medium text-foreground">Source Sans Pro</p>
+            <p class="text-[12px] text-muted-foreground">Numbers · Regular &amp; SemiBold</p>
+          </div>
+          <div class="flex flex-col gap-2 px-6 py-6 sm:flex-row sm:items-baseline sm:justify-between">
+            <p
+              class="text-foreground"
+              style="font-family:'Source Sans Pro','Source Sans 3',sans-serif;font-weight:400;font-size:40px;letter-spacing:0.01em;"
+            >
+              0 1 2 3 4 5 6 7 8 9 $ %
+            </p>
+            <p class="max-w-[16rem] text-[13px] text-muted-foreground sm:text-right">
+              Use for figures, rates, and metrics for consistent alignment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= BACKGROUNDS ========================= -->
+      <section class="mt-24" id="backgrounds">
+        <p class={sectionEyebrow}>Backgrounds</p>
+        <h2 class="mt-3 text-[26px] font-medium text-foreground md:text-[30px]">Brand backgrounds</h2>
+        <p class="mt-4 max-w-2xl text-[15px] text-muted-foreground" style="line-height: 1.7;">
+          Full-resolution 1920×1080 wallpapers — the Fusion glow and isometric
+          grid. Download and use behind titles, covers, and social cards.
+        </p>
+
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {backgrounds.map((bg) => (
+            <article class="group relative overflow-hidden rounded-2xl border border-border bg-card">
+              <img
+                src={bg.file}
+                alt={`Fusion background — ${bg.label}`}
+                loading="lazy"
+                width="1920"
+                height="1080"
+                class="aspect-video w-full object-cover"
+              />
+              <div class="flex items-center justify-between gap-3 border-t border-border px-4 py-3">
+                <p class="text-[13px] text-muted-foreground">{bg.label}</p>
+                <a
+                  class={copyBtnCls}
+                  href={bg.file}
+                  download
+                  aria-label={`Download background — ${bg.label}`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                  PNG
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  </div>
+  <Footer />
+  <CookieBanner />
+
+  <!-- Copy toast -->
+  <div
+    id="copy-toast"
+    class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 translate-y-3 rounded-full border border-border bg-card px-4 py-2 text-[13px] font-medium text-foreground opacity-0 shadow-lg transition-all duration-200"
+  >
+    Copied to clipboard
+  </div>
+</BaseLayout>
+
+<style>
+  /* Inline logos scale to a consistent height regardless of the exported
+     width/height attributes carried in the copyable SVG source. */
+  .logo-render :global(svg) {
+    height: 34px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+  .logo-render--square :global(svg) {
+    height: 96px;
+    border-radius: 16px;
+  }
+</style>
+
+<script>
+  const toast = document.getElementById("copy-toast");
+  let toastTimer: number | undefined;
+
+  function showToast(message: string) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    toast.style.transform = "translate(-50%, 0)";
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translate(-50%, 12px)";
+    }, 1600);
+  }
+
+  async function copy(text: string, label: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(`${label} — copied`);
+    } catch {
+      // Fallback for browsers without the async clipboard API.
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast(`${label} — copied`);
+      } catch {
+        showToast("Copy failed");
+      }
+      document.body.removeChild(ta);
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-copy]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      // Let download links (<a>) behave normally; only handle copy triggers.
+      const value = el.getAttribute("data-copy");
+      if (value === null) return;
+      e.preventDefault();
+      const label = el.getAttribute("data-copy-label") || "Copied";
+      copy(value, label);
+    });
+  });
+</script>

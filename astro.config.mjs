@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import cspStyleFix from "./src/integrations/csp-style-fix";
 
 export default defineConfig({
-  site: "https://fusion.ipor.io",
+  site: "https://ipor.io",
   srcDir: "./src/sites/fusion",
   outDir: "./dist",
   output: "static",
