@@ -1,12 +1,15 @@
 import type { AstroIntegration } from "astro";
 import { createHash } from "node:crypto";
-import { readFile, writeFile, readdir } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { glob } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { resolve } from "node:path";
 
 /**
- * Post-build Astro integration that fixes CSP across meta tags and HTTP headers.
+ * Post-build Astro integration that fixes CSP in the generated HTML.
+ *
+ * The site is served as static files on Vercel, so the browser reads its CSP
+ * from the `<meta http-equiv="Content-Security-Policy">` tag Astro injects
+ * into every page. This integration rewrites that tag after build.
  *
  * ## 1. Strips style hashes from meta tags
  *
@@ -21,37 +24,21 @@ import { resolve } from "node:path";
  * to be a stricter replacement, not a supplement.
  *
  * Astro's `security.csp` automatically computes hashes for `<style>` blocks
- * it generates (the CSS bundled from .astro and .css files) and adds them to
- * `style-src`. The moment those hashes appear, the browser switches to "hash
- * mode" and ignores `'unsafe-inline'`.
+ * it generates and adds them to `style-src`. The moment those hashes appear,
+ * the browser switches to "hash mode" and ignores `'unsafe-inline'`.
  *
  * But hashes only work for `<style>` blocks, not for `style=` attributes on
- * elements. There's no way to hash `style="font-family: 'Poppins'"` on a
- * `<div>` — the browser simply blocks it.
- *
- * This site has 300+ `style=` attributes plus Motion animations that set
- * `element.style` at runtime. These all need `'unsafe-inline'` to work. But
- * Astro's auto-generated hashes cause the browser to ignore it.
- *
- * The fix: this integration removes the style hashes from the CSP meta tag
- * after build. Without hashes, `'unsafe-inline'` is respected again, and both
- * `<style>` blocks and `style=` attributes work.
+ * elements. This site has 300+ `style=` attributes plus Motion animations
+ * that set `element.style` at runtime, all of which need `'unsafe-inline'`.
+ * This integration removes the style hashes from the CSP meta tag after build
+ * so `'unsafe-inline'` is respected again.
  *
  * ## 2. Adds missing script hashes to meta tags
  *
- * Astro's `security.csp` does not hash `is:inline` scripts (e.g. theme
- * script, image fallback handlers). This integration computes SHA-256 hashes
- * for ALL inline scripts in each HTML file and ensures they're present in the
- * `script-src` directive.
- *
- * ## 3. Syncs script hashes to HTTP header YAML files
- *
- * The `customHttp.yml` file defines CSP HTTP headers for AWS Amplify.
- * These can't use `'unsafe-inline'` for script-src because the meta tag's
- * hash-based CSP is the strict layer and both must pass. Instead, this
- * integration collects ALL unique script hashes across all pages and writes
- * them into the YAML file's `script-src`.
- * The hashes are deterministic from source code, so the YAML stays stable.
+ * Astro's `security.csp` does not hash `is:inline` scripts (e.g. the theme
+ * script and image fallback handlers). This integration computes SHA-256
+ * hashes for ALL inline scripts in each HTML file and ensures they're present
+ * in the `script-src` directive.
  */
 // External script domains needed for analytics (GA4)
 const EXTERNAL_SCRIPT_DOMAINS = [
@@ -71,9 +58,6 @@ export default function cspStyleFix(): AstroIntegration {
           htmlFiles.push(`${distPath}${entry}`);
         }
 
-        // Collect ALL unique script hashes across all pages (for HTTP headers)
-        const allScriptHashes = new Set<string>();
-
         for (const file of htmlFiles) {
           const html = await readFile(file, "utf-8");
 
@@ -89,7 +73,6 @@ export default function cspStyleFix(): AstroIntegration {
                 .update(content)
                 .digest("base64");
               scriptHashes.add(`'sha256-${hash}'`);
-              allScriptHashes.add(`'sha256-${hash}'`);
             }
           }
 
@@ -134,38 +117,6 @@ export default function cspStyleFix(): AstroIntegration {
           if (updated !== html) {
             await writeFile(file, updated);
           }
-        }
-
-        // Persist this site's hashes, then rebuild YAML from all sites' hashes
-        const site = process.env.SITE || "fusion";
-        const root = process.cwd();
-        await writeFile(
-          resolve(root, `.csp-hashes-${site}.json`),
-          JSON.stringify([...allScriptHashes].sort()),
-        );
-
-        // Read all per-site hash files and union them
-        const files = await readdir(root);
-        const unionHashes = new Set<string>();
-        for (const f of files) {
-          if (f.startsWith(".csp-hashes-") && f.endsWith(".json")) {
-            const hashes: string[] = JSON.parse(
-              await readFile(resolve(root, f), "utf-8"),
-            );
-            for (const h of hashes) unionHashes.add(h);
-          }
-        }
-
-        const sortedHashes = [...unionHashes].sort();
-        const scriptSrcValue = `'self' ${EXTERNAL_SCRIPT_DOMAINS.join(" ")} ${sortedHashes.join(" ")}`;
-        const yamlFile = resolve(root, "customHttp.yml");
-        const yaml = await readFile(yamlFile, "utf-8");
-        const updated = yaml.replace(
-          /(script-src\s)[^;"]*/,
-          `$1${scriptSrcValue}`,
-        );
-        if (updated !== yaml) {
-          await writeFile(yamlFile, updated);
         }
       },
     },
