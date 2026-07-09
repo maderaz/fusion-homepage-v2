@@ -115,8 +115,13 @@ describe("CSP content correctness", () => {
     expect(directives.get("img-src")).toContain("data:");
   });
 
-  it("blocks iframes with frame-src 'none'", () => {
-    expect(directives.get("frame-src")).toEqual(["'none'"]);
+  it("restricts frame-src to trusted embed hosts", () => {
+    // Embedded tweets render inside a platform.twitter.com iframe; no other
+    // framing is allowed.
+    expect(directives.get("frame-src")).toEqual([
+      "https://platform.twitter.com",
+      "https://twitter.com",
+    ]);
   });
 
   it("blocks plugins with object-src 'none'", () => {

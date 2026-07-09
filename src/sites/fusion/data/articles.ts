@@ -70,7 +70,7 @@ export interface Article {
   body: ArticleBlock[];
 }
 
-export const articles: Article[] = [
+const articles: Article[] = [
   {
     slug: "base-rewards-fusion-strategies-anchorage-digital",
     title:
@@ -833,10 +833,6 @@ export const articles: Article[] = [
 /** Articles sorted newest-first. */
 export function getArticles(): Article[] {
   return [...articles].sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-export function getArticle(slug: string): Article | undefined {
-  return articles.find((a) => a.slug === slug);
 }
 
 const MONTHS = [
