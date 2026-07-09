@@ -14,7 +14,6 @@
 
 # astro
 .astro
-.csp-hashes-*.json
 
 # TypeScript project references
 *.tsbuildinfo

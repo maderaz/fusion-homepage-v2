@@ -66,4 +66,11 @@ export const linkColumns: FooterLinkColumn[] = [
       { label: "Medium Blog", href: "https://blog.ipor.io/" },
     ],
   },
+  {
+    title: "Organization",
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: "Brand Kit", href: "/brand" },
+    ],
+  },
 ];

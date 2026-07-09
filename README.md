@@ -58,7 +58,7 @@ Dark/light mode uses a `dark` class on `<html>`. An inline script in the head re
 
 ## Deployment
 
-Deployed on AWS Amplify via GitHub Actions. Build command: `astro check && astro build`, output directory: `dist/`.
+Deployed on Vercel. Build command: `npm run build:fusion` (`astro check && astro build`), output directory: `dist/`. The Content-Security-Policy is emitted as a `<meta>` tag on every page (see `src/integrations/csp-style-fix.ts`).
 
 ## License
 

@@ -23,6 +23,20 @@ const interests = [
 const inputCls =
   "w-full rounded-xl border border-border bg-secondary/40 px-4 py-3 text-[15px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:bg-secondary/60";
 const labelCls = "mb-2 block text-[14px] text-muted-foreground";
+// Custom dropdown (replaces native <select> so the menu + chevron match the
+// site rather than the OS). The chevron sits inside the px-4 padding so it
+// never touches the right edge.
+const triggerCls =
+  "flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-secondary/40 px-4 py-3 text-left text-[15px] outline-none transition-colors hover:bg-secondary/60 focus:border-primary/60 focus:bg-secondary/60";
+const csMenuCls =
+  "cs-menu absolute left-0 right-0 top-[calc(100%+6px)] z-20 hidden max-h-60 overflow-auto rounded-xl border border-border bg-card p-1 shadow-xl";
+const csOptionCls =
+  "cs-option cursor-pointer rounded-lg px-3 py-2.5 text-[15px] text-foreground transition-colors hover:bg-secondary";
+
+const selects = [
+  { id: "orgType", name: "Organization type", label: "Organization type", options: orgTypes },
+  { id: "interest", name: "Interested in", label: "What product/service are you interested in?", options: interests },
+];
 ---
 
 <BaseLayout
@@ -42,6 +56,23 @@ const labelCls = "mb-2 block text-[14px] text-muted-foreground";
           optimization, or explore a partnership, tell us a bit about you and
           the team will get back to you.
         </p>
+
+        <hr class="mt-8 max-w-md border-border" />
+
+        <p class="mt-6 max-w-md text-[13px] text-muted-foreground" style="line-height: 1.75;">
+          Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain
+          vault infrastructure built for institutional-grade onchain yield
+          strategies. Its modular architecture provides deterministic risk
+          enforcement, per-client vault isolation, embedded compliance, and
+          flexible configuration through composable modules called Fuses,
+          integrated with leading DeFi protocols.
+        </p>
+
+        <address class="mt-5 max-w-md text-[13px] not-italic text-muted-foreground" style="line-height: 1.75;">
+          c/o AbaFin Treuhand AG<br />
+          Baarerstrasse 82<br />
+          Zug, Switzerland 6302
+        </address>
       </div>
 
       <!-- Right -->
@@ -89,21 +120,40 @@ const labelCls = "mb-2 block text-[14px] text-muted-foreground";
             <input class={inputCls} id="org" name="Organization name" type="text" required autocomplete="organization" />
           </div>
 
-          <div>
-            <label class={labelCls} for="orgType">Organization type<span class="text-primary">*</span></label>
-            <select class={inputCls} id="orgType" name="Organization type" required>
-              <option value="" disabled selected>Please Select</option>
-              {orgTypes.map((o) => <option value={o}>{o}</option>)}
-            </select>
-          </div>
-
-          <div>
-            <label class={labelCls} for="interest">What product/service are you interested in?<span class="text-primary">*</span></label>
-            <select class={inputCls} id="interest" name="Interested in" required>
-              <option value="" disabled selected>Please Select</option>
-              {interests.map((o) => <option value={o}>{o}</option>)}
-            </select>
-          </div>
+          {selects.map((s) => (
+            <div>
+              <label class={labelCls} for={`${s.id}-trigger`}>{s.label}<span class="text-primary">*</span></label>
+              <div class="custom-select relative" data-required="true">
+                <input type="hidden" name={s.name} value="" />
+                <button
+                  type="button"
+                  id={`${s.id}-trigger`}
+                  class={triggerCls}
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                >
+                  <span class="cs-label text-muted-foreground">Please Select</span>
+                  <svg
+                    class="cs-chevron size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                <ul class={csMenuCls} role="listbox" aria-label={s.label}>
+                  {s.options.map((o) => (
+                    <li class={csOptionCls} role="option" data-value={o}>{o}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
 
           <div>
             <label class={labelCls} for="message">Message</label>
@@ -125,7 +175,88 @@ const labelCls = "mb-2 block text-[14px] text-muted-foreground";
 </BaseLayout>
 
 <script>
-  // Show the success state when FormSubmit redirects back with ?sent=1.
+  // ---- Custom dropdowns -------------------------------------------------
+  interface CS {
+    root: HTMLElement;
+    hidden: HTMLInputElement;
+    trigger: HTMLButtonElement;
+    close: () => void;
+  }
+
+  function initSelect(root: HTMLElement): CS {
+    const trigger = root.querySelector<HTMLButtonElement>("button")!;
+    const label = root.querySelector<HTMLElement>(".cs-label")!;
+    const chevron = root.querySelector<SVGElement>(".cs-chevron")!;
+    const menu = root.querySelector<HTMLElement>(".cs-menu")!;
+    const hidden = root.querySelector<HTMLInputElement>("input[type=hidden]")!;
+    const options = root.querySelectorAll<HTMLElement>(".cs-option");
+
+    const open = () => {
+      menu.classList.remove("hidden");
+      trigger.setAttribute("aria-expanded", "true");
+      chevron.classList.add("rotate-180");
+    };
+    const close = () => {
+      menu.classList.add("hidden");
+      trigger.setAttribute("aria-expanded", "false");
+      chevron.classList.remove("rotate-180");
+    };
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+      closeAll();
+      if (!isOpen) open();
+    });
+
+    options.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        const val = opt.getAttribute("data-value") ?? "";
+        hidden.value = val;
+        label.textContent = val;
+        label.classList.remove("text-muted-foreground");
+        label.classList.add("text-foreground");
+        options.forEach((o) => o.classList.remove("text-primary", "font-medium"));
+        opt.classList.add("text-primary", "font-medium");
+        trigger.classList.remove("border-red-500/70");
+        close();
+      });
+    });
+
+    return { root, hidden, trigger, close };
+  }
+
+  const selects: CS[] = Array.from(
+    document.querySelectorAll<HTMLElement>(".custom-select"),
+  ).map(initSelect);
+
+  function closeAll() {
+    selects.forEach((s) => s.close());
+  }
+  document.addEventListener("click", closeAll);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAll();
+  });
+
+  // ---- Required validation (hidden inputs aren't natively validated) ----
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  form?.addEventListener("submit", (e) => {
+    let firstInvalid: CS | null = null;
+    selects.forEach((s) => {
+      if (s.root.dataset.required && !s.hidden.value) {
+        s.trigger.classList.add("border-red-500/70");
+        if (!firstInvalid) firstInvalid = s;
+      }
+    });
+    if (firstInvalid) {
+      e.preventDefault();
+      const target = firstInvalid as CS;
+      target.trigger.focus();
+      target.root.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+
+  // ---- Success state on redirect ----------------------------------------
   if (new URLSearchParams(window.location.search).get("sent") === "1") {
     document.getElementById("contact-form")?.classList.add("hidden");
     const ok = document.getElementById("contact-success");
