@@ -56,10 +56,14 @@ const related = [
 const h2 = "mt-12 mb-4 text-[26px] font-semibold leading-[1.25] text-foreground md:text-[33px]";
 const h3 = "mt-8 mb-2.5 text-[19px] font-semibold leading-[1.35] text-foreground md:text-[22px]";
 const p = "mb-4 text-[16px] text-body-foreground md:text-[17px]";
-const lead = "mb-6 text-[19px] text-foreground md:text-[24px]";
+const lead = "mb-6 text-[17px] text-foreground md:text-[19px]";
 const link = "font-medium text-primary underline underline-offset-2 decoration-primary/30 transition-colors hover:decoration-primary";
 const ps = "line-height: 1.7;";
-const leadStyle = "line-height: 1.55;";
+const leadStyle = "line-height: 1.65;";
+
+const published = "2026-07-14";
+const publishedLabel = "Jul 14, 2026";
+const readingMinutes = 8;
 ---
 
 <BaseLayout
@@ -87,6 +91,18 @@ const leadStyle = "line-height: 1.55;";
             <span class="text-primary">Institutional Vaults</span>: How Regulated Capital Reaches Aave, Morpho and 20+ Protocols
           </h1>
         </div>
+
+        <!-- Byline -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[14px] text-muted-foreground">
+          <span class="flex items-center gap-2.5">
+            <img src="/brand/fusion-pfp.jpg" alt="Fusion Team" width="36" height="36" loading="lazy" decoding="async" class="h-9 w-9 rounded-full object-cover ring-1 ring-border" />
+            <span class="font-medium text-foreground">Fusion Team</span>
+          </span>
+          <span class="text-muted-foreground/50" aria-hidden="true">&middot;</span>
+          <time datetime={published}>{publishedLabel}</time>
+          <span class="text-muted-foreground/50" aria-hidden="true">&middot;</span>
+          <span>{readingMinutes} min read</span>
+        </div>
       </header>
 
       <article class="relative mx-auto max-w-[730px] px-4 pt-14 pb-16 sm:px-6 md:pt-20">
@@ -104,8 +120,9 @@ const leadStyle = "line-height: 1.55;";
           </p>
           <p class={p} style={ps}>
             Entities like <a class={link} href="/news/bitgo-institutional-access-tesseract-dedicated-client-vaults">BitGo</a>
-            and 21Shares already reach those venues through institutional vaults
-            built on Fusion infrastructure.
+            and <a class={link} href="/news/tesseract-selects-fusion-institutional-vault-infrastructure">21Shares</a>
+            already reach those venues through institutional vaults built on
+            Fusion infrastructure.
           </p>
           <p class={p} style={ps}>
             The question for the capital that follows is the way in: who can act,
@@ -208,7 +225,7 @@ const leadStyle = "line-height: 1.55;";
             markets through this route.
           </p>
 
-          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white p-3 sm:p-5">
+          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white">
             <img
               src={INFOGRAPHIC_1.src}
               alt={INFOGRAPHIC_1.alt}
@@ -216,7 +233,7 @@ const leadStyle = "line-height: 1.55;";
               height="1159"
               loading="lazy"
               decoding="async"
-              class="mx-auto w-full max-w-[620px]"
+              class="w-full"
             />
           </figure>
 
@@ -260,7 +277,7 @@ const leadStyle = "line-height: 1.55;";
             <a class={link} href="/news/fusion-automates-aave-yield-cbeth-looping">cbETH looping strategy on Base</a>.
           </p>
 
-          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white p-3 sm:p-5">
+          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white">
             <img
               src={INFOGRAPHIC_2.src}
               alt={INFOGRAPHIC_2.alt}
@@ -268,7 +285,7 @@ const leadStyle = "line-height: 1.55;";
               height="1159"
               loading="lazy"
               decoding="async"
-              class="mx-auto w-full max-w-[620px]"
+              class="w-full"
             />
           </figure>
 
@@ -500,11 +517,13 @@ const leadStyle = "line-height: 1.55;";
      card-dark with lighter dots in dark mode. */
   .dot-grid {
     background-color: #ffffff;
-    background-image: radial-gradient(circle, rgb(0 0 0 / 0.22) 1.2px, transparent 1.2px);
-    background-size: 22px 22px;
+    /* Soft 1px->2px falloff anti-aliases the dots (a hard stop renders
+       pixelated on low-dpi screens). */
+    background-image: radial-gradient(circle, rgb(0 0 0 / 0.26) 1px, transparent 2px);
+    background-size: 24px 24px;
   }
   :global(html.dark) .dot-grid {
     background-color: var(--color-card);
-    background-image: radial-gradient(circle, rgb(255 255 255 / 0.13) 1.2px, transparent 1.2px);
+    background-image: radial-gradient(circle, rgb(255 255 255 / 0.15) 1px, transparent 2px);
   }
 </style>
