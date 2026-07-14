@@ -69,6 +69,9 @@ const readingMinutes = 8;
 <BaseLayout
   title="Institutional Vaults: How Regulated Capital Reaches DeFi"
   description="How institutional vaults control access, actions and accounting onchain, and how BitGo, 21Shares and in-house teams reach Aave, Morpho and 20+ protocols."
+  image="/brand/og-institutional-vaults.png"
+  imageWidth={1200}
+  imageHeight={630}
 >
   <Nav />
   <div class="min-h-screen bg-white dark:bg-background">
@@ -485,11 +488,28 @@ const readingMinutes = 8;
             More than twenty onchain protocols are reachable through pre-existing
             Fusion modules.
           </p>
-          <p class={p} style={ps}>
-            Institutions scoping a pilot vault can reach the IPOR Labs team
-            through the <a class={link} href="/contact">contact page</a>.
-          </p>
         </div>
+
+        <!-- CTA: pilot vault -->
+        <section class="dot-grid mt-12 rounded-[25px] border border-border px-6 py-12 text-center md:px-12 md:py-16">
+          <p class="mb-3 text-[13px] font-medium uppercase tracking-[0.14em] text-primary">
+            Pilot Vault
+          </p>
+          <h2 class="mx-auto max-w-[440px] text-balance text-[26px] font-semibold leading-[1.25] text-foreground md:text-[32px]">
+            Build your first Pilot Vault
+          </h2>
+          <p class="mx-auto mt-4 max-w-[460px] text-[15px] text-muted-foreground md:text-[16px]" style="line-height: 1.7;">
+            Scoping institutional access to onchain markets? Talk to the IPOR
+            Labs team about a pilot vault configured to your mandate.
+          </p>
+          <a
+            href="/contact"
+            class="brand-gradient mt-7 inline-flex items-center gap-2 rounded-full border border-primary px-7 py-3 text-[15px] font-semibold text-white transition-opacity duration-300 hover:opacity-80"
+          >
+            Talk to us
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </section>
 
         <!-- Related reading -->
         <section class="mt-14 border-t border-border pt-8">
