@@ -67,6 +67,12 @@ export const linkColumns: FooterLinkColumn[] = [
     ],
   },
   {
+    title: "Recommended Reading",
+    links: [
+      { label: "Institutional Vaults", href: "/institutional-vaults" },
+    ],
+  },
+  {
     title: "Organization",
     links: [
       { label: "Contact", href: "/contact" },
