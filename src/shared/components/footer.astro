@@ -1,5 +1,5 @@
 ---
-import { linkColumns } from "@/shared/data/footer-links";
+import { linkColumnRows } from "@/shared/data/footer-links";
 ---
 
 <footer class="relative border-t pt-10 pb-6 overflow-hidden md:pt-16 md:pb-10 border-border">
@@ -18,49 +18,53 @@ import { linkColumns } from "@/shared/data/footer-links";
   <div class="relative z-10 mx-auto max-w-[1200px] px-6">
     <!-- Top row -->
     <div class="mb-12 flex flex-col gap-10 md:flex-row md:justify-between">
-      <!-- Link columns -->
-      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7 md:gap-10 w-full">
-        {linkColumns.map((col) => (
-          <div>
-            <p
-              class="mb-4 text-[12px] font-medium text-foreground"
-            >
-              {col.title}
-            </p>
-            <ul class="flex flex-col gap-3">
-              {col.links.map((link) => (
-                <li>
-                  {link.soon ? (
-                    <span
-                      class="inline-flex items-center gap-2 text-[14px] cursor-default text-muted-foreground/50"
-                    >
-                      {link.label}
-                      <span
-                        class="rounded px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide bg-primary text-white"
-                      >
-                        Soon
-                      </span>
-                    </span>
-                  ) : link.href.startsWith("/") ? (
-                    <a
-                      href={link.href}
-                      class="text-[14px] transition-colors text-muted-foreground hover:text-foreground"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      class="text-[14px] transition-colors text-muted-foreground hover:text-foreground"
-                    >
-                      {link.label}
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
+      <!-- Link columns: two rows of four -->
+      <div class="flex w-full flex-col gap-12">
+        {linkColumnRows.map((row) => (
+          <div class="grid grid-cols-2 gap-8 sm:grid-cols-4 md:gap-10 w-full">
+            {row.map((col) => (
+              <div>
+                <p
+                  class="mb-4 text-[12px] font-medium text-foreground"
+                >
+                  {col.title}
+                </p>
+                <ul class="flex flex-col gap-3">
+                  {col.links.map((link) => (
+                    <li>
+                      {link.soon ? (
+                        <span
+                          class="inline-flex items-center gap-2 text-[14px] cursor-default text-muted-foreground/50"
+                        >
+                          {link.label}
+                          <span
+                            class="rounded px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide bg-primary text-white"
+                          >
+                            Soon
+                          </span>
+                        </span>
+                      ) : link.href.startsWith("/") ? (
+                        <a
+                          href={link.href}
+                          class="text-[14px] transition-colors text-muted-foreground hover:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <a
+                          href={link.href}
+                          target={link.href.startsWith("http") ? "_blank" : undefined}
+                          rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          class="text-[14px] transition-colors text-muted-foreground hover:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         ))}
       </div>
@@ -104,21 +108,6 @@ import { linkColumns } from "@/shared/data/footer-links";
       >
         &copy; 2026 IPOR Labs AG. All rights reserved.
       </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-        <a
-          href="/privacy-policy"
-          class="text-[13px] transition-colors text-muted-foreground hover:text-foreground"
-        >
-          Privacy Policy
-        </a>
-        <a
-          href="/terms-of-use"
-          class="text-[13px] transition-colors text-muted-foreground hover:text-foreground"
-        >
-          Terms of Use
-        </a>
-      </div>
     </div>
   </div>
 </footer>

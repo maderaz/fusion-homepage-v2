@@ -9,9 +9,11 @@ const menuItems = [
 ---
 
 <header>
+  <!-- Transparent by default so the bar never reads as a separate band on
+       white article pages; gains bg + blur only after scroll. -->
   <nav
     id="main-nav"
-    class="group fixed z-20 w-full transition-all duration-300 bg-background/80 backdrop-blur-2xl"
+    class="group fixed z-20 w-full bg-transparent transition-all duration-300"
   >
     <div class="mx-auto max-w-[1200px] px-6 transition-all duration-300">
       <div
@@ -86,7 +88,7 @@ const menuItems = [
                 <li>
                   <a
                     href={item.href}
-                    class="block rounded-lg px-3 py-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent hover:text-foreground"
+                    class="block rounded-lg px-3 py-1.5 font-medium text-black transition-all duration-300 hover:bg-accent dark:text-white"
                   >
                     {item.name}
                   </a>
@@ -108,7 +110,7 @@ const menuItems = [
                 <li>
                   <a
                     href={item.href}
-                    class="nav-mobile-link block rounded-lg px-3 py-2.5 text-muted-foreground transition-all duration-300 hover:bg-accent hover:text-foreground"
+                    class="nav-mobile-link block rounded-lg px-3 py-2.5 font-medium text-black transition-all duration-300 hover:bg-accent dark:text-white"
                   >
                     {item.name}
                   </a>
@@ -238,6 +240,7 @@ const menuItems = [
     }
 
     document.body.style.overflow = open ? "hidden" : "";
+    syncNavBackdrop();
   }
 
   menuToggle.addEventListener("click", () => setMenu(!menuOpen));
@@ -246,14 +249,17 @@ const menuItems = [
     link.addEventListener("click", () => setMenu(false)),
   );
 
-  // Scroll detection for bottom border
-  window.addEventListener(
-    "scroll",
-    () => {
-      navInner.classList.toggle("border-border/50", window.scrollY > 50);
-    },
-    { passive: true },
-  );
+  // Scroll detection: the bar is transparent at the top of the page and
+  // gains a backdrop + bottom border once content scrolls beneath it.
+  const mainNav = document.getElementById("main-nav")!;
+  function syncNavBackdrop() {
+    const scrolled = window.scrollY > 50 || menuOpen;
+    navInner.classList.toggle("border-border/50", window.scrollY > 50);
+    mainNav.classList.toggle("bg-background/80", scrolled);
+    mainNav.classList.toggle("backdrop-blur-2xl", scrolled);
+  }
+  window.addEventListener("scroll", syncNavBackdrop, { passive: true });
+  syncNavBackdrop();
 
   // Theme toggle
   themeToggle.addEventListener("click", () => {
