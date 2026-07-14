@@ -1,0 +1,495 @@
+---
+import BaseLayout from "@/shared/layouts/base-layout.astro";
+import Nav from "../components/nav.astro";
+import Footer from "@/shared/components/footer.astro";
+import CookieBanner from "@/shared/components/cookie-banner.astro";
+import { getImage } from "astro:assets";
+import jamesAvatar from "@/shared/assets/avatars/james.png";
+import vladAvatar from "@/shared/assets/avatars/vlad.png";
+
+// Evergreen pillar page — no date, category, byline or read-time. It is the
+// hub for the term "institutional vaults"; the newsroom articles are spokes.
+const james = await getImage({ src: jamesAvatar, width: 96, height: 96 });
+const vlad = await getImage({ src: vladAvatar, width: 96, height: 96 });
+
+const INFOGRAPHIC_1 = {
+  src: "/brand/institutional-access.png",
+  alt: "Institutional vaults: how regulated capital reaches onchain markets through a MiCA-authorised partner, from BitGo and 21Shares via Tesseract Dedicated Client Vaults to Aave, Morpho and Spark",
+};
+const INFOGRAPHIC_2 = {
+  src: "/brand/direct-access.png",
+  alt: "Institutional vaults: direct access route for in-house teams building on Fusion infrastructure to reach Aave, Morpho and 20+ protocols",
+};
+
+const related = [
+  {
+    label:
+      "BitGo Opens Institutional Access to Tesseract's Dedicated Client Vaults Powered by Fusion",
+    href: "/news/bitgo-institutional-access-tesseract-dedicated-client-vaults",
+  },
+  {
+    label:
+      "Tesseract Selects IPOR Fusion as Onchain Vault Infrastructure for Institutional Clients",
+    href: "/news/tesseract-selects-fusion-institutional-vault-infrastructure",
+  },
+  {
+    label: "How Vault Curators Can Navigate MiCA in 2026",
+    href: "/news/how-vault-curators-navigate-mica-2026",
+  },
+  {
+    label:
+      "Turning cbETH's 2.75% Native Yield to 15% on Aave with Fusion Automation",
+    href: "/news/fusion-automates-aave-yield-cbeth-looping",
+  },
+  {
+    label: "Covered Vaults Come to Fusion: Embedded Onchain Protection by OpenCover",
+    href: "/news/covered-vaults-fusion-opencover-onchain-protection",
+  },
+  {
+    label: "Base Rewards Now Live for Select Fusion Strategies via Anchorage Digital",
+    href: "/news/base-rewards-fusion-strategies-anchorage-digital",
+  },
+];
+
+// Prose styles
+const h2 = "mt-14 mb-4 text-[24px] font-medium text-foreground md:text-[28px]";
+const h3 = "mt-9 mb-2.5 text-[18px] font-medium text-foreground md:text-[19px]";
+const p = "mb-5 text-[16px] text-body-foreground";
+const lead = "mb-6 text-[17px] text-foreground";
+const link = "font-medium text-primary underline underline-offset-2 decoration-primary/30 transition-colors hover:decoration-primary";
+const ps = "line-height: 1.8;";
+---
+
+<BaseLayout
+  title="Institutional Vaults: How Regulated Capital Reaches DeFi"
+  description="How institutional vaults control access, actions and accounting onchain, and how BitGo, 21Shares and in-house teams reach Aave, Morpho and 20+ protocols."
+>
+  <Nav />
+  <div class="min-h-screen bg-background">
+    <!-- Ambient brand glow behind the header -->
+    <div class="relative overflow-hidden">
+      <div
+        class="pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-70 dark:opacity-100"
+        style="background: radial-gradient(ellipse 60% 70% at 50% -10%, var(--color-secondary) 0%, transparent 70%);"
+        aria-hidden="true"
+      >
+      </div>
+
+      <article class="relative mx-auto max-w-[760px] px-4 pt-32 pb-16 sm:px-6 md:pt-40">
+        <!-- Hero -->
+        <header class="mb-10">
+          <p class="mb-4 text-[13px] font-medium uppercase tracking-[0.14em] text-primary">
+            For institutions
+          </p>
+          <h1
+            class="text-balance font-medium text-foreground"
+            style="font-size: clamp(28px, 4.5vw, 42px); line-height: 1.15;"
+          >
+            Institutional Vaults: How Regulated Capital Reaches Aave, Morpho and 20+ Protocols
+          </h1>
+        </header>
+
+        <!-- Body -->
+        <div class="flex flex-col">
+          <p class={lead} style={ps}>
+            Regulated capital is looking for a way into the onchain economy, and
+            for the qualities that make it worth entering: transparency,
+            programmable access, composability, and primitives that have no
+            equivalent offchain.
+          </p>
+          <p class={p} style={ps}>
+            The onchain opportunity set is substantial and still thinly
+            contested, with few regulated entities operating onchain at scale.
+          </p>
+          <p class={p} style={ps}>
+            Entities like <a class={link} href="/news/bitgo-institutional-access-tesseract-dedicated-client-vaults">BitGo</a>
+            and 21Shares already reach those venues through institutional vaults
+            built on Fusion infrastructure.
+          </p>
+          <p class={p} style={ps}>
+            The question for the capital that follows is the way in: who can act,
+            which actions are permitted, and how every position is accounted for.
+          </p>
+
+          <h2 class={h2}>How institutional vaults control access, actions, and accounting</h2>
+          <p class={p} style={ps}>
+            Institutional and regulated entities choose Fusion vaults because a
+            vault lets its operator define exactly what can happen before any
+            capital enters, with permissions and accounting enforced onchain. In
+            practice, that definition covers key pillars.
+          </p>
+
+          <h3 class={h3}>Who can act (RBAC)</h3>
+          <p class={p} style={ps}>
+            Only assigned roles can operate the vault, and each role's authority
+            is fixed onchain.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> an
+            operator, whether a human or an AI agent, can rebalance positions
+            without ever being able to move client funds out of the vault.
+          </p>
+
+          <h3 class={h3}>Who can access</h3>
+          <p class={p} style={ps}>
+            The vault defines who is allowed to deposit in the first place.
+            Access can be open, or restricted to addresses that meet defined
+            requirements, enforced onchain at the point of entry.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            vault can be permitted only to wallets that have passed KYC or KYB
+            checks, so a regulated institution can meet its own access
+            requirements before any capital enters.
+          </p>
+
+          <h3 class={h3}>Which actions are allowed</h3>
+          <p class={p} style={ps}>
+            The vault permits a specific set of operations and nothing beyond them.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            cbETH looping strategy can supply cbETH as collateral, borrow ETH
+            against it, swap that ETH back into cbETH, and repay: the exact
+            actions the loop needs. Any action outside that set stays unavailable.
+          </p>
+
+          <h3 class={h3}>Which markets can be reached</h3>
+          <p class={p} style={ps}>
+            The vault is scoped to named markets in advance.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            vault can be permitted to reach a specific Aave or Morpho market and
+            nothing else, so it cannot allocate into a venue it was never
+            configured to use.
+          </p>
+
+          <h3 class={h3}>How every position is accounted for</h3>
+          <p class={p} style={ps}>
+            Each position the vault holds, collateral, debt, or receipt tokens,
+            is tied back to onchain accounting.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> in a
+            leveraged cbETH position, the cbETH collateral and the ETH debt are
+            each valued onchain, so the vault's worth stays verifiable, down to
+            the last decimal.
+          </p>
+          <p class={p} style={ps}>
+            An institution can inspect the strategy before committing to it.
+          </p>
+
+          <h2 class={h2}>Two ways institutional capital reaches onchain markets</h2>
+          <p class={p} style={ps}>
+            Regulated and institutional entities reach onchain venues through
+            Fusion vault infrastructure in one of two ways, and the right one
+            depends on how a firm prefers to operate.
+          </p>
+
+          <h3 class={h3}>Access through a regulated partner (MiCA-authorised)</h3>
+          <p class={p} style={ps}>
+            Many institutions prefer a partner authorised to handle client funds
+            and vault operations on their behalf. For them, a regulated partner
+            is the path.
+          </p>
+          <p class={p} style={ps}>
+            <a class={link} href="/news/tesseract-selects-fusion-institutional-vault-infrastructure">Tesseract</a>,
+            a <a class={link} href="/news/how-vault-curators-navigate-mica-2026">MiCA-authorised</a>
+            entity, offers Dedicated Client Vaults built on Fusion, structured to
+            meet EU standards such as the separation of client assets. Tesseract
+            handles the vault setup, the strategy configuration, and the capital
+            deployment, while the institution keeps its exposure inside a
+            regulated perimeter.
+          </p>
+          <p class={p} style={ps}>
+            BitGo and 21Shares are among the institutions reaching onchain
+            markets through this route.
+          </p>
+
+          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white p-3 sm:p-5">
+            <img
+              src={INFOGRAPHIC_1.src}
+              alt={INFOGRAPHIC_1.alt}
+              width="1248"
+              height="1159"
+              loading="lazy"
+              decoding="async"
+              class="mx-auto w-full max-w-[620px]"
+            />
+          </figure>
+
+          <figure class="my-8 rounded-2xl border border-primary/20 bg-secondary/50 p-7 md:p-8">
+            <blockquote class="text-[17px] text-foreground md:text-[18px]" style="line-height: 1.65;">
+              &ldquo;Working with the IPOR Fusion team has been an exceptional
+              experience. They bring a deep level of technical expertise and
+              market understanding [&hellip;] The result is a solution that is not
+              only truly institutional-grade, but also at the forefront of where
+              the market is heading. They have been a key partner in helping us
+              bring our vault vision to life, and couldn't recommend them more
+              highly.&rdquo;
+            </blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <img src={james.src} alt="James Harris" width="44" height="44" loading="lazy" decoding="async" class="h-11 w-11 shrink-0 rounded-full border-2 border-primary/40 object-cover" />
+              <span class="flex flex-col">
+                <span class="text-[14px] font-semibold text-foreground">James Harris, CEO, Tesseract</span>
+                <span class="text-[13px] text-muted-foreground">$500M+ AUM, MiCA-Authorised</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <p class={p} style={ps}>
+            This path suits firms that want onchain exposure with a regulated
+            partner carrying the operational load. It is one of the routes
+            available on Fusion.
+          </p>
+
+          <h3 class={h3}>Direct access for in-house teams</h3>
+          <p class={p} style={ps}>
+            Teams with the capability in-house, an experienced development team, a
+            strategist, and a risk manager, can build on Fusion directly. They
+            configure the vault themselves, define its roles, permitted markets,
+            and accounting, and deploy capital on their own terms, using the
+            technology as the execution layer beneath their own strategy.
+          </p>
+          <p class={p} style={ps}>
+            This path suits teams that want full control over the strategy and its
+            parameters, and that have the internal expertise to operate a vault
+            end to end. TAU Labs builds this way, running a
+            <a class={link} href="/news/fusion-automates-aave-yield-cbeth-looping">cbETH looping strategy on Base</a>.
+          </p>
+
+          <figure class="my-8 overflow-hidden rounded-2xl border border-border bg-white p-3 sm:p-5">
+            <img
+              src={INFOGRAPHIC_2.src}
+              alt={INFOGRAPHIC_2.alt}
+              width="1248"
+              height="1159"
+              loading="lazy"
+              decoding="async"
+              class="mx-auto w-full max-w-[620px]"
+            />
+          </figure>
+
+          <figure class="my-8 rounded-2xl border border-primary/20 bg-secondary/50 p-7 md:p-8">
+            <blockquote class="text-[17px] text-foreground md:text-[18px]" style="line-height: 1.65;">
+              &ldquo;IPOR Fusion drastically reduces our operational overhead,
+              allowing us to launch better vaults, faster. Building directly on
+              Fusion infrastructure, we established the largest cbETH position on
+              the Base network and grew Aave's cbETH market by over 190% in a
+              single month. Their team is always responsive and proactive in
+              helping us optimize our strategies.&rdquo;
+            </blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <img src={vlad.src} alt="Vlad Totia" width="44" height="44" loading="lazy" decoding="async" class="h-11 w-11 shrink-0 rounded-full border-2 border-primary/40 object-cover" />
+              <span class="flex flex-col">
+                <span class="text-[14px] font-semibold text-foreground">Vlad Totia, Founder, TAU Labs</span>
+                <span class="text-[13px] text-muted-foreground">$100M+ TVM</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <h2 class={h2}>What institutional capital can build</h2>
+          <p class={p} style={ps}>
+            A route only matters for what it enables. Vaults on Fusion can run
+            several distinct approaches, each with its own risk profile, each
+            reachable through the same infrastructure.
+          </p>
+
+          <h3 class={h3}>Lending optimization</h3>
+          <p class={p} style={ps}>
+            Capital is routed across lending venues and rebalanced as terms move.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            WETH optimizer on Base holds positions across Aave, Morpho and Euler,
+            and shifts allocation between them as borrow and supply rates move,
+            staying within the venues named in its configuration.
+          </p>
+
+          <h3 class={h3}>Leveraged looping</h3>
+          <p class={p} style={ps}>
+            A yield-bearing asset is supplied as collateral, borrowed against, and
+            the borrowed asset is converted back into the same collateral and
+            re-supplied, amplifying the spread between its native yield and the
+            cost of borrowing.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            vault supplies cbETH to Aave on Base, borrows ETH against it, swaps
+            that ETH for cbETH, and supplies it again, repeating the cycle up to
+            the leverage ceiling set in its configuration. The leverage ceiling,
+            collateral ratio, and liquidation buffer are all fixed there.
+          </p>
+
+          <h3 class={h3}>Carry trades</h3>
+          <p class={p} style={ps}>
+            A position is financed to capture a spread between two rates.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a
+            vault deposits rETH as collateral on Liquity, borrows the BOLD
+            stablecoin against it, and supplies that to a Curve pool, holding the
+            difference between the yield on the collateral and the cost of the
+            debt. Select strategies of this type run with
+            <a class={link} href="/news/covered-vaults-fusion-opencover-onchain-protection">embedded onchain cover</a>.
+          </p>
+
+          <h3 class={h3}>Delta-neutral construction</h3>
+          <p class={p} style={ps}>
+            Yield is produced while directional market exposure is hedged out.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> a BTC
+            vault borrows against a yield-bearing Bitcoin position on Morpho,
+            returning USD-denominated yield. Suited to mandates seeking return
+            with limited market correlation.
+          </p>
+
+          <h3 class={h3}>Tokenized real-world assets</h3>
+          <p class={p} style={ps}>
+            The same vault structure applies to instruments issued offchain and
+            represented onchain.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> Fusion
+            vaults support tokenized instruments issued by Midas. Support for B20,
+            Base's native token standard for regulated assets and tokenized
+            equities, is in development.
+          </p>
+          <p class={p} style={ps}>
+            For an institution, all of it runs on one audited infrastructure.
+            Diligence is done once and carries across every strategy built on it.
+          </p>
+
+          <h2 class={h2}>Verifiable onchain accounting, position by position</h2>
+          <p class={p} style={ps}>
+            Access is only half the picture. The other half is knowing what the
+            vault holds and what it is worth.
+          </p>
+          <p class={p} style={ps}>
+            A vault working across Aave, Morpho, or Spark rarely holds one simple
+            position. It may hold collateral in one market and debt in another,
+            across several positions at once. The vault reads the value of each
+            one directly from the protocol it sits in, nets it out, and converts
+            it to a single USD figure. Every figure traces back to a live market
+            position.
+          </p>
+          <p class={p} style={ps}>
+            <strong class="font-semibold text-foreground">Example:</strong> in a
+            leveraged cbETH position, the cbETH collateral is valued through its
+            price feed, the borrowed ETH is subtracted, and the net worth feeds
+            into the vault's share price.
+          </p>
+          <p class={p} style={ps}>
+            An allocator can see what the vault holds, what it is worth, and where
+            that value comes from.
+          </p>
+
+          <h2 class={h2}>Onchain governance: rules that hold after capital enters</h2>
+          <p class={p} style={ps}>
+            An allocation mandate is only as good as its enforcement.
+          </p>
+          <p class={p} style={ps}>
+            In a Fusion vault, the mandate is the configuration itself: which
+            venues the vault may touch, which actions it may take, and where
+            liquidity may be routed. Those constraints are enforced onchain, at
+            the contract level, from the moment the vault goes live.
+          </p>
+          <p class={p} style={ps}>
+            Changes to that configuration can be placed behind a timelock. A
+            scheduled change is visible from the moment it is proposed and only
+            takes effect once the delay has elapsed, giving the client full sight
+            of any adjustment to the mandate before it applies. A dedicated
+            guardian role can cancel a scheduled change within that window.
+          </p>
+          <p class={p} style={ps}>
+            This means the parameters agreed at launch remain the parameters in
+            force, and every revision surfaces onchain before it applies. In the
+            rare case where a change is unwanted, the delay leaves ample room to
+            review it, cancel it, or withdraw entirely before it takes effect.
+          </p>
+
+          <h2 class={h2}>Vaults built to be verified by humans and agents</h2>
+          <p class={p} style={ps}>
+            Every permission, market, and accounting rule lives onchain, which
+            makes a Fusion vault legible to software as well as to people.
+          </p>
+          <p class={p} style={ps}>
+            The full set of what a vault is allowed to do can be read directly
+            from the chain and checked against a mandate before a single unit of
+            capital moves.
+          </p>
+          <p class={p} style={ps}>
+            The role model makes this safe to act on. Execution rights and
+            withdrawal rights are separate, so a strategy can be operated by an
+            automated system that has no path to client funds.
+          </p>
+          <p class={p} style={ps}>
+            Automation gains speed without gaining custody.
+          </p>
+          <p class={p} style={ps}>
+            This is what makes automated strategy management viable at
+            institutional scale. A risk team can verify the boundaries of a vault
+            programmatically and continuously. The same properties that allow an
+            allocator to audit a vault by hand allow a machine to audit it in real
+            time.
+          </p>
+
+          <h2 class={h2}>An open opportunity set, entered on institutional terms</h2>
+          <p class={p} style={ps}>
+            Some of what happens onchain has no offchain counterpart. Positions
+            are transparent. Terms are verifiable.
+          </p>
+          <p class={p} style={ps}>
+            And the primitives are genuinely new: a flash loan settles an
+            unsecured borrow inside a single transaction, a construction with no
+            equivalent in traditional finance, and strategies are composed from
+            protocols that plug into each other by default.
+          </p>
+          <p class={p} style={ps}>
+            The opportunity set is still expanding, and much of it is still thinly
+            contested. What was missing was a way in that met institutional
+            standards for control, mandate, and accounting.
+          </p>
+          <p class={p} style={ps}>
+            Fusion vault infrastructure is that way in, and it is also where the
+            strategy lives. Liquidity is sourced from established protocols like
+            Aave and Morpho.
+          </p>
+          <p class={p} style={ps}>
+            Performance is built inside the vault: a looping strategy, a carry
+            trade, an optimizer routing between venues, all executed under rules
+            fixed before capital enters. The venues supply the market. The vault
+            supplies the strategy, and the discipline it runs under.
+          </p>
+          <p class={p} style={ps}>
+            More than twenty onchain protocols are reachable through pre-existing
+            Fusion modules.
+          </p>
+          <p class={p} style={ps}>
+            Institutions scoping a pilot vault can reach the IPOR Labs team
+            through the <a class={link} href="/contact">contact page</a>.
+          </p>
+        </div>
+
+        <!-- Related reading -->
+        <section class="mt-14 border-t border-border pt-8">
+          <h2 class="mb-5 text-[18px] font-medium text-foreground">Related reading</h2>
+          <ul class="flex flex-col gap-3">
+            {related.map((r) => (
+              <li>
+                <a href={r.href} class="group flex items-start gap-3 text-[15px] text-body-foreground transition-colors hover:text-primary">
+                  <svg class="mt-1 shrink-0 text-primary/70 transition-transform group-hover:translate-x-0.5" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                  <span>{r.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </article>
+    </div>
+  </div>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>
