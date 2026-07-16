@@ -537,13 +537,13 @@ const readingMinutes = 8;
      card-dark with lighter dots in dark mode. */
   .dot-grid {
     background-color: #ffffff;
-    /* Soft 1px->2px falloff anti-aliases the dots (a hard stop renders
-       pixelated on low-dpi screens). */
-    background-image: radial-gradient(circle, rgb(0 0 0 / 0.26) 1px, transparent 2px);
-    background-size: 24px 24px;
+    /* Fine, tightly-spaced lattice. Soft 0.8px->1.6px falloff anti-aliases
+       each dot (a hard stop renders pixelated on low-dpi screens). */
+    background-image: radial-gradient(circle, rgb(0 0 0 / 0.26) 0.8px, transparent 1.6px);
+    background-size: 14px 14px;
   }
   :global(html.dark) .dot-grid {
     background-color: var(--color-card);
-    background-image: radial-gradient(circle, rgb(255 255 255 / 0.15) 1px, transparent 2px);
+    background-image: radial-gradient(circle, rgb(255 255 255 / 0.15) 0.8px, transparent 1.6px);
   }
 </style>
