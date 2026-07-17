@@ -217,11 +217,6 @@ const articles: Article[] = [
           "Fusion vaults 0x5900C3b72458F12967DC1bef35b92d271F5cDBc1, 0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8, 0x3e212f136244465d8e524fb658e6daa1fb0593bf",
         ],
       },
-      { type: "heading", text: "About Fusion" },
-      {
-        type: "paragraph",
-        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure for institutional-grade yield strategies. Its compliance-friendly vault stack is accessed by leading curators and regulated institutions, including Fortune 500 custodian BitGo (NYSE: BTGO) and leading ETP issuer 21Shares, with vault isolation and verifiable, deterministic risk controls.",
-      },
     ],
   },
   {
@@ -655,11 +650,6 @@ const articles: Article[] = [
         type: "paragraph",
         text: "@OpenCover is the leading onchain risk transfer provider for complex and embedded use cases such as vault-native and transaction cover. Backed by Coinbase, Alliance, NFX, Village Global, Jump, and Lloyd's of London, OpenCover has safeguarded over $1 billion in onchain value in 2025 alone.",
       },
-      { type: "heading", text: "About Fusion" },
-      {
-        type: "paragraph",
-        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure for institutional-grade yield strategies. Its compliance-friendly vault stack is accessed by leading curators and regulated institutions, including Fortune 500 custodian BitGo (NYSE: BTGO) and leading ETP issuer 21Shares, with vault isolation and verifiable, deterministic risk controls.",
-      },
     ],
   },
   {
@@ -724,10 +714,6 @@ const articles: Article[] = [
         text: "Congratulations to James and the Tesseract team on being selected by BitGo for its institutional DeFi gateway, alongside industry giants Aave and Spark. This widens the path for institutional capital to allocate onchain at scale. Fusion powers Tesseract's Dedicated Client Vaults: per-client isolation, deterministic risk enforcement, and onchain transparency. We are ready to support every partner involved.",
         author: "Darren Camas",
         title: "CEO, IPOR Labs AG",
-      },
-      {
-        type: "paragraph",
-        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies.",
       },
     ],
   },
@@ -936,11 +922,6 @@ const articles: Article[] = [
         type: "paragraph",
         text: "Contact: s.daniel@dnapartners.fr | [dnapartners.fr](https://dnapartners.fr)",
       },
-      { type: "heading", text: "About Fusion" },
-      {
-        type: "paragraph",
-        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.",
-      },
       {
         type: "paragraph",
         text: "For the curator community. If any of these structuring questions are part of your conversations, we'd value your perspective:",
@@ -1021,11 +1002,6 @@ const articles: Article[] = [
         type: "source",
         label: "tesseract.fi",
         url: "https://tesseract.fi",
-      },
-      { type: "heading", text: "About Fusion" },
-      {
-        type: "paragraph",
-        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure built for institutional-grade onchain yield strategies. Its modular architecture provides deterministic risk enforcement, per-client vault isolation, embedded compliance, and flexible configuration through composable modules called Fuses, integrated with leading DeFi protocols.",
       },
     ],
   },

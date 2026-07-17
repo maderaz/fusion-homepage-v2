@@ -5,6 +5,7 @@ import Footer from "@/shared/components/footer.astro";
 import CookieBanner from "@/shared/components/cookie-banner.astro";
 import ArticleCard from "../../components/article-card.astro";
 import RichText from "../../components/rich-text.astro";
+import AboutFusion from "../../components/about-fusion.astro";
 import { getArticles, formatDate } from "../../data/articles";
 import type { Article } from "../../data/articles";
 
@@ -279,6 +280,8 @@ const jsonLd = JSON.stringify({
             <a href={article.originalUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">X</a>.
           </p>
         )}
+
+        <AboutFusion />
       </article>
     </div>
 
