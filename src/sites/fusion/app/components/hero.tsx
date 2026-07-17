@@ -80,9 +80,8 @@ export function Hero({
 
                   {/* Description */}
                   <p className="mt-6 max-w-2xl text-pretty text-base text-center sm:mt-8 sm:text-lg md:text-left text-muted-foreground">
-                    Deploy and manage onchain vault strategies or earn through
-                    professionally curated vaults. Modular infrastructure across
-                    Aave, Morpho, SparkLend, Euler, and more.
+                    Access, deploy and manage onchain vaults. Accessed by
+                    Fortune 500 companies, ETP issuers and leading curators.
                   </p>
 
                   {/* CTAs + Stats Row */}
