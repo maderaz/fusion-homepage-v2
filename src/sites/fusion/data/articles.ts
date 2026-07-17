@@ -73,6 +73,158 @@ export interface Article {
 
 const articles: Article[] = [
   {
+    slug: "fusion-vaults-45-cbeth-base",
+    title: "Fusion Vaults Now Account for ~45% of cbETH on Base",
+    excerpt:
+      "As of 15 July 2026, vaults built on Fusion hold around 30,500 cbETH on Base, roughly 45% of the network's cbETH and 19.3% of Coinbase's reported circulating supply.",
+    seoTitle: "Fusion Vaults Reach ~45% of cbETH on Base",
+    seoDescription:
+      "As of 15 July 2026, vaults built on Fusion hold around 30,500 cbETH on Base, roughly 45% of the network's cbETH and 19.3% of Coinbase's reported circulating supply.",
+    date: "2026-07-15",
+    category: "Ecosystem",
+    author: { name: "Fusion Team", handle: "ipor_io" },
+    readingMinutes: 5,
+    coverImage: "/brand/fusion-vaults-45-base.jpg",
+    body: [
+      {
+        type: "lead",
+        text: "As of 15 July 2026, vaults built on Fusion infrastructure hold approximately 30,500 cbETH on Base. That is roughly 45% of all cbETH on the network, and 19.3% of the 158,003 cbETH that [Coinbase](https://x.com/coinbase) reports as circulating supply.",
+      },
+      { type: "heading", text: "Key takeaways" },
+      {
+        type: "list",
+        items: [
+          "Fusion vaults hold the largest automated cbETH footprint on Base. Approximately 30,500 cbETH, roughly 45% of the network's cbETH and 19.3% of Coinbase's reported circulating supply.",
+          "At current prices the aggregate contribution is worth around $64 million.",
+          "The strategies are leveraged looping, efficiently automating recursive lending actions within pre-defined onchain boundaries. Those boundaries are set onchain and visible to every participant before capital enters.",
+          "The demand is two-sided. Fusion supplies most of the cbETH in Aave's Base market and drives close to 38% of the WETH borrowed from the same venue.",
+          "This activity feeds the [Base](https://x.com/base) and [Coinbase](https://x.com/coinbase) staking economy.",
+          "Every figure is verifiable onchain. cbETH supply is published by Coinbase and on BaseScan, and vault holdings can be read from the chain, position by position.",
+        ],
+      },
+      { type: "heading", text: "The mechanism behind the growth" },
+      {
+        type: "paragraph",
+        text: "These cbETH supply contributions primarily come from automated, leveraged looping strategies. In simple terms:",
+      },
+      {
+        type: "paragraph",
+        text: "A vault supplies cbETH as collateral, borrows ETH against it, converts that ETH back into cbETH on a DEX, and supplies it again, repeating the cycle up to a fixed leverage ceiling.",
+      },
+      {
+        type: "paragraph",
+        text: "These strategies run within transparent boundaries. The leverage ceiling, the markets a vault may reach, and the actions it may take are all set onchain and visible to every participant before capital enters. The boundaries hold as they are enforced at the contract level.",
+      },
+      {
+        type: "paragraph",
+        text: "The strategies behind these positions are operated by established curators and institutional capital, and accessed by hundreds of depositors through vaults built on Fusion.",
+      },
+      { type: "paragraph", text: "The leading strategies behind the headline figure:" },
+      {
+        type: "list",
+        items: [
+          "[TAU cbETH Dynamic Looping](https://app.ipor.io/fusion/base/0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8), operated by [TAU Labs](https://x.com/628Labs)",
+          "[Base cbETH Loooper](https://app.ipor.io/fusion/base/0x5900c3b72458f12967dc1bef35b92d271f5cdbc1), operated by [Clearstar](https://x.com/ClearstarLabs)",
+        ],
+      },
+      { type: "paragraph", text: "with additional cbETH vaults contributing the balance." },
+      {
+        type: "image",
+        src: "/brand/cbeth-looper-stats.jpg",
+        alt: "The Base cbETH Loooper strategy dashboard in the Fusion app, showing its allocation and performance.",
+        caption: "Product dashboard of the Base cbETH Loooper strategy.",
+      },
+      {
+        type: "paragraph",
+        text: "The automation accounts for both the underlying spread and the incentives layered across the Base ecosystem.",
+      },
+      { type: "paragraph", text: "Fusion-supplied cbETH liquidity across venues:" },
+      {
+        type: "list",
+        items: [
+          "[Aave](https://x.com/aave) V3: 28,436.40 cbETH ≈ $60.7M",
+          "[Euler](https://x.com/eulerfinance): 2,042.81 cbETH ≈ $4.4M",
+          "Currently in buffers: 46.73 cbETH ≈ $0.1M",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Split of supplied cbETH: Aave 93.3%, Euler 6.7%. Dollar figures at $2,133/cbETH. State as of 15 July 2026.",
+      },
+      { type: "heading", text: "Base ecosystem impact" },
+      {
+        type: "paragraph",
+        text: "Fusion's footprint is clearest in the Aave Base markets these strategies use, and the relationship runs both ways.",
+      },
+      {
+        type: "paragraph",
+        text: "In Aave's Base cbETH market, vaults built on Fusion account for roughly 68% of all cbETH supplied. On the borrow side, they represent close to 38% of the WETH borrowed from Aave's Base WETH market, demand that accrues to WETH lenders as yield.",
+      },
+      {
+        type: "paragraph",
+        text: "That demand has marked the market itself. As the positions grew, Aave raised the cbETH supply cap on its Base market to accommodate them.",
+      },
+      {
+        type: "tweet",
+        tweet: {
+          author: "Aave",
+          handle: "aave",
+          verified: true,
+          id: "2059307116226138357",
+          date: "May 2026",
+          text: "An update from Aave on cbETH supply caps.",
+          url: "https://x.com/aave/status/2059307116226138357",
+        },
+      },
+      {
+        type: "paragraph",
+        text: "The Fusion ecosystem's share of cbETH has grown alongside it, [from roughly 11.72% of the circulating supply on 23 June](https://x.com/ipor_io/status/2069374709695742326) to 19.3% on 15 July.",
+      },
+      { type: "heading", text: "Coinbase Inc impact" },
+      {
+        type: "paragraph",
+        text: "cbETH is Coinbase's liquid staking token. Its value grows as Ethereum staking rewards accrue, and Coinbase takes a 25% commission on those rewards. Every cbETH the Fusion ecosystem holds is staked ETH earning that yield, so demand at this scale supports Coinbase's staking business directly.",
+      },
+      { type: "heading", text: "For teams building their own automated strategies" },
+      {
+        type: "paragraph",
+        text: "The tooling behind automated strategies is open to any team. Fusion vault infrastructure and its open-source modules for Aave V3 and V4, Euler, and other leading venues are live today, ready to replicate an existing looping strategy framework or build a new one.",
+      },
+      {
+        type: "paragraph",
+        text: "Build an automated vault with Fusion by IPOR Labs: [quick-start guide](https://docs.ipor.io/build-on-fusion/developer-guide/quick-start-guide).",
+      },
+      {
+        type: "paragraph",
+        text: "Explore [40+ plug-and-play protocol modules](https://github.com/IPOR-Labs/ipor-fusion/tree/main/contracts/fuses).",
+      },
+      { type: "heading", text: "For institutional capital" },
+      {
+        type: "paragraph",
+        text: "Institutional capital reaches these strategies through a regulated partner. Allocators need mandates, KYC, and verifiable access points, and a Fusion vault is exactly that: a contained, auditable structure with defined permissions.",
+      },
+      {
+        type: "paragraph",
+        text: "That access is already live. Through [Tesseract](https://x.com/tesseractcrypto)'s Dedicated Client Vaults, run under Tesseract's MiCA authorisation and built on Fusion vault infrastructure, regulated institutions reach these markets from inside their own regulated perimeter.",
+      },
+      { type: "heading", text: "References" },
+      {
+        type: "list",
+        items: [
+          "cbETH circulating supply and conversion rate: [Coinbase cbETH API](https://api-public.sandbox.exchange.coinbase.com/wrapped-assets/CBETH/)",
+          "cbETH supply on Base: [BaseScan, cbETH Base contract](https://basescan.org/token/0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22)",
+          "Aave Base [cbETH](https://app.aave.com/reserve-overview/?underlyingAsset=0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22&marketName=proto_base_v3) and [WETH](https://app.aave.com/reserve-overview/?underlyingAsset=0x4200000000000000000000000000000000000006&marketName=proto_base_v3) markets",
+          "Fusion vaults 0x5900C3b72458F12967DC1bef35b92d271F5cDBc1, 0xe883426b4fc84a7f5cc86415cabbef43e73a4cc8, 0x3e212f136244465d8e524fb658e6daa1fb0593bf",
+        ],
+      },
+      { type: "heading", text: "About Fusion" },
+      {
+        type: "paragraph",
+        text: "Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault infrastructure for institutional-grade yield strategies. Its compliance-friendly vault stack is accessed by leading curators and regulated institutions, including Fortune 500 custodian BitGo (NYSE: BTGO) and leading ETP issuer 21Shares, with vault isolation and verifiable, deterministic risk controls.",
+      },
+    ],
+  },
+  {
     slug: "base-rewards-fusion-strategies-anchorage-digital",
     title:
       "Base Rewards Now Live for Select Fusion Strategies via Anchorage Digital",
