@@ -93,10 +93,24 @@ const linkCls = "text-[14px] text-white/55 transition-colors hover:text-white";
     </div>
 
     <!-- Bottom bar -->
-    <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-7 sm:flex-row sm:items-center">
-      <p class="text-[13px] text-white/45">
-        &copy; 2026 IPOR Labs AG. All rights reserved.
-      </p>
+    <div class="mt-16 flex flex-col items-start justify-between gap-5 border-t border-white/10 pt-7 sm:flex-row sm:items-center">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <p class="text-[13px] text-white/45">
+          &copy; 2026 IPOR Labs AG. All rights reserved.
+        </p>
+        <!-- Theme switch -->
+        <button
+          id="footer-theme-toggle"
+          type="button"
+          aria-label="Toggle color theme"
+          class="group inline-flex items-center gap-2.5 text-[13px] font-medium text-white/60 transition-colors hover:text-white"
+        >
+          <span class="theme-track relative inline-flex h-[22px] w-10 shrink-0 items-center rounded-full bg-white/15 transition-colors">
+            <span class="theme-knob inline-block h-[18px] w-[18px] rounded-full bg-white shadow-sm transition-transform"></span>
+          </span>
+          <span class="theme-label"></span>
+        </button>
+      </div>
       <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
         {legalLinks.map((link) => (
           <a href={link.href} class="text-[13px] text-white/55 transition-colors hover:text-white">
@@ -110,3 +124,45 @@ const linkCls = "text-[14px] text-white/55 transition-colors hover:text-white";
   <!-- Marginal brand-gradient underline, full width at the very bottom. -->
   <div class="brand-gradient h-1 w-full" aria-hidden="true"></div>
 </footer>
+
+<style>
+  /* Theme switch: knob slides right and the track turns purple in dark mode. */
+  #footer-theme-toggle .theme-knob {
+    transform: translateX(2px);
+  }
+  :global(html.dark) #footer-theme-toggle .theme-track {
+    background-color: var(--color-primary);
+  }
+  :global(html.dark) #footer-theme-toggle .theme-knob {
+    transform: translateX(20px);
+  }
+</style>
+
+<script>
+  (() => {
+    const btn = document.getElementById("footer-theme-toggle");
+    if (!btn) return;
+    const label = btn.querySelector(".theme-label");
+    const sync = () => {
+      const dark = document.documentElement.classList.contains("dark");
+      if (label) label.textContent = dark ? "Dark Mode On" : "Light Mode On";
+      btn.setAttribute("aria-pressed", String(dark));
+    };
+    sync();
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      document.documentElement.classList.toggle("dark", !isDark);
+      try {
+        localStorage.setItem("fusion-theme", isDark ? "light" : "dark");
+      } catch {
+        /* localStorage unavailable */
+      }
+      sync();
+    });
+    // Keep the label in sync if the theme changes elsewhere.
+    new MutationObserver(sync).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  })();
+</script>
