@@ -1,0 +1,31 @@
+---
+/**
+ * Standardized "About Fusion" boilerplate, rendered once at the foot of every
+ * article and the institutional-vaults pillar page.
+ *
+ * SEO note: this identical block repeats across many pages. It is a semantic
+ * <aside> (tangential, non-primary content, like a company bio) and carries
+ * `data-nosnippet` so crawlers don't lift the boilerplate into a page's search
+ * snippet or read the repetition as thin/duplicate primary content. The unique
+ * article body stays the dominant content on each page, which is what search
+ * engines rank on — boilerplate footers like this are expected and fine.
+ */
+---
+
+<aside
+  data-nosnippet
+  aria-label="About Fusion"
+  class="mt-12 border-t border-border pt-8"
+>
+  <h2 class="text-[13px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+    About Fusion
+  </h2>
+  <p class="mt-3 text-[14px] text-muted-foreground" style="line-height: 1.75;">
+    Developed by IPOR Labs AG (Zug, Switzerland), Fusion is the onchain vault
+    infrastructure for institutional-grade yield strategies. Its
+    compliance-friendly vault stack is accessed by leading curators and
+    regulated institutions, including Fortune 500 custodian BitGo (NYSE: BTGO)
+    and leading ETP issuer 21Shares, with vault isolation and verifiable,
+    deterministic risk controls.
+  </p>
+</aside>
