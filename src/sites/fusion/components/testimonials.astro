@@ -47,6 +47,16 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
+      "We have worked closely with the IPOR Fusion team and consistently found them to be responsive, technically rigorous, and thoughtful about risk. They engage seriously with feedback and hold themselves to a high standard, which makes them a reliable team to collaborate with in DeFi.",
+    name: "LlamaRisk",
+    company: "LlamaRisk",
+    logo: "/brand/LlamaRisk-logo-full.svg",
+    avatar: "/brand/llamarisk-avatar.svg",
+    badge: "Core risk management provider for Aave",
+    logoHeightPx: 18,
+  },
+  {
+    quote:
       "Reservoir has leveraged IPOR Fusion vaults to deliver high-efficiency, leveraged exposure to our yield-bearing stablecoin (wsrUSD) optimizing for liquidity and high returns. Reservoir\u2019s BTC, ETH, and USDC denominated yield vaults offer industry leading risk adjusted yields through automated onchain risk management. IPOR Fusion is robust, user-friendly, and seamless for onchain asset management\u2014making it effortless for partners like us to scale sophisticated strategies with strong risk controls. The IPOR Labs team has been exceptional to work with: responsive, innovative, and deeply aligned on building composable DeFi infrastructure.",
     name: "Nick Garcia",
     role: "Founder",
@@ -55,16 +65,6 @@ const testimonials: Testimonial[] = [
     avatar: nickAvatar,
     badge: "$100M+ TVM",
     logoHeightPx: 12,
-  },
-  {
-    quote:
-      "We have worked closely with the IPOR Fusion team and consistently found them to be responsive, technically rigorous, and thoughtful about risk. They engage seriously with feedback and hold themselves to a high standard, which makes them a reliable team to collaborate with in DeFi.",
-    name: "LlamaRisk",
-    company: "LlamaRisk",
-    logo: "/brand/LlamaRisk-logo-full.svg",
-    avatar: "/brand/llamarisk-avatar.svg",
-    badge: "Core risk management provider for Aave",
-    logoHeightPx: 18,
   },
 ];
 
@@ -140,9 +140,9 @@ function logoHeight(company: string): string {
         </div>
       ); })()}
 
-      {/* Remaining testimonials — 2-column grid */}
+      {/* Middle testimonials — 2-column grid */}
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {testimonials.slice(1).map((t) => (
+        {testimonials.slice(1, 3).map((t) => (
           <div class="group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/40 md:p-8">
             <div class="mb-5 flex items-center justify-between">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="shrink-0 text-primary opacity-20 dark:opacity-50">
@@ -179,6 +179,44 @@ function logoHeight(company: string): string {
           </div>
         ))}
       </div>
+
+      {/* Full-width testimonial — Nick Garcia (Reservoir) */}
+      {(() => { const t = testimonials[3]; return (
+        <div class="group relative flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/40 md:p-8">
+          <div class="mb-5 flex items-center justify-between">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="shrink-0 text-primary opacity-20 dark:opacity-50">
+              <path d="M6 18.5C6 14.36 8.69 10.73 12.5 9.5L13.26 11.35C11.14 12.24 9.75 14.05 9.42 16H12.5C13.33 16 14 16.67 14 17.5V23.5C14 24.33 13.33 25 12.5 25H7.5C6.67 25 6 24.33 6 23.5V18.5ZM18 18.5C18 14.36 20.69 10.73 24.5 9.5L25.26 11.35C23.14 12.24 21.75 14.05 21.42 16H24.5C25.33 16 26 16.67 26 17.5V23.5C26 24.33 25.33 25 24.5 25H19.5C18.67 25 18 24.33 18 23.5V18.5Z" fill="currentColor" />
+            </svg>
+            {typeof t.logo === "string" ? (
+              <img src={t.logo} alt={t.company} class:list={["w-auto object-contain brightness-0 opacity-30 dark:invert", logoHeight(t.company)]} loading="lazy" height={t.logoHeightPx} />
+            ) : (
+              <Image src={t.logo} alt={t.company} class:list={["w-auto object-contain brightness-0 opacity-30 dark:invert", logoHeight(t.company)]} loading="lazy" height={t.logoHeightPx} densities={[1, 2]} />
+            )}
+          </div>
+          <p class="mb-8 flex-1 text-[15px] text-body-foreground md:columns-2 md:gap-8" style="line-height: 1.75;">
+            &ldquo;{t.quote}&rdquo;
+          </p>
+          <div class="mt-auto mb-6 h-px w-full bg-border"></div>
+          <div class="flex items-center gap-3">
+            <div class="shrink-0">
+              {typeof t.avatar === "string" ? (
+                <img src={t.avatar} alt={t.name} class="h-10 w-10 rounded-full object-cover" loading="lazy" width={40} height={40} />
+              ) : (
+                <Image src={t.avatar} alt={t.name} class="h-10 w-10 rounded-full object-cover" loading="lazy" width={40} height={40} densities={[1, 2]} />
+              )}
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-[14px] font-semibold text-foreground">{t.name}</span>
+              {t.role && (
+                <div class="flex items-center gap-2">
+                  <span class="text-[13px] text-muted-foreground">{t.role} &bull; {t.company}</span>
+                </div>
+              )}
+              <span class="text-[11px] text-muted-foreground/50">{t.badge}</span>
+            </div>
+          </div>
+        </div>
+      ); })()}
     </div>
   </div>
 
