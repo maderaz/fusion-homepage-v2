@@ -10,7 +10,7 @@ const FORM_ENDPOINT = "https://formsubmit.co/z@ipor.io";
 const nextUrl = new URL("/contact?sent=1", Astro.site).toString();
 
 const orgTypes = [
-  "Asset Manager", "Crypto Platform", "DeFi Platform", "Family Office",
+  "Asset Manager", "Crypto Platform", "Onchain Protocol", "Family Office",
   "Fintech", "Institutional Investor", "Investment Fund", "Press",
   "Regulator", "VC", "Other",
 ];
@@ -68,11 +68,23 @@ const selects = [
           integrated with leading DeFi protocols.
         </p>
 
-        <address class="mt-5 max-w-md text-[13px] not-italic text-muted-foreground" style="line-height: 1.75;">
-          c/o AbaFin Treuhand AG<br />
-          Baarerstrasse 82<br />
-          Zug, Switzerland 6302
-        </address>
+        <div class="mt-8 max-w-md rounded-2xl bg-primary p-6 text-white sm:p-7">
+          <p class="text-[12px] font-medium uppercase tracking-[0.14em] text-white/70">
+            Registered office
+          </p>
+          <address class="mt-3 text-[14px] not-italic text-white/90" style="line-height: 1.8;">
+            c/o AbaFin Treuhand AG<br />
+            Baarerstrasse 82<br />
+            <span class="inline-flex items-center gap-2">
+              Zug, Switzerland 6302
+              <svg viewBox="0 0 32 32" width="15" height="15" class="inline-block shrink-0 rounded-[3px] ring-1 ring-white/20" role="img" aria-label="Switzerland">
+                <rect width="32" height="32" fill="#DA291C"></rect>
+                <rect x="13" y="6" width="6" height="20" fill="#fff"></rect>
+                <rect x="6" y="13" width="20" height="6" fill="#fff"></rect>
+              </svg>
+            </span>
+          </address>
+        </div>
       </div>
 
       <!-- Right -->
@@ -101,13 +113,8 @@ const selects = [
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
 
           <div>
-            <label class={labelCls} for="firstName">First name<span class="text-primary">*</span></label>
-            <input class={inputCls} id="firstName" name="First name" type="text" required autocomplete="given-name" />
-          </div>
-
-          <div>
-            <label class={labelCls} for="lastName">Last name</label>
-            <input class={inputCls} id="lastName" name="Last name" type="text" autocomplete="family-name" />
+            <label class={labelCls} for="name">Name<span class="text-primary">*</span></label>
+            <input class={inputCls} id="name" name="Name" type="text" required autocomplete="name" />
           </div>
 
           <div>
