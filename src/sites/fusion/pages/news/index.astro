@@ -64,6 +64,22 @@ const rest = sorted.filter((a) => a.slug !== featured?.slug);
           ))}
         </div>
       )}
+
+      <!-- Older content lives on the legacy Medium blog -->
+      <div class="mt-10 flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card/40 px-6 py-4 text-center sm:flex-row sm:gap-3">
+        <span class="text-[14px] text-muted-foreground">
+          Looking for older news and content?
+        </span>
+        <a
+          href="https://blog.ipor.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-[14px] font-medium text-primary transition-colors hover:text-foreground"
+        >
+          Visit our old blog on Medium
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </a>
+      </div>
     </main>
   </div>
   <Footer />

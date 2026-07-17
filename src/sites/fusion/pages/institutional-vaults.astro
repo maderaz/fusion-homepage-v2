@@ -18,7 +18,7 @@ const INFOGRAPHIC_1 = {
 };
 const INFOGRAPHIC_2 = {
   src: "/brand/direct-access.png",
-  alt: "Institutional vaults: direct access route for in-house teams building on Fusion infrastructure to reach Aave, Morpho and 20+ protocols",
+  alt: "Institutional vaults: direct access route for in-house teams building on Fusion infrastructure to reach Aave, Morpho and 40+ protocols",
 };
 
 const related = [
@@ -67,8 +67,8 @@ const readingMinutes = 8;
 ---
 
 <BaseLayout
-  title="Institutional Vaults: How Regulated Capital Reaches DeFi"
-  description="How institutional vaults control access, actions and accounting onchain, and how BitGo, 21Shares and in-house teams reach Aave, Morpho and 20+ protocols."
+  title="Institutional Vaults: Regulated Access to Aave & Morpho | Fusion"
+  description="How institutional vaults control access, authorized venues and accounting onchain, and how BitGo, 21Shares and in-house teams reach Aave, Morpho and 40+ protocols."
   image="/brand/og-institutional-vaults.png"
   imageWidth={1200}
   imageHeight={630}
@@ -91,7 +91,7 @@ const readingMinutes = 8;
             class="mx-auto max-w-[995px] text-balance text-center font-semibold text-foreground"
             style="font-size: clamp(28px, 4.4vw, 55px); line-height: 1.32; letter-spacing: -0.02em;"
           >
-            <span class="text-primary">Institutional Vaults</span>: How Regulated Capital Reaches Aave, Morpho and 20+ Protocols
+            <span class="text-primary">Institutional Vaults</span>: How Regulated Capital Reaches Aave, Morpho and 40+ Protocols
           </h1>
         </div>
 
@@ -123,16 +123,17 @@ const readingMinutes = 8;
           </p>
           <p class={p} style={ps}>
             Entities like <a class={link} href="/news/bitgo-institutional-access-tesseract-dedicated-client-vaults">BitGo</a>
-            and <a class={link} href="/news/tesseract-selects-fusion-institutional-vault-infrastructure">21Shares</a>
-            already reach those venues through institutional vaults built on
-            Fusion infrastructure.
+            and 21Shares already reach those venues through the Fusion vault
+            infrastructure.
           </p>
           <p class={p} style={ps}>
-            The question for the capital that follows is the way in: who can act,
-            which actions are permitted, and how every position is accounted for.
+            This article explains in detail how institutional entities access the
+            DeFi economy and its popular liquidity venues like Aave, Morpho and
+            Spark through an access point that meets their regulatory
+            expectations, standards for control, mandate and verification.
           </p>
 
-          <h2 class={h2}>How institutional vaults control access, actions, and accounting</h2>
+          <h2 class={h2}>How institutional vaults control access, authorized venues and assets, and accounting</h2>
           <p class={p} style={ps}>
             Institutional and regulated entities choose Fusion vaults because a
             vault lets its operator define exactly what can happen before any
@@ -171,8 +172,9 @@ const readingMinutes = 8;
           <p class={p} style={ps}>
             <strong class="font-semibold text-foreground">Example:</strong> a
             cbETH looping strategy can supply cbETH as collateral, borrow ETH
-            against it, swap that ETH back into cbETH, and repay: the exact
-            actions the loop needs. Any action outside that set stays unavailable.
+            against it, swap that ETH back into cbETH, and repay the exact
+            actions the loop needs, while any action outside that set stays
+            unavailable.
           </p>
 
           <h3 class={h3}>Which markets can be reached</h3>
@@ -312,8 +314,8 @@ const readingMinutes = 8;
 
           <h2 class={h2}>What institutional capital can build</h2>
           <p class={p} style={ps}>
-            A route only matters for what it enables. Vaults on Fusion can run
-            several distinct approaches, each with its own risk profile, each
+            A route only matters for what it enables. Vaults on Fusion can be run
+            with several distinct approaches, each with its own risk profile, each
             reachable through the same infrastructure.
           </p>
 
@@ -352,8 +354,7 @@ const readingMinutes = 8;
             vault deposits rETH as collateral on Liquity, borrows the BOLD
             stablecoin against it, and supplies that to a Curve pool, holding the
             difference between the yield on the collateral and the cost of the
-            debt. Select strategies of this type run with
-            <a class={link} href="/news/covered-vaults-fusion-opencover-onchain-protection">embedded onchain cover</a>.
+            debt.
           </p>
 
           <h3 class={h3}>Delta-neutral construction</h3>
@@ -374,9 +375,9 @@ const readingMinutes = 8;
           </p>
           <p class={p} style={ps}>
             <strong class="font-semibold text-foreground">Example:</strong> Fusion
-            vaults support tokenized instruments issued by Midas. Support for B20,
-            Base's native token standard for regulated assets and tokenized
-            equities, is in development.
+            vaults support tokenized instruments issued by Midas, and extend to
+            B20, Base's native token standard for regulated assets and tokenized
+            equities.
           </p>
           <p class={p} style={ps}>
             For an institution, all of it runs on one audited infrastructure.
@@ -403,8 +404,9 @@ const readingMinutes = 8;
             into the vault's share price.
           </p>
           <p class={p} style={ps}>
-            An allocator can see what the vault holds, what it is worth, and where
-            that value comes from.
+            For an institution, every figure in the vault can be traced to its
+            source. An allocator can see what the vault holds, what it is worth,
+            and where that value comes from.
           </p>
 
           <h2 class={h2}>Onchain governance: rules that hold after capital enters</h2>
@@ -459,8 +461,8 @@ const readingMinutes = 8;
 
           <h2 class={h2}>An open opportunity set, entered on institutional terms</h2>
           <p class={p} style={ps}>
-            Some of what happens onchain has no offchain counterpart. Positions
-            are transparent. Terms are verifiable.
+            Some of what happens onchain has no counterpart in traditional
+            finance. Positions are transparent. Terms are verifiable.
           </p>
           <p class={p} style={ps}>
             And the primitives are genuinely new: a flash loan settles an
@@ -470,7 +472,7 @@ const readingMinutes = 8;
           </p>
           <p class={p} style={ps}>
             The opportunity set is still expanding, and much of it is still thinly
-            contested. What was missing was a way in that met institutional
+            contested. What was missing was a way that met institutional
             standards for control, mandate, and accounting.
           </p>
           <p class={p} style={ps}>
@@ -485,8 +487,8 @@ const readingMinutes = 8;
             supplies the strategy, and the discipline it runs under.
           </p>
           <p class={p} style={ps}>
-            More than twenty onchain protocols are reachable through pre-existing
-            Fusion modules.
+            More than forty onchain protocols and 170 distinct actions are
+            reachable through pre-existing Fusion modules.
           </p>
         </div>
 

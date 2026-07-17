@@ -61,25 +61,16 @@ const articles: FooterLinkColumn = {
   links: [{ label: "Institutional Vaults", href: "/institutional-vaults" }],
 };
 
-const community: FooterLinkColumn = {
-  title: "Community",
-  links: [
-    { label: "X / Twitter", href: "https://x.com/ipor_io" },
-    { label: "Discord", href: "https://discord.com/invite/bSKzq6UMJ3" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/73049136/" },
-    { label: "Medium Blog", href: "https://blog.ipor.io/" },
-  ],
-};
-
 /**
  * Four visual columns; each column stacks one or two category groups
- * (Fireblocks-style dense footer).
+ * (Fireblocks-style dense footer). Community lives as social icons in the
+ * brand block, so Articles takes the fourth column.
  */
 export const footerColumns: FooterLinkColumn[][] = [
   [product, organization],
   [security, governance],
-  [developers, articles],
-  [community],
+  [developers],
+  [articles],
 ];
 
 /** Legal links shown in the bottom bar. */
