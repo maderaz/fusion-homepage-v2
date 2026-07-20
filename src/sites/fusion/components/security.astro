@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import blocksecLogo from "@/shared/assets/logos/blocksec.png";
 import ackeeLogo from "@/shared/assets/logos/ackee.png";
 import protofireLogo from "@/shared/assets/logos/protofire.png";
+import blockaidLogo from "@/shared/assets/logos/blockaid.png";
 
 const stats = [
   { value: "10+", label: "Independent security audits" },
@@ -13,9 +14,11 @@ const stats = [
 ];
 
 const auditors = [
-  { name: "BlockSec", logo: blocksecLogo },
-  { name: "Ackee Blockchain", logo: ackeeLogo },
-  { name: "Protofire", logo: protofireLogo },
+  { name: "BlockSec", logo: blocksecLogo, h: "h-5", height: 20 },
+  { name: "Ackee Blockchain", logo: ackeeLogo, h: "h-5", height: 20 },
+  { name: "Protofire", logo: protofireLogo, h: "h-5", height: 20 },
+  // Blockaid's wordmark is optically heavier, so render it ~25% smaller.
+  { name: "Blockaid", logo: blockaidLogo, h: "h-[15px]", height: 15 },
 ];
 
 // Code lines data for the CodeBlock
@@ -299,16 +302,16 @@ for (const line of codeLines) {
       <span
         class="text-[12px] font-medium text-muted-foreground"
       >
-        Audited & security reviewed by
+        Audited and secured by
       </span>
       <div class="flex flex-wrap items-center justify-center gap-8">
         {auditors.map((a) => (
           <Image
             src={a.logo}
             alt={a.name}
-            class="h-5 w-auto object-contain brightness-0 opacity-50 dark:invert"
+            class={`${a.h} w-auto object-contain brightness-0 opacity-50 dark:invert`}
             loading="lazy"
-            height={20}
+            height={a.height}
             densities={[1, 2]}
           />
         ))}
