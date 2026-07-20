@@ -105,7 +105,7 @@ export function Hero({
                         className="inline-flex items-center gap-2 rounded-full border px-7 py-3 text-sm tracking-wide transition-colors duration-300 border-[#9BA3AF] text-black hover:bg-[#EFEFEF] dark:border-[#45484D] dark:text-muted-foreground dark:hover:bg-[#22272C] dark:hover:text-foreground"
                         style={{ letterSpacing: "0.04em" }}
                       >
-                        <span className="text-nowrap">Talk to Sales</span>
+                        <span className="text-nowrap">Contact Us</span>
                       </a>
                     </div>
 

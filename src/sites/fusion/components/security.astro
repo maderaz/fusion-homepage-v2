@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import blocksecLogo from "@/shared/assets/logos/blocksec.png";
 import ackeeLogo from "@/shared/assets/logos/ackee.png";
 import protofireLogo from "@/shared/assets/logos/protofire.png";
+import blockaidLogo from "@/shared/assets/logos/blockaid.png";
 
 const stats = [
   { value: "10+", label: "Independent security audits" },
@@ -16,6 +17,7 @@ const auditors = [
   { name: "BlockSec", logo: blocksecLogo },
   { name: "Ackee Blockchain", logo: ackeeLogo },
   { name: "Protofire", logo: protofireLogo },
+  { name: "Blockaid", logo: blockaidLogo },
 ];
 
 // Code lines data for the CodeBlock
@@ -299,7 +301,7 @@ for (const line of codeLines) {
       <span
         class="text-[12px] font-medium text-muted-foreground"
       >
-        Audited & security reviewed by
+        Audited and secured by
       </span>
       <div class="flex flex-wrap items-center justify-center gap-8">
         {auditors.map((a) => (
